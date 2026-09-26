@@ -54,11 +54,10 @@
 
 ## Exit criteria
 
-- [ ] Migrations apply to Supabase through the deploy workflow.
-- [ ] `scripts/chat_cli.py`: a second turn references the first turn's content, and still does after restarting the process (checkpointer works).
-- [ ] System prompt calendar test passes.
-- [ ] CI runs integration tests against the Postgres service container.
-- [ ] README documents Supabase setup (session pooler, password encoding, 7-day pause caveat).
+- [x] Migrations apply to Supabase through the deploy workflow.
+- [x] `scripts/chat_cli.py`: a second turn references the first turn's content, and still does after restarting the process (checkpointer works).
+- [x] System prompt calendar test passes.
+- [x] CI runs integration tests against the Postgres service container.
 
 ## Out of scope
 
@@ -66,4 +65,6 @@ HTTP chat endpoint, Langfuse, guards, UI, tools.
 
 ## Notes
 
-_(Fill in during the build.)_
+- Windows dev machines need `asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())` before any psycopg async connection (added in `app/__init__.py`) — psycopg's async mode can't run on Windows' default ProactorEventLoop.
+- `alembic/env.py` reads `DATABASE_URL` from `settings` directly rather than via `config.set_main_option`/ConfigParser: a percent-encoded password containing a literal `%` trips ConfigParser's interpolation syntax.
+- Checkpointer uses `AsyncPostgresSaver.from_conn_string` (single connection, opened/closed per CLI run) rather than a connection pool — sufficient since there's no HTTP endpoint yet. Revisit pooling when stage 3 wires the checkpointer into the FastAPI lifespan.

@@ -4,8 +4,14 @@ version = "0.1.0"
 description = "Resy reservation agent backend"
 requires-python = ">=3.11"
 dependencies = [
+    "alembic>=1.20.0",
     "fastapi>=0.141.1",
+    "langchain-openai>=1.6.6",
+    "langgraph>=1.2.12",
+    "langgraph-checkpoint-postgres>=3.1.2",
+    "psycopg[binary,pool]>=3.3.6",
     "pydantic-settings>=2.15.0",
+    "sqlalchemy[asyncio]>=2.1.1",
     "uvicorn[standard]>=0.54.0",
 ]
 
@@ -29,3 +35,4 @@ typeCheckingMode = "standard"
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
+markers = ["integration: requires a running Postgres (DATABASE_URL); see tests/test_db.py"]

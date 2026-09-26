@@ -15,8 +15,20 @@ jobs:
   migrate:
     needs: checks
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      OPENAI_API_KEY: unused-during-migrate
     steps:
-      - run: echo "No migrations yet (Alembic added in stage 2)"
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: backend/uv.lock
+      - run: uv sync --locked --no-dev
+      - run: uv run alembic upgrade head
 
   deploy-backend:
     needs: [checks, migrate]
