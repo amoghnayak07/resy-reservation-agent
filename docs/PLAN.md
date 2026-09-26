@@ -17,7 +17,7 @@ Update the checkbox when a stage's exit criteria are met and its PR is merged.
 
 | #   | Stage                                   | File                                                               | Status |
 | --- | --------------------------------------- | ------------------------------------------------------------------ | ------ |
-| 1   | Skeleton + CI/CD + first deploy         | [stage-01-skeleton-ci.md](stage-01-skeleton-ci.md)                 | [ ]    |
+| 1   | Skeleton + CI/CD + first deploy         | [stage-01-skeleton-ci.md](stage-01-skeleton-ci.md)                 | [x]    |
 | 2   | Database + LangGraph minimum            | [stage-02-db-langgraph.md](stage-02-db-langgraph.md)               | [ ]    |
 | 3   | Langfuse + streaming chat API           | [stage-03-langfuse-chat-api.md](stage-03-langfuse-chat-api.md)     | [ ]    |
 | 4   | Guards + chat UI                        | [stage-04-guards-chat-ui.md](stage-04-guards-chat-ui.md)           | [ ]    |
@@ -29,7 +29,7 @@ Update the checkbox when a stage's exit criteria are met and its PR is merged.
 | 10  | Book + confirmation gate                | [stage-10-book-confirm.md](stage-10-book-confirm.md)               | [ ]    |
 | 11  | Tie together: evals, proof, README      | [stage-11-tie-together.md](stage-11-tie-together.md)               | [ ]    |
 
-**Current stage:** 1
+**Current stage:** 2
 
 ## Architecture overview
 

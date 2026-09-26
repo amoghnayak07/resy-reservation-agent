@@ -135,6 +135,8 @@ Sections:
 - [ ] README complete with measured numbers, proof link, cuts, and V2.
 - [ ] Pre-review checklist done.
 - [ ] All PLAN.md stages checked.
+- [ ] Deferred from stage 1: PR checks block merging on failure (verify by pushing a formatting error once).
+- [ ] Deferred from stage 1: merging to `master` deploys both apps automatically via CI (frontend deploy job currently fails; Vercel/Render deploys were done manually as a workaround), with auto-deploy off on both platforms.
 
 ## Notes
 

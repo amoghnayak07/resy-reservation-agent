@@ -68,12 +68,11 @@ Merge a trivial PR and confirm: checks run on the PR, deploy runs on merge, both
 
 ## Exit criteria
 
-- [ ] PR checks run and block merging when they fail (verify by pushing a formatting error once).
-- [ ] Merging to `master` deploys both apps automatically; auto-deploy is off on both platforms.
-- [ ] Public Vercel URL loads and displays the Render `/health` response (CORS works).
-- [ ] Refreshing `/dashboard` on Vercel doesn't 404.
-- [ ] `.env.example` files exist; no secrets in the repo.
-- [ ] README has setup notes for Render, Vercel, and GitHub secrets.
+- [x] Public Vercel URL loads and displays the Render `/health` response (CORS works).
+- [x] Refreshing `/dashboard` on Vercel doesn't 404.
+- [x] `.env.example` files exist; no secrets in the repo.
+- [x] README has setup notes for Render, Vercel, and GitHub secrets.
+- Deferred to stage 11 (see its exit criteria): PR checks blocking merge on failure, and frontend deploying automatically via CI (currently deployed manually to Vercel and Render while the CI frontend-deploy job is debugged).
 
 ## Out of scope
 
