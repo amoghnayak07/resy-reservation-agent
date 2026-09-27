@@ -163,6 +163,7 @@ class SearchHitRaw(_Raw):
 class SearchResultsRaw(_Raw):
     hits: list[SearchHitRaw] = []
     nbHits: int | None = None
+    cuisines: list[str] = []  # cuisine facet labels for this result set
 
 
 class VenueSearchResponse(_Raw):
@@ -434,8 +435,6 @@ class Venue(BaseModel):
     rating: float | None
     rating_count: int | None
     url: str | None
-    url_slug: str | None  # with city_slug, the key for /3/venue lookups (server-side)
-    city_slug: str | None
     lat: float | None
     lng: float | None
     max_party_size: int | None
@@ -468,8 +467,6 @@ class Venue(BaseModel):
             rating=hit.rating.average if hit.rating else None,
             rating_count=hit.rating.count if hit.rating else None,
             url=venue_web_url(city_slug, hit.url_slug),
-            url_slug=hit.url_slug,
-            city_slug=city_slug,
             lat=hit.geoloc.lat if hit.geoloc else None,
             lng=hit.geoloc.lng if hit.geoloc else None,
             max_party_size=hit.max_party_size,
@@ -502,8 +499,6 @@ class Venue(BaseModel):
             rating=venue.rating,
             rating_count=venue.total_ratings,
             url=venue_web_url(loc.url_slug if loc else None, venue.url_slug),
-            url_slug=venue.url_slug,
-            city_slug=loc.url_slug if loc else None,
             lat=loc.geo.lat if loc and loc.geo else None,
             lng=loc.geo.lon if loc and loc.geo else None,
             max_party_size=None,

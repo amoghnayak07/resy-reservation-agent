@@ -5,19 +5,22 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.agent.graph import build_graph, open_checkpointer
+from app.agent.tools.search_availability import make_search_availability_tool
 from app.api.chat import router as chat_router
 from app.api.conversations import router as conversations_router
 from app.config import settings
 from app.errors import register_exception_handlers
 from app.logging_config import configure_logging, log_requests
 from app.observability.langfuse import init_langfuse, shutdown_langfuse
+from app.resy.client import ResyClient
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     init_langfuse()
-    async with open_checkpointer() as checkpointer:
-        app.state.graph = build_graph(checkpointer)
+    async with ResyClient.from_settings() as resy, open_checkpointer() as checkpointer:
+        tools = [make_search_availability_tool(resy)]
+        app.state.graph = build_graph(checkpointer, tools=tools)
         yield
     shutdown_langfuse()
 

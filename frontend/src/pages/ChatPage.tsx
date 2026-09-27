@@ -10,9 +10,12 @@ import Typography from '@mui/material/Typography'
 import { ChatInput } from '../components/ChatInput'
 import { ChatMessageBubble } from '../components/ChatMessageBubble'
 import { ConversationDrawer } from '../components/ConversationDrawer'
+import { LocationChip } from '../components/LocationChip'
 import { WakeUpBanner } from '../components/WakeUpBanner'
+import { activityLabel } from '../hooks/streamStatus'
 import { useChat } from '../hooks/useChat'
 import { useHealthCheck } from '../hooks/useHealthCheck'
+import { useLocation } from '../hooks/useLocation'
 
 const TIMEZONE = Intl.DateTimeFormat().resolvedOptions().timeZone
 
@@ -23,17 +26,25 @@ export function ChatPage() {
   const scrollAnchorRef = useRef<HTMLDivElement>(null)
 
   const handleTurnComplete = useCallback(() => setRefreshKey((key) => key + 1), [])
+  const location = useLocation()
 
   const {
     conversationId,
     messages,
     isStreaming,
+    streamStatus,
+    clearLocationRequired,
     error,
     clearError,
     sendMessage,
     startNewConversation,
     loadConversation,
-  } = useChat(TIMEZONE, handleTurnComplete)
+  } = useChat(TIMEZONE, handleTurnComplete, location.getForRequest)
+
+  const handleEnableLocation = () => {
+    clearLocationRequired()
+    void location.enable()
+  }
 
   useEffect(() => {
     scrollAnchorRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -84,13 +95,19 @@ export function ChatPage() {
             <ChatMessageBubble key={message.id} message={message} />
           ))}
           {isStreaming && (
-            <Typography variant="body2" color="text.secondary">
-              Working…
+            <Typography variant="body2" color="text.secondary" role="status">
+              {activityLabel(streamStatus)}
             </Typography>
           )}
           <div ref={scrollAnchorRef} />
         </Box>
 
+        <LocationChip
+          status={location.status}
+          highlighted={streamStatus.locationRequired}
+          onEnable={handleEnableLocation}
+          onDisable={location.disable}
+        />
         <ChatInput disabled={!isHealthy || isStreaming} onSend={(text) => void sendMessage(text)} />
       </Box>
 

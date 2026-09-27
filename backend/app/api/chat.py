@@ -43,6 +43,18 @@ def _sse_event(event: str, data: dict[str, Any]) -> str:
     return f"event: {event}\ndata: {json.dumps(data)}\n\n"
 
 
+def _tool_outcome(output: Any) -> tuple[bool, str | None]:
+    """(ok, error code) from a tool's output: tools return JSON with an "error" key on
+    failure (e.g. "location_required")."""
+    content = getattr(output, "content", output)
+    try:
+        parsed = json.loads(content) if isinstance(content, str) else None
+    except ValueError:
+        return True, None
+    error = parsed.get("error") if isinstance(parsed, dict) else None
+    return (error is None, str(error) if error else None)
+
+
 async def _stream_error(code: str, message: str) -> AsyncIterator[str]:
     yield _sse_event("error", {"code": code, "message": message})
     yield _sse_event("done", {})
@@ -106,6 +118,7 @@ async def chat(
             output_tokens = 0
             total_cost = Decimal("0")
             model_name = settings.openai_model
+            tool_started: dict[str, float] = {}
 
             try:
                 async for event in graph.astream_events(
@@ -127,6 +140,28 @@ async def chat(
                                 if first_token_at is None:
                                     first_token_at = now
                                 yield _sse_event("token", {"text": text})
+                    elif kind == "on_tool_start":
+                        call_id = str(event["run_id"])
+                        tool_started[call_id] = now
+                        yield _sse_event("tool_start", {"name": event["name"], "call_id": call_id})
+                    elif kind in ("on_tool_end", "on_tool_error"):
+                        call_id = str(event["run_id"])
+                        if kind == "on_tool_end":
+                            ok, error_code = _tool_outcome(event["data"].get("output"))
+                        else:
+                            ok, error_code = False, None
+                        if error_code == "location_required":
+                            yield _sse_event("location_required", {})
+                        started = tool_started.pop(call_id, now)
+                        yield _sse_event(
+                            "tool_end",
+                            {
+                                "name": event["name"],
+                                "call_id": call_id,
+                                "ok": ok,
+                                "duration_ms": int((now - started) * 1000),
+                            },
+                        )
                     elif kind == "on_chat_model_end":
                         output = event["data"].get("output")
                         usage_metadata = getattr(output, "usage_metadata", None)

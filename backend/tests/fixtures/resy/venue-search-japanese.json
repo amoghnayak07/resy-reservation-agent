@@ -1,0 +1,5043 @@
+{
+  "search": {
+    "page": 1,
+    "hits": [
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.73228,
+          "count": 127
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Crown Heights",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Gen Japanese Restaurant",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.6777449207515,
+          "lng": -73.9635332609337
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Gen Japanese Restaurant",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/78214/1d043fd9cc4d04f66105b0cd354dc5939d4bfa78/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 78214
+        },
+        "url_slug": "gen-japanese-restaurant",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "3"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 3.3133531094635895
+        },
+        "locality": "New York",
+        "price_range_id": 2,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 5,
+        "neighborhood": "Crown Heights"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.71014,
+          "count": 69
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese-American",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Zutto Japanese American Pub (Tribeca)",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.71866089891376,
+          "lng": -74.00908134476411
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Zutto Japanese American Pub (Tribeca)",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/88181/29721ef67da59923b3bc8085c1a8474f126dc4f5/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 88181
+        },
+        "url_slug": "zutto-japanese-american-bar-tribeca",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "880"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 0.41998471622144734
+        },
+        "locality": "New York",
+        "price_range_id": 1,
+        "cuisine": [
+          "Japanese-American"
+        ],
+        "max_party_size": 8,
+        "neighborhood": "New York"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.45794,
+          "count": 107
+        },
+        "region": "New York",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese-American",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Zutto Japanese American Bar (Nolita)",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.72075434997861,
+          "lng": -73.99663974661034
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Zutto Japanese American Bar (Nolita)",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/88180/4bad7cd52c8caaf7e0e063f33797ef8a9551a195/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 88180
+        },
+        "url_slug": "zutto-japanese-american-bar-nolita",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "880"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 0.7439792125677942
+        },
+        "locality": "New York",
+        "price_range_id": 1,
+        "cuisine": [
+          "Japanese-American"
+        ],
+        "max_party_size": 8,
+        "neighborhood": "New York"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.37245,
+          "count": 2156
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Chinatown",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Dr Clark",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.716258,
+          "lng": -73.999765
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Dr Clark",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/32520/dc09d892ebe263f1d249a8327d469d5cb8608aae/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 32520
+        },
+        "url_slug": "dr-clark",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "883",
+          "1076"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": "2020-08-11"
+        },
+        "travel_time": {
+          "distance": 0.4163922557816989
+        },
+        "locality": "New York",
+        "price_range_id": 2,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 8,
+        "neighborhood": "Chinatown"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.90254,
+          "count": 236
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Chinatown",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Hakata Tonton",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.71538094780233,
+          "lng": -73.99900790356986
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Hakata Tonton",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/88317/0534889097143240eb92e3e371389c9d18772018/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 88317
+        },
+        "url_slug": "hakata-tonton",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "888",
+          "891"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": null
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 0.42236110451290554
+        },
+        "locality": "New York",
+        "price_range_id": 2,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 8,
+        "neighborhood": "Chinatown"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.58543,
+          "count": 357
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "SUteiShi",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.707782,
+          "lng": -74.0018443
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "SUteiShi",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/54264/c09190ab662e98da7f7b3858c8f82c546e032611/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 54264
+        },
+        "url_slug": "suteishi",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 0.42919421392199464
+        },
+        "locality": "New York",
+        "price_range_id": 1,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 10,
+        "neighborhood": "New York"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.44086,
+          "count": 93
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Financial District",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Susukino Ramen",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.7035105410017,
+          "lng": -74.0108257455024
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Susukino Ramen",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/82880/ae0b5f8db009b42eafb766479b86fbcb0f0c2b51/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 82880
+        },
+        "url_slug": "susukino-ramen",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 0.6924499931702314
+        },
+        "locality": "New York",
+        "price_range_id": 1,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 6,
+        "neighborhood": "Financial District"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.29891,
+          "count": 368
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Lower East Side",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Sake No Hana",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.719360786185,
+          "lng": -73.9941635317134
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Sake No Hana",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/82023/93349f62013adf7531e61d43b796a29d1bbbe988/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 82023
+        },
+        "url_slug": "sake-no-hana",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "4",
+          "878",
+          "889",
+          "1076"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 0.7798885936671079
+        },
+        "locality": "New York",
+        "price_range_id": 3,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 8,
+        "neighborhood": "Lower East Side"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.85634,
+          "count": 536
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Lower East Side",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Sushi Oku NYC",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.7153616,
+          "lng": -73.991525
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Sushi Oku NYC",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/69012/ced4c9deb34d3bc3321d82240e072d11a32d2216/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 69012
+        },
+        "url_slug": "sushi-oku",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "888",
+          "891",
+          "917",
+          "988"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": null
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 0.7972633484009559
+        },
+        "locality": "New York",
+        "price_range_id": 3,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 6,
+        "neighborhood": "Lower East Side"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.45645,
+          "count": 5098
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "SoHo",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Momoya - Soho",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.7235467,
+          "lng": -73.9979741
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Momoya - Soho",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/59558/8b4af3672efa43de17616bfba5487163d77ae4a9/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 59558
+        },
+        "url_slug": "momoya-soho",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "878",
+          "917",
+          "998",
+          "1056",
+          "1076",
+          "1148"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 0.8561037203443641
+        },
+        "locality": "New York",
+        "price_range_id": 3,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 8,
+        "neighborhood": "SoHo"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.68145,
+          "count": 248
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Lower East Side",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Douska",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.71951,
+          "lng": -73.99053
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Douska",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/84288/0b70b686f358cba87fbd996b3b39fff1b72e26c3/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 84288
+        },
+        "url_slug": "douska",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 0.9476509848428664
+        },
+        "locality": "New York",
+        "price_range_id": 2,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 10,
+        "neighborhood": "Lower East Side"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.91057,
+          "count": 1599
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Soho",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Sushi Ouji",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.7266347005327,
+          "lng": -74.0027223741768
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Sushi Ouji",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/77859/e0018ea160da2e4cfdbbee7da31e0be7dd337511/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 77859
+        },
+        "url_slug": "sushi-ouji",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "878",
+          "888",
+          "891"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 0.9665063333152822
+        },
+        "locality": "New York",
+        "price_range_id": 2,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 6,
+        "neighborhood": "Soho"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.7438,
+          "count": 242
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "SoHo",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Noury",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.72703810599723,
+          "lng": -74.00193349072927
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Noury",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/97552/624e1403592dc437a3ede0ec6ce14af802f79449/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 97552
+        },
+        "url_slug": "noury",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "888",
+          "889",
+          "890"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": null
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.0026936761777934
+        },
+        "locality": "New York",
+        "price_range_id": 2,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 7,
+        "neighborhood": "SoHo"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.76902,
+          "count": 368
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Shiki Omakase",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.726670968399254,
+          "lng": -73.99951800362409
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Shiki Omakase",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/93117/4935d6d78b567a5177c1bf2533d9ccc4077c7508/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 93117
+        },
+        "url_slug": "shiki-omakase",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "890",
+          "1238"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.0157547452707532
+        },
+        "locality": "New York",
+        "price_range_id": 2,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 4,
+        "neighborhood": "New York"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.81847,
+          "count": 639
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Soho",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Mori",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.7272759747071,
+          "lng": -74.0020662320965
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Mori",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/79015/c0c02a0ef5f2b2ecd410d990fe61fb3367bb3334/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 79015
+        },
+        "url_slug": "mori",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "891"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": null
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.0171257794979272
+        },
+        "locality": "New York",
+        "price_range_id": 3,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 8,
+        "neighborhood": "Soho"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.77303,
+          "count": 608
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Lower East Side",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Izakaya Juraku",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.7196792,
+          "lng": -73.988701
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Izakaya Juraku",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/72725/0927fc8d6061d32534f18904f519e143597f16c3/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 72725
+        },
+        "url_slug": "izakaya-juraku",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "4",
+          "878",
+          "1056"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.038021442418668
+        },
+        "locality": "New York",
+        "price_range_id": 2,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 12,
+        "neighborhood": "Lower East Side"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.68574,
+          "count": 1171
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "West Village",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Sekai, Omakase",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.72732,
+          "lng": -74.00014
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Sekai, Omakase",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/59904/e0da204021203f915f1502255f7f02b0c3a31c4b/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 59904
+        },
+        "url_slug": "sekai-omakase",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "878",
+          "880",
+          "917"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": "2022-04-05"
+        },
+        "travel_time": {
+          "distance": 1.0471849959607065
+        },
+        "locality": "New York",
+        "price_range_id": 3,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 15,
+        "neighborhood": "West Village"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.60885,
+          "count": 4024
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Soho",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Bar Moga",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.72787,
+          "lng": -74.001067
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Bar Moga",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/2051/55012b769a3b9bf90d6dc10c2b8ee985c06209d9/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 2051
+        },
+        "url_slug": "bar-moga",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "878",
+          "883"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": "2020-07-12"
+        },
+        "travel_time": {
+          "distance": 1.069680176856512
+        },
+        "locality": "New York",
+        "price_range_id": 2,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 8,
+        "neighborhood": "Soho"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.62892,
+          "count": 7311
+        },
+        "region": "NY",
+        "global_dining_access": 1,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "West Village",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "DOMODOMO New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.728035,
+          "lng": -74.001673
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 1,
+        "is_rga": 1,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "DOMODOMO New York",
+        "is_global_dining_access": true,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/43111/d91d23a38b92448856fee5a562905bb67d56a4d1/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 43111
+        },
+        "url_slug": "domodomo-new-york",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "14",
+          "879"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.0729329742964882
+        },
+        "locality": "New York",
+        "price_range_id": 2,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 4,
+        "neighborhood": "West Village"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.85202,
+          "count": 2426
+        },
+        "region": "NY",
+        "global_dining_access": 1,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Noho",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Torien",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.724757,
+          "lng": -73.993131
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 1,
+        "is_rga": 1,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Torien",
+        "is_global_dining_access": true,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/7318/70078a1986c10557f45d503a48ed4e2d5d16b42a/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 7318
+        },
+        "url_slug": "torien",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "14",
+          "879",
+          "888",
+          "889",
+          "891",
+          "1089",
+          "1194"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": ""
+        },
+        "reopen": {
+          "date": "2021-03-16"
+        },
+        "travel_time": {
+          "distance": 1.0729893498990268
+        },
+        "locality": "New York",
+        "price_range_id": 4,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 4,
+        "neighborhood": "Noho"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.75163,
+          "count": 153
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Lower East Side",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Genki East",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.721,
+          "lng": -73.9874
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Genki East",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/91883/38b64a83302d3eab730fab9f08836f4fb439fa7f/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 91883
+        },
+        "url_slug": "genki-east",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "917"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.1411155505460016
+        },
+        "locality": "New York",
+        "price_range_id": 1,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 7,
+        "neighborhood": "Lower East Side"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.82166,
+          "count": 157
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Bowery",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "SoZo Sip Bar + Omakase",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.7255323720163,
+          "lng": -73.99191007598641
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "SoZo Sip Bar + Omakase",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/95774/64a5bbbc17499f049c87570d03f66d48599e98fa/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 95774
+        },
+        "url_slug": "sozo-sip-bar-and-omakase",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "890",
+          "917",
+          "1076"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.1553925908496527
+        },
+        "locality": "New York",
+        "price_range_id": 1,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 8,
+        "neighborhood": "Bowery"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.56094,
+          "count": 1362
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Greenwich Village",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Genki Omakase",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.7291884,
+          "lng": -73.9982062
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Genki Omakase",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/65547/ed40b1b27a942ac4b337c5e4510512778f4d9a28/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 65547
+        },
+        "url_slug": "genki-omakase",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": "2022-10-10"
+        },
+        "travel_time": {
+          "distance": 1.202949506783417
+        },
+        "locality": "New York",
+        "price_range_id": 2,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 7,
+        "neighborhood": "Greenwich Village"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.87755,
+          "count": 49
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "RokuNana",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.71958327021259,
+          "lng": -73.9850695172461
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "RokuNana",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/94834/b0ef928088de3c8595ac0498bd5e47eaba96cc43/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 94834
+        },
+        "url_slug": "roku-nana",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "888",
+          "890"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.2086174744232174
+        },
+        "locality": "New York",
+        "price_range_id": 2,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 6,
+        "neighborhood": "New York"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.94592,
+          "count": 5621
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "East Village (Exclusive Acclaimed) ",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Shinzo Omakase",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.72375,
+          "lng": -73.98778
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Shinzo Omakase",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/65230/12d8868628c8d4295de710bfba54a9dc6a7a6154/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 65230
+        },
+        "url_slug": "shinzo-omakase",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "878",
+          "880",
+          "883",
+          "888",
+          "891",
+          "917",
+          "1076",
+          "1147",
+          "1173"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": "2022-08-18"
+        },
+        "travel_time": {
+          "distance": 1.229253680113107
+        },
+        "locality": "New York",
+        "price_range_id": 1,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 6,
+        "neighborhood": "East Village (Exclusive Acclaimed) "
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.59649,
+          "count": 57
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Downtown Brooklyn",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Ippudo V Brooklyn",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.70129973907296,
+          "lng": -73.9882033448804
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Ippudo V Brooklyn",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/96706/657d38e70c5a5cfe51238926ec701ffd6bbeea3c/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 96706
+        },
+        "url_slug": "ippudo-v-brooklyn",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "3",
+          "878",
+          "883",
+          "888",
+          "890",
+          "1085"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.248175430366859
+        },
+        "locality": "New York",
+        "price_range_id": 2,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 15,
+        "neighborhood": "Downtown Brooklyn"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.65918,
+          "count": 267
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Lower East Side",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Ivan Ramen",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.720794546924,
+          "lng": -73.9844701301594
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Ivan Ramen",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/83501/52b0fe17ea657e703144809df6f97a1b5c17853d/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 83501
+        },
+        "url_slug": "ivan-ramen",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "878",
+          "1173"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": "2024-07-15"
+        },
+        "travel_time": {
+          "distance": 1.271210709029779
+        },
+        "locality": "New York",
+        "price_range_id": 1,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 4,
+        "neighborhood": "Lower East Side"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.78256,
+          "count": 906
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Brooklyn Heights",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Sushi Lin Brooklyn Heights",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.697427,
+          "lng": -73.9932715
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Sushi Lin Brooklyn Heights",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/72970/9a532604281e37a18734d647342c41535b20fca1/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 72970
+        },
+        "url_slug": "sushi-lin-brooklyn-heights",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "891",
+          "917"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.274687227027811
+        },
+        "locality": "New York",
+        "price_range_id": 2,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 4,
+        "neighborhood": "Brooklyn Heights"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.75903,
+          "count": 1191
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "456 Sushi",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.731392,
+          "lng": -74.006447
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "456 Sushi",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/54510/84dc8e964d717afad2eaf640ff33d26d502badb4/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 54510
+        },
+        "url_slug": "456-sushi",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": "2022-08-12"
+        },
+        "travel_time": {
+          "distance": 1.27621080687566
+        },
+        "locality": "New York",
+        "price_range_id": 1,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 5,
+        "neighborhood": "New York"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.68293,
+          "count": 82
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Lower East Side",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Toriya",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.720423019676566,
+          "lng": -73.98403301831523
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Toriya",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/95763/be9d051948481450ff8460c91f8b64e91871fcae/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 95763
+        },
+        "url_slug": "toriya",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "890"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.2813763534854692
+        },
+        "locality": "New York",
+        "price_range_id": 1,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 16,
+        "neighborhood": "Lower East Side"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.76369,
+          "count": 347
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "East Village",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Benemon",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.7256928559102,
+          "lng": -73.9883891896849
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Benemon",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/75244/b0ed400288800e0e2bfbdbba21358862b75101c3/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 75244
+        },
+        "url_slug": "benemon",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": "2023-10-13"
+        },
+        "travel_time": {
+          "distance": 1.2917932302373816
+        },
+        "locality": "New York",
+        "price_range_id": 1,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 4,
+        "neighborhood": "East Village"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.29752,
+          "count": 121
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Greenwich Village",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Torizaku Izakaya & Ramen",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.73199337157192,
+          "lng": -74.00369046328922
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Torizaku Izakaya & Ramen",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/91919/fc846ca905ca5149d3e310b874c198e53bd96415/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 91919
+        },
+        "url_slug": "torizaku",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.325396010089821
+        },
+        "locality": "New York",
+        "price_range_id": 1,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 8,
+        "neighborhood": "Greenwich Village"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.77526,
+          "count": 574
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Hatsu",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.72559621783395,
+          "lng": -73.98729057481249
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Hatsu",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/86947/2b2c9cea53de5e19b20f6f24a1353a741937604a/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 86947
+        },
+        "url_slug": "hatsu",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.330043276706472
+        },
+        "locality": "New York",
+        "price_range_id": 3,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 7,
+        "neighborhood": "New York"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.8016,
+          "count": 4002
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "East Village",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Sushi by M - 5th Street Omakase",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.726797714533,
+          "lng": -73.9887787153091
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Sushi by M - 5th Street Omakase",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/60919/d05cbe94ffb651cb70c55c9b0d9194ca4c18bb04/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 60919
+        },
+        "url_slug": "sushi-by-m",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "891",
+          "917",
+          "1089"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.3308772664505548
+        },
+        "locality": "New York",
+        "price_range_id": 3,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 6,
+        "neighborhood": "East Village"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.43478,
+          "count": 23
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Ukrainian Village",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Tang Sushi",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.7274939128455,
+          "lng": -73.98899047551106
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Tang Sushi",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/97385/f3022bebadfa4b073be01c7e4b3144c067c8811f/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 97385
+        },
+        "url_slug": "tang-sushi-nyc",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "888",
+          "890"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.3584814414971882
+        },
+        "locality": "New York",
+        "price_range_id": 1,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 16,
+        "neighborhood": "Ukrainian Village"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.67742,
+          "count": 155
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Brooklyn Heights",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Kiwami",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.6936049309071,
+          "lng": -74.0008175455028
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Kiwami",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/83342/ed217aaf96dda516b463b8bf39a1b29fd09207e1/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 83342
+        },
+        "url_slug": "kiwami",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "917"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.3690058758862589
+        },
+        "locality": "New York",
+        "price_range_id": 3,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 4,
+        "neighborhood": "Brooklyn Heights"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.40877,
+          "count": 707
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Ukrainian Village",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Shirokuro",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.72779023419953,
+          "lng": -73.98869456083446
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Shirokuro",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/88081/bd7f78e0f898dfbd1a8509116fc90c8778a85446/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 88081
+        },
+        "url_slug": "shirokuro",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": null
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.3840859005105932
+        },
+        "locality": "New York",
+        "price_range_id": 1,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 10,
+        "neighborhood": "Ukrainian Village"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.94931,
+          "count": 2604
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Greenwich Village (Culinary Journey)",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Fuku Omakase",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.7325732,
+          "lng": -74.0012379
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Fuku Omakase",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/73742/a9176f59f6f1fb30b0cc73c47b6879fd612c6d3f/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 73742
+        },
+        "url_slug": "fuku-omakase",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "888",
+          "891"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.384535962501217
+        },
+        "locality": "New York",
+        "price_range_id": 2,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 6,
+        "neighborhood": "Greenwich Village (Culinary Journey)"
+      },
+      {
+        "waitlist": {},
+        "favorite": null,
+        "rating": {
+          "average": 4.6,
+          "count": 0
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "OSAKANA",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.7282683,
+          "lng": -73.9872465
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 0,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "OSAKANA",
+        "is_global_dining_access": false,
+        "country": "US",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://tock-public.imgix.net/imagesprod/user_uploaded_images_v1/40b9b2af91530e7fa68db31a71236443.jpg?auto=format&ixlib=java-2.3.2"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 558
+        },
+        "url_slug": "osakanabk",
+        "tock_business_page_url": "https://www.exploretock.com/osakanabk/?tock_resy_origin=resy_redirect&size=2&date=2026-10-04",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "tock_business_search_url": "https://www.exploretock.com/osakanabk/?tock_resy_origin=resy_redirect&size=2&date=2026-10-04",
+        "inventory_type_id": 2,
+        "is_tock_inventory": true,
+        "contact": {
+          "phone_number": null
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.4583442324951805
+        },
+        "locality": "New York",
+        "price_range_id": 2,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 8,
+        "neighborhood": ""
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.78583,
+          "count": 1863
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "East Village",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Kimura",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.729111,
+          "lng": -73.988159
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Kimura",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/68790/23104d243d2aa0e322660bceaabe91798efc1315/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 68790
+        },
+        "url_slug": "kimura",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "878",
+          "888",
+          "891"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.471244851255556
+        },
+        "locality": "New York",
+        "price_range_id": 1,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 10,
+        "neighborhood": "East Village"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.94982,
+          "count": 5699
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Greenwich Village",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Kazumi Omakase",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.7332620578793,
+          "lng": -73.9978674450292
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Kazumi Omakase",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/76732/47fce7091331f3b9ddcb969df5df35e636f099cc/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 76732
+        },
+        "url_slug": "kazumi-omakase",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "4",
+          "888",
+          "891"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.4748939368495402
+        },
+        "locality": "New York",
+        "price_range_id": 1,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 6,
+        "neighborhood": "Greenwich Village"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.58416,
+          "count": 2222
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "East Village",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Hi-Collar",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.72961,
+          "lng": -73.987784
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Hi-Collar",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/3631/a324b8e4511e32e7a4c134d804b1b4033d0f739c/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 3631
+        },
+        "url_slug": "hi-collar",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "880",
+          "883"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.51027058961938
+        },
+        "locality": "New York",
+        "price_range_id": 3,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 6,
+        "neighborhood": "East Village"
+      },
+      {
+        "waitlist": {},
+        "favorite": null,
+        "rating": {
+          "average": 4.6,
+          "count": 0
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Omakase",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "The Office of Mr. Moto",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.7268131,
+          "lng": -73.984036
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 0,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "The Office of Mr. Moto",
+        "is_global_dining_access": false,
+        "country": "US",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://tock-public.imgix.net/imagesprod/user_uploaded_images_v1/e53007397bbbdb5017ae107c3c87d33c.jpg?auto=format&ixlib=java-2.3.2"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 31091
+        },
+        "url_slug": "mrmoto",
+        "tock_business_page_url": "https://www.exploretock.com/mrmoto/?tock_resy_origin=resy_redirect&size=2&date=2026-10-04",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "tock_business_search_url": "https://www.exploretock.com/mrmoto/?tock_resy_origin=resy_redirect&size=2&date=2026-10-04",
+        "inventory_type_id": 2,
+        "is_tock_inventory": true,
+        "contact": {
+          "phone_number": null
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.5130559344615493
+        },
+        "locality": "New York",
+        "price_range_id": 4,
+        "cuisine": [
+          "Omakase"
+        ],
+        "max_party_size": 5,
+        "neighborhood": ""
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.63462,
+          "count": 156
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Five Spot Jazz",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.7297781979611,
+          "lng": -73.98781094601114
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Five Spot Jazz",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/95985/940b0bc8c2dae34eab4ff9ab92040c8e7e17b7bf/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 95985
+        },
+        "url_slug": "five-spot-jazz",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "888",
+          "890"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.518263065550102
+        },
+        "locality": "New York",
+        "price_range_id": 1,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 6,
+        "neighborhood": "New York"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.85417,
+          "count": 864
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "West Village",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Sushi Lin West Village",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.7349112,
+          "lng": -74.0003178
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Sushi Lin West Village",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/73561/334f558ce202ee745caa91cd7028d65b788dfc70/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 73561
+        },
+        "url_slug": "sushi-lin-west-village",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "888",
+          "891",
+          "917"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.5526317031415964
+        },
+        "locality": "New York",
+        "price_range_id": 2,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 6,
+        "neighborhood": "West Village"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.80707,
+          "count": 2177
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "East Village",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Shabu Tatsu",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.729166,
+          "lng": -73.98592
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Shabu Tatsu",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/36758/2c99771c0253ea6b6fd154f8320ad522572217c2/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 36758
+        },
+        "url_slug": "shabu-tatsu",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "880",
+          "891"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": "2020-10-02"
+        },
+        "travel_time": {
+          "distance": 1.5528174765182539
+        },
+        "locality": "New York",
+        "price_range_id": 2,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 8,
+        "neighborhood": "East Village"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.59574,
+          "count": 5489
+        },
+        "region": "NJ",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "Jersey City",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Harbor Side",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "DOMODOMO Jersey City",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "Jersey City",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.720329,
+          "lng": -74.034452
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "jersey-city-nj",
+          "id": 132,
+          "name": "Jersey City",
+          "code": "jsc"
+        },
+        "name": "DOMODOMO Jersey City",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/43109/225d687b250346c4956a31061ee3514945f7f874/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 43109
+        },
+        "url_slug": "domodomo-jersey-city",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "888",
+          "889"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.557227442974124
+        },
+        "locality": "Jersey City",
+        "price_range_id": 2,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 4,
+        "neighborhood": "Harbor Side"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.87557,
+          "count": 2411
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Lower East Side",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Wabi Nori",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.7197227644192,
+          "lng": -73.9879659455329
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Wabi Nori",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/84536/67b220edffe8df91cb94c78964e89a895fa1e403/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 84536
+        },
+        "url_slug": "wabi-nori",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "878",
+          "888",
+          "891"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.0739062827710268
+        },
+        "locality": "New York",
+        "price_range_id": 2,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 4,
+        "neighborhood": "Lower East Side"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.67932,
+          "count": 237
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "Ukrainian Village",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Taishoken NYC - Ramen and Dipping Ramen Bar",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.7270777528147,
+          "lng": -73.9885489320082
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Taishoken NYC - Ramen and Dipping Ramen Bar",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/82789/c1728689a984674428eb9f46b0824819e5f06ab8/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 82789
+        },
+        "url_slug": "taishoken",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.3531908739586185
+        },
+        "locality": "New York",
+        "price_range_id": 2,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 7,
+        "neighborhood": "Ukrainian Village"
+      },
+      {
+        "waitlist": {
+          "label": "Join Wait List",
+          "current": null,
+          "available": 0
+        },
+        "favorite": false,
+        "rating": {
+          "average": 4.52443,
+          "count": 1228
+        },
+        "region": "NY",
+        "global_dining_access": 0,
+        "_highlightResult": {
+          "locality": {
+            "value": "New York",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "neighborhood": {
+            "value": "East Village",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "cuisine": [
+            {
+              "value": "Japanese",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          ],
+          "name": {
+            "value": "Ippudo - East Village",
+            "matchLevel": "none",
+            "matchedWords": []
+          },
+          "location": {
+            "name": {
+              "value": "New York",
+              "matchLevel": "none",
+              "matchedWords": []
+            }
+          }
+        },
+        "feature_recaptcha": false,
+        "_geoloc": {
+          "lat": 40.7309292,
+          "lng": -73.990263
+        },
+        "source": {
+          "privacy_policy": null,
+          "logo": null,
+          "name": null,
+          "terms_of_service": null
+        },
+        "currency_code": "USD",
+        "is_gdc": 0,
+        "is_rga": 0,
+        "location": {
+          "url_slug": "new-york-ny",
+          "id": 1,
+          "name": "New York",
+          "code": "ny"
+        },
+        "name": "Ippudo - East Village",
+        "is_global_dining_access": false,
+        "country": "United States",
+        "gda_concierge_booking": false,
+        "images": [
+          "https://image.resy.com/3/003/2/70933/55c46caabba35a460db1fb6d566ccb444100e79e/jpg/640x360"
+        ],
+        "currency_symbol": "$",
+        "id": {
+          "resy": 70933
+        },
+        "url_slug": "Ippudo-east-village",
+        "requires_reservation_transfers": 0,
+        "is_gns": 0,
+        "collection": [
+          "888"
+        ],
+        "inventory_type_id": 2,
+        "is_tock_inventory": false,
+        "contact": {
+          "phone_number": "+10000000000"
+        },
+        "reopen": {
+          "date": null
+        },
+        "travel_time": {
+          "distance": 1.5043203351428494
+        },
+        "locality": "New York",
+        "price_range_id": 1,
+        "cuisine": [
+          "Japanese"
+        ],
+        "max_party_size": 10,
+        "neighborhood": "East Village"
+      }
+    ],
+    "hitsPerPage": 50,
+    "nbPages": 5,
+    "cuisines": [
+      "Japanese",
+      "Sushi",
+      "Asian",
+      "French",
+      "Italian",
+      "Spanish",
+      "International",
+      "Seafood",
+      "Steakhouse"
+    ],
+    "nbHits": 225
+  },
+  "meta": {
+    "engine": "ELASTIC",
+    "total_pages": 5,
+    "page": 1,
+    "per_page": 50,
+    "total": 225
+  },
+  "suggestions": []
+}

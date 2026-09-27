@@ -30,6 +30,17 @@ def test_date_rules_text_present() -> None:
     assert "Never book in the past" in prompt
 
 
+def test_search_rules_ask_for_a_target_and_never_pick_alternatives() -> None:
+    prompt = build_system_prompt(
+        now=datetime(2026, 9, 26, 10, 0), tz="America/New_York", location_available=True, city=None
+    )
+
+    assert "If the user gave none" in prompt  # no restaurant/cuisine/neighborhood → ask
+    assert "Use my location" in prompt
+    assert "Never pick an alternative time, venue, or seating" in prompt
+    assert 'Only `match: "exact"` is the user\'s restaurant' in prompt
+
+
 def test_timezone_conversion_affects_calendar_start_day() -> None:
     utc_instant = datetime(2026, 9, 27, 5, 0, tzinfo=ZoneInfo("UTC"))
 

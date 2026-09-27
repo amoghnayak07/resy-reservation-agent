@@ -114,33 +114,41 @@ class ResyClient:
     async def venue_search(
         self,
         *,
-        lat: float,
-        lng: float,
-        radius_m: int,
-        day: date,
-        party_size: int,
-        query: str = "",
+        query: str,
+        geo: tuple[float, float, int] | None,
+        day: date | None = None,
+        party_size: int | None = None,
         per_page: int = 20,
+        page: int = 1,
     ) -> VenueSearchResponse:
-        """POST /3/venuesearch/search with the resy.com search-page payload. Hits embed each
-        venue's slots for `day`."""
+        """POST /3/venuesearch/search with the stage 6 probe-approved payload.
+
+        geo: (lat, lng, radius_m); Resy enforces the radius server-side. None searches
+        globally (only for out-of-area checks). With day + party_size, hits embed their
+        slots for that day, already filtered by party size; without them, name resolution
+        only."""
         endpoint = "/3/venuesearch/search"
-        data = await self._request(
-            "POST",
-            endpoint,
-            json_body={
-                "availability": True,
-                "geo": {"latitude": lat, "longitude": lng, "radius": radius_m},
-                "include_tock_inventory": True,
-                "order_by": "availability",
-                "page": 1,
-                "per_page": per_page,
-                "query": query,
-                "slot_filter": {"day": day.isoformat(), "party_size": party_size},
-                "types": ["venue"],
-            },
-        )
+        body: dict[str, Any] = {
+            "include_tock_inventory": False,
+            "order_by": "availability",
+            "page": page,
+            "per_page": per_page,
+            "query": query,
+            "types": ["venue"],
+        }
+        if geo is not None:
+            lat, lng, radius_m = geo
+            body["geo"] = {"latitude": lat, "longitude": lng, "radius": radius_m}
+        if day is not None and party_size is not None:
+            body["availability"] = True
+            body["slot_filter"] = {"day": day.isoformat(), "party_size": party_size}
+        data = await self._request("POST", endpoint, json_body=body)
         return parse_response(VenueSearchResponse, data, endpoint)
+
+    async def venue_search_raw(self, body: dict[str, Any]) -> Any:
+        """POST /3/venuesearch/search with a caller-built body; returns the raw JSON.
+        Only for the local payload probe (scripts/resy_probe.py); tools use venue_search."""
+        return await self._request("POST", "/3/venuesearch/search", json_body=body)
 
     async def find(self, venue_id: int, day: date, party_size: int) -> FindResponse:
         """POST /4/find. lat/long 0 as captured (travel_time is then meaningless; ignored)."""
@@ -176,12 +184,10 @@ class ResyClient:
         )
         return parse_response(DetailsResponse, data, endpoint)
 
-    async def get_venue(self, url_slug: str, location: str) -> VenueResponse:
-        """GET /3/venue by venue slug and city slug (e.g. "new-york-ny")."""
+    async def get_venue(self, venue_id: int) -> VenueResponse:
+        """GET /3/venue?id= (same response as the slug lookup resy.com pages use)."""
         endpoint = "/3/venue"
-        data = await self._request(
-            "GET", endpoint, params={"url_slug": url_slug, "location": location}
-        )
+        data = await self._request("GET", endpoint, params={"id": venue_id})
         return parse_response(VenueResponse, data, endpoint)
 
     async def get_calendar(

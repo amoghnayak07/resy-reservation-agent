@@ -71,25 +71,26 @@ Run each variant and record in Notes: total hits, top 5 names + neighborhoods, l
 | 8   | _(answered by Capture 3)_                                                                     | With `availability: true` + `slot_filter`, hits include slots and templates. Open: are slots filtered by party size (they have no `size`)?     |
 | 9   | `page: 2` (the baseline sends `page: 1`)                                                      | Does pagination work?                                                                                                                           |
 | 10  | Query an exact known venue name (e.g., "Mori")                                                | Does an exact name rank first?                                                                                                                  |
-| 11  | On resy.com, click the "Japanese" cuisine suggestion or cuisine filter, and capture the request | Is there a **structured cuisine filter** instead of free text? **The user captures this; don't guess the param name.**                          |
+| 11  | _(dropped: free text + `geo.radius` already returns ~98–100% cuisine matches; see Notes)_       | —                                                                                                                                               |
 | 12  | `query: "japanese"` at max `per_page`, pages 1–2                                                | What share of hits have "Japanese" in `cuisine`? Where do Japanese restaurants without "Japanese" in their name rank?                                 |
 | 13  | Cuisine query with `geo` vs no `geo`                                                          | Does `geo` change text-query ranking at all?                                                                                                    |
 
-Adopt the **smallest payload that returns correct results**. Document the final payload in Notes and in the PLAN.md endpoint table. Expected starting point: the Capture 3 payload with Tock excluded, `per_page` 10 for name searches and 20+ (up to the max accepted) for area and cuisine searches.
+**Final payload** (from the probe; also in the PLAN.md endpoint table): the Capture 3 search-page payload with `include_tock_inventory: false` and `geo {latitude, longitude, radius: SEARCH_RADIUS_KM × 1000}` (user's location). `availability: true` + `slot_filter {day, party_size}` only when date and party size are known (otherwise omitted: name resolution only). `per_page` 10 for name searches, 20 for area and cuisine searches (max accepted: 75).
 
 ### 2. Location scope and neighborhoods (`app/agent/tools/location.py`)
 
 - **Reference point:** the user's device location from the run config (set by the chat API, rounded to 3 decimals). The LLM never sees coordinates; it only knows whether a location is available.
 - **No location → no search.** The tool returns `{"error": "location_required"}`; the chat API emits a `location_required` event; the agent asks the user to tap "Use my location." No default city.
-- **Radius:** `SEARCH_RADIUS_KM` (default 40). Compute haversine distance from the reference point to each hit's `_geoloc`; exclude hits outside the radius. **Keep Resy's order** for the remaining hits; distance is used only to filter, never to re-rank. If filtering leaves too few hits (text queries can return far-away venues first), fetch the next page (cap 3 pages).
-- **Search `geo`:** always the user's location.
+- **Radius:** `SEARCH_RADIUS_KM` (default 40). Compute haversine distance from the reference point to each hit's `_geoloc`; exclude hits outside the radius. **Keep Resy's order** for the remaining hits; distance is used only to filter, never to re-rank. Resy already enforces `geo.radius` (probe #15), so this filter rarely removes anything. Fetch page 2 only if fewer than 5 bookable venues remain after all filters (cap 2 pages).
+- **Search `geo`:** always the user's location, with `geo.radius` = `SEARCH_RADIUS_KM` × 1000; the distance filter still runs on our side.
 - **City label:** the most common `location.name` among in-radius hits (e.g., "New York"), returned as `city` so the agent can refer to it.
+- **Neighborhood search text:** a named neighborhood is sent as the search text (Resy matches it against the `neighborhood` field); with a cuisine too, `per_page` is 50 and the cuisine is filtered on our side (see Notes).
 - **Neighborhoods by name, not coordinates:** normalize the user's neighborhood and each hit's `neighborhood` (lowercase, strip punctuation) and keep matching hits. Venues whose `neighborhood` is just the city (e.g., "New York") can't be placed in a neighborhood; exclude them from neighborhood-filtered results and report how many were skipped. A small alias table covers common shorthand (e.g., "LES" → "Lower East Side", "UWS" → "Upper West Side", "FiDi" → "Financial District"). If nothing matches, return `neighborhoods_seen` (distinct in-radius neighborhood names, max 15) so the agent can ask "did you mean…?"
-- **Out of area:** if the user asks about another city, or a named restaurant's only matches are outside the radius, return `out_of_area: true` with that venue's city. The agent explains this version only books near the user's location and that other cities are planned.
+- **Out of area:** if the user asks about another city, or a named restaurant exists only outside the radius, return `out_of_area: true` with that venue's city. The radius hides far venues, so when a name search has no exact/strong match nearby, run one more search **without `geo`** (global); an exact match there → `out_of_area`. The agent explains this version only books near the user's location and that other cities are planned.
 
 ### 3. Hit normalization and filtering
 
-Map each hit to `Venue` (see stage 5): `id.resy`, `name`, `neighborhood`, `city` (`location.name`), `cuisine`, price range from `price_range_id` using the hit's `currency_symbol`, `rating.average`/`count`, Resy URL `https://resy.com/cities/{location.url_slug}/venues/{url_slug}` (verified against `/3/venue`'s `links.web`), `_geoloc`, `max_party_size`, and `url_slug` / `city_slug` (kept server-side for `/3/venue` lookups in stage 7).
+Map each hit to `Venue` (see stage 5): `id.resy`, `name`, `neighborhood`, `city` (`location.name`), `cuisine`, price range from `price_range_id` using the hit's `currency_symbol`, `rating.average`/`count`, Resy URL `https://resy.com/cities/{location.url_slug}/venues/{url_slug}` (verified against `/3/venue`'s `links.web`), `_geoloc`, `max_party_size`.
 
 Exclude or flag (confirm meanings during the probe; record in Notes):
 
@@ -113,7 +114,7 @@ Result:
 - one exact/strong match → `match: "exact"`;
 - several exact/strong matches → `match: "ambiguous"` with candidates (name, neighborhood, cuisine);
 - only fuzzy hits → `match: "none"` with up to 3 `did_you_mean` candidates. **The agent must never treat these as the user's restaurant**; it asks;
-- no in-radius hits but an exact match outside the radius → `out_of_area: true`;
+- no exact/strong match nearby, but the follow-up search without `geo` finds an exact match → `out_of_area: true` (step 2);
 - no hits → `match: "none"`.
 
 If the user gave a neighborhood and the match is in a different one, set `neighborhood_mismatch: true` so the agent asks before continuing.
@@ -122,26 +123,28 @@ If the user gave a neighborhood and the match is in a different one, set `neighb
 
 - **Names and cuisines are separate fields.** `ReservationQuery.query` is a restaurant name; `ReservationQuery.cuisine` is a cuisine. The model decides which: "Amori" → `query`; "Japanese", "sushi", "Italian" → `cuisine`. If a word could be either, the tool tries name matching first and falls back to cuisine mode when there's no exact/strong name match.
 - **Normalize to Resy's labels.** A small synonym table maps common phrasing to cuisine labels (e.g., "sushi" → Sushi/Japanese, "tacos" → Mexican/Tacos, "pizza" → Pizza/Italian), checked against `search.cuisines[]` facet values seen in responses. Unknown phrasing passes through unchanged.
-- **Request.** Use the structured cuisine filter if probe #11 finds one. Otherwise send the cuisine label as `query` with the largest `per_page` the probe allows (and page 2 if needed).
+- **Request.** Send the cuisine label as free-text `query` with the final payload (`per_page` 20). With `geo.radius`, results are local and ~98–100% match the cuisine (probe #12). With a neighborhood too, the neighborhood is the search text instead (`per_page` 50) and the cuisine is filtered on our side.
 - **Post-filter.** Keep only in-radius hits whose `cuisine` list contains the label (case-insensitive). Step 4 name matching is skipped in this mode, so "japanese" never ends in "no match."
-- **Keep Resy's order.** After the area filter (plus the named neighborhood, if given) and the step 3 filters, take the first 10 bookable venues in Resy's order for slot fetching. Free-text ranking favors names containing the cuisine word, so switch to the structured cuisine filter if probe #11 finds one.
+- **Keep Resy's order.** After the area filter (plus the named neighborhood, if given) and the step 3 filters, take the first 10 bookable venues in Resy's order.
 - **Thin results.** If fewer than ~3 venues have availability, say so and offer to widen the time window or drop the neighborhood filter.
 
 ### 6. `search_availability` tool (`app/agent/tools/search_availability.py`)
 
-Args: `ReservationQuery` (`query`, `cuisine`, and/or `neighborhood`; optional `date`, `party_size`, `time_start`, `time_end`, `requested_time`, `time_precision`). Location and timezone come from the run config, not tool args.
+Args: `ReservationQuery` (`query`, `cuisine`, `neighborhood`, and/or `venue_id`; optional `date`, `party_size`, `time_start`, `time_end`, `requested_time`, `time_precision`). Location and timezone come from the run config, not tool args.
 
-Two modes:
+Modes:
 
+- **Venue by ID** (`venue_id` given, e.g. a venue chosen earlier or from the calendar): no search. `GET /3/venue?id=` for venue info, then `/4/find` for slots (when `date` and `party_size` are present).
 - **Venue resolution only** (no `date` or no `party_size`): search and match, no slot fetching. Used when the user named a restaurant but details are missing.
 - **Availability** (`date` and `party_size` present): search, then slots.
-  - Name search: fetch slots only for an `exact` match. If `ambiguous` or `none`, return candidates without slots.
+  - Name search: show slots only for an `exact` match. If `ambiguous` or `none`, return candidates without slots.
   - Cuisine search: slots for the first 10 after step 5 filtering, in Resy's order.
-  - Area search (no name or cuisine): slots for the first in-area venues in Resy's order, or a named neighborhood's venues (cap 10).
-  - Slots come either from the search results (Capture 3: hits include slots when the payload has `availability: true` + `slot_filter`) or from `/4/find` per venue; decide during the probe. Search slots have no `size` (party-size fit unknown until `/4/find`, unless probe #8 shows search already filters by party size) and take their payment status from the hit's templates. `/4/find` per venue: (semaphore 4, per-call timeout). `/4/find` (POST) is verified with `lat=0`/`long=0`, so it needs no coordinates. Ignore its `travel_time.distance` (meaningless with 0/0). A day can have 150+ slots, so group by seating type and send only slots inside the time window (max 8 per venue).
-  - Slot filters: drop slots whose `size {min, max}` excludes the party size. Slots with `requires_payment` (from the slot's `payment` object in `/4/find`, or its template in search results) or `bookable: false` (slot-level `is_global_dining_access`, `exclusive.is_eligible: false`, null token) can be shown but are never prepared or booked. Dedupe slots by `config_token`; seating types come from the token's last segment (several `config.id`s at one time can be the same seating type on different tables).
+  - Neighborhood search (no name or cuisine): slots for the neighborhood's venues in Resy's order (cap 10). A search needs a restaurant name, cuisine, neighborhood, or `venue_id` (`ReservationQuery` rejects none of them); with none, the agent asks the user what or where first.
+  - **Slots come from the search results** (hits include `availability.slots` + `templates`). Search already filters slots by party size (probe #8; tokens carry the requested party size), so no `/4/find` per venue. Payment status comes from the hit's templates. `/4/find` is used only in the venue-by-ID mode (it's the endpoint resy.com calls on a venue page); it's verified with `lat=0`/`long=0`, and its `travel_time.distance` is ignored.
+  - A day can have 150+ slots, so group by seating type and send only slots inside the time window (max 8 per venue).
+  - Slot filters: for `/4/find` slots, drop slots whose `size {min, max}` excludes the party size. Slots with `requires_payment` (from the slot's `payment` object in `/4/find`, or its template in search results) or `bookable: false` (slot-level `is_global_dining_access`, `exclusive.is_eligible: false`, null token) can be shown but are never prepared or booked. Dedupe slots by `config_token`; seating types come from the token's last segment (several `config.id`s at one time can be the same seating type on different tables).
 
-Short slot IDs: long config tokens stay server-side in an in-memory TTL cache (15 min) keyed by conversation. `prepare_booking` (stage 9) takes `slot_id`. An expired slot means "search again."
+Short slot IDs: long config tokens stay server-side in the in-memory slot-ID map (15-min expiry) keyed by conversation. `prepare_booking` (stage 9) takes `slot_id`. An expired slot means "search again."
 
 Compact output (JSON string):
 
@@ -151,7 +154,7 @@ Compact output (JSON string):
 - `nearby_times` when the exact time isn't available;
 - count of venues checked with no availability; `partial: true` if some slot lookups failed.
 
-Caching: search results ≈ 6h keyed by normalized query/cuisine + rounded location (2 decimals) + page size, **only if the probe shows `slot_filter` doesn't change which venues are returned**; otherwise include day + party size in the key and cap TTL at 60s. Slot data ≤ 45s.
+Caching: no Resy response caching (see CLAUDE.md); only the slot-ID map.
 
 ### 7. Time window rules
 
@@ -179,6 +182,7 @@ Principles:
 
 | User gave                                                         | Agent does                                                                                                                                                      | Stops at                     |
 | ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| No restaurant, cuisine, or neighborhood ("table for 2 tonight")   | Ask where or what they'd like (a restaurant, cuisine, or neighborhood), plus any other missing details, in one message                                           | User answers                 |
 | Any search request, no location shared                            | Ask the user to tap "Use my location" (plus any other missing details, in the same message)                                                                     | User shares                  |
 | Another city ("book in San Francisco")                            | Explain this version only books near the user's location; other cities are planned                                                                              | —                            |
 | Venue + date + exact time + party size                            | Search → exact slot exists → `prepare_booking` → `book`                                                                                                         | Confirmation card, same turn |
@@ -222,10 +226,12 @@ Add the routing table and time-window rules above. Present results grouped by re
 
 ### 12. Tracing and latency
 
+_(Covered by the LangChain callback's LLM and tool spans; the Resy-call child spans, error-type tags, and per-turn timing metadata below were not built. See Notes.)_
+
 - Tool calls appear as spans via the LangChain callback.
-- Each Resy HTTP call is its own Langfuse span with metadata: endpoint, status, `latency_ms`, `cache_hit`, and for search: `mode`, `match`, hit counts before/after radius filtering. Never include headers, tokens, or coordinates; record `location_used: true` and the `city` label only.
+- Each Resy HTTP call is its own Langfuse span with metadata: endpoint, status, `latency_ms`, and for search: `mode`, `match`, hit counts before/after radius filtering. Never include headers, tokens, or coordinates; record `location_used: true` and the `city` label only.
 - Tag traces with Resy error types when they occur.
-- Add per-turn timing (time to first token, total tool time, total turn time) to the `usage` event and trace metadata.
+- Record per-turn timing (time to first token, total tool time, total turn time) in trace metadata; the `usage` event keeps its CLAUDE.md fields (`latency_ms` = whole turn).
 
 ### 13. Verify from Render
 
@@ -233,34 +239,35 @@ Run real searches on the deployed app. **If Resy returns 403s or challenge pages
 
 ## Tests
 
-- Payload builder produces the final probe-approved payload (no `highlight`, Tock excluded, `geo` = user location).
+- Payload builder produces the final payload (Tock excluded, `geo` = user location with `radius` = `SEARCH_RADIUS_KM` × 1000, `availability`/`slot_filter` only with date + party size, `per_page` 10 or 20).
 - Location: missing location → `location_required`; hits outside `SEARCH_RADIUS_KM` excluded; Resy's order preserved after radius filtering; `city` label from in-radius hits; coordinates rounded and absent from tool output and traces.
 - Neighborhoods: "West Village" matches hits with that `neighborhood`; alias "LES" matches "Lower East Side"; unknown neighborhood returns `neighborhoods_seen`.
-- Out of area: exact name match only outside the radius → `out_of_area: true`.
+- Out of area: no match nearby, follow-up search without `geo` finds an exact match → `out_of_area: true` with its city; follow-up is skipped when a nearby exact/strong match exists.
 - Name matching: "amori" vs `venue-search-amori.json` → `none` with "Mori" in `did_you_mean`; "Amor Loco" vs `venue-search-amor-loco.json` → `exact`; two exact matches → `ambiguous`; match in another neighborhood → `neighborhood_mismatch`.
 - Filtering (`venue-search-geo.json`): Tock hit (icca) excluded; party above `max_party_size` excluded; recaptcha/concierge hits marked `bookable_via_agent: false`; venue-level Global Dining Access (Le Gratin) stays bookable; paid slots (Artesano lunch, Holywater) never prepared; future `reopen.date` excluded; past `reopen.date` (Amor Loco in `venue-search-amor-loco.json`) kept.
-- Cuisine mode: "japanese" fixture (captured during probe #12) → only hits with "Japanese" in `cuisine` kept; no name-matching "none" result; synonym table maps "sushi" to the right label.
+- Cuisine mode: `venue-search-japanese.json` (probe #12) → only hits with "Japanese" in `cuisine` kept; no name-matching "none" result; synonym table maps "sushi" to the right label.
 - Ambiguous word: exact name match wins over cuisine; no name match falls back to cuisine mode.
 - Time windows: each row maps to the right window in a given timezone; "today" uses the request timezone.
 - Venue-resolution mode fetches no slots.
 - Search never calls `/3/details` (especially not `commit: 1`).
-- `partial` flag when some slot lookups fail; slot IDs resolve from cache; cache hit on repeat.
+- `partial` flag when some slot lookups fail; slot IDs resolve from the slot-ID map; expired IDs → search again.
+- `venue_id` mode calls `/3/venue?id=` + `/4/find` and never searches.
 - Graph with a fake model that emits a tool call routes `call_model → tools → call_model → END`.
 - A `ResyError` inside the tool becomes a friendly tool message.
 - Frontend: location chip states (granted, denied, timeout) with a mocked `navigator.geolocation`; `user_location` attached only when on; tool indicator renders on `tool_start` and clears on `tool_end`.
 
 ## Exit criteria
 
-- [ ] Probe results recorded; final payload documented in Notes and PLAN.md.
-- [ ] Without location shared, a search request asks the user to share location; with it shared, results are within the radius.
-- [ ] "Table for 2 in the West Village Friday, 7–9pm" (from NYC) returns real open times in the West Village.
-- [ ] "Help me reserve a table for 2 at Amori in West Village on 28th September at 8 PM" either finds the exact venue and the 8:00 slot, or (if only fuzzy hits like "Mori") asks "did you mean…" / says it isn't on Resy nearby. It never proceeds with the wrong restaurant.
-- [ ] "I feel like eating Japanese today" asks for party size (offering time/neighborhood defaults) in one message, then returns nearby Japanese restaurants filtered by cuisine and area, in Resy's order, with tonight's times.
-- [ ] Asking for another city gets the out-of-scope explanation.
-- [ ] Venue-only and missing-party-size requests ask a single combined question.
-- [ ] Langfuse trace shows LLM → tool → Resy HTTP spans with latency, cache hits, and match results, and no coordinates.
-- [ ] Resy works from Render's IPs (or the issue is raised with the user).
-- [ ] Tests green, no network in tests.
+- [x] Probe results recorded; final payload documented in Notes and PLAN.md.
+- [x] Without location shared, a search request asks the user to share location; with it shared, results are within the radius.
+- [x] "Table for 2 in the West Village Friday, 7–9pm" (from NYC) returns real open times in the West Village.
+- [x] "Help me reserve a table for 2 at Amori in West Village on 28th September at 8 PM" either finds the exact venue and the 8:00 slot, or (if only fuzzy hits like "Mori") asks "did you mean…" / says it isn't on Resy nearby. It never proceeds with the wrong restaurant.
+- [x] "I feel like eating Japanese today" asks for party size (offering time/neighborhood defaults) in one message, then returns nearby Japanese restaurants filtered by cuisine and area, in Resy's order, with tonight's times.
+- [x] Asking for another city gets the out-of-scope explanation.
+- [x] Venue-only and missing-party-size requests ask a single combined question.
+- [x] Langfuse trace shows LLM → tool spans with latency, and no coordinates (Resy-call child spans not built; see Notes).
+- [x] Resy works from Render's IPs (or the issue is raised with the user).
+- [x] Tests green, no network in tests.
 
 ## Out of scope
 
@@ -268,4 +275,31 @@ Venue details, calendar, booking, dashboard, city picker, other cities, geocodin
 
 ## Notes
 
-_(Fill in: probe results table, final payload, flag meanings confirmed, radius behavior, observed latencies, Render/IP findings.)_
+- **Changed from stage 5:** `ResyClient.get_venue` now takes a `venue_id` (`GET /3/venue?id=`) instead of `url_slug` + `location`, and `Venue` no longer carries `url_slug` / `city_slug`. Reason: `/3/venue?id=` was verified (2026-09-27; `venue-by-id.json`, identical response to the slug lookup), so the `venue_id` mode and stage 7 can look venues up directly instead of caching slugs from earlier searches.
+- **No Resy response caching** (decided at stage start): low-traffic one-week demo, and availability caches would be ≤ 60s, so hits would be rare. Only the slot-ID map (15-min expiry) is kept; CLAUDE.md updated.
+
+- **Payload probe** (2026-09-27, local, `uv run python -m scripts.resy_probe --payloads`; probe point Lower Manhattan, day 2026-10-04, party 2; search-page payload unless noted):
+
+  | #   | Variant                                   | Result                                                                                                     |
+  | --- | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+  | 1   | `query: "amori"`                          | 3 hits (Mori, Amor Loco, Amorina Cucina Rustica), all with slots, 390 ms                                   |
+  | 3   | `include_tock_inventory` false / removed  | Tock gone either way (total 2724 → 2603)                                                                   |
+  | 5   | `per_page` 10 / 20 / 50 / 100             | 10, 20, 50 returned; 100 → capped at **75**. ~400 ms (10–20), ~1 s (50+)                                   |
+  | 6   | `geo` removed                             | Global results (Naples, Miami Beach, …): `geo` is required                                                 |
+  | 8   | party 2 vs party 6                        | Totals differ (2724 vs 2486) and slot tokens carry the requested party size: **search filters by party size** |
+  | 9   | `page: 2`                                 | Works; no overlap with page 1                                                                              |
+  | 10  | `query: "Mori"`                           | Mori ranks first (9 hits, all within 15.8 km)                                                              |
+  | 12  | `"japanese"`, `per_page: 50`, pages 1–2   | 225 total; 49/50 and 50/50 have "Japanese" in `cuisine`, only 3 in the name; all within 5.3 km             |
+  | 13  | `"japanese"`, `geo` removed               | Global (Alpharetta, Toronto, …)                                                                            |
+  | 14  | `"amori"`, `geo` without `radius`         | 4 hits, max 19.3 km: some default radius applies                                                           |
+  | 15  | `"Mori"` (1.6 km away), `radius: 1000`    | 0 hits: **`radius` is enforced server-side**, for text queries too                                         |
+  | 16  | `"Mori"`, no `availability`/`slot_filter` | Same names, no slots, 280 ms                                                                               |
+  | —   | area, `radius` 1000 / 16100 / 40000       | totals 161 / 2724 / 3037; area results nearest-first                                                       |
+
+- **Consequences:** with `geo.radius`, text queries are local (Capture 2's "geo doesn't drive ranking" was the typeahead payload without `radius`), so free-text cuisine search already returns ~98–100% cuisine matches nearby; a name outside the radius is only findable by searching without `geo`. Search slots fit the party size, so `/4/find` isn't needed for search results. `/4/find` is what resy.com calls on a venue page (bookable slots and table configs for one venue), which matches its use here: the venue-by-ID mode only.
+- **Japanese fixture:** `venue-search-japanese.json` = #12 page 1 (50 real hits; slots, `content`, collections, and extra images removed; phones scrubbed).
+- **Neighborhoods** (live check, 2026-09-27): area results are nearest-first, so from Lower Manhattan two pages never reach the West Village. Free-text `query: "West Village"` matches the `neighborhood` field (18/20 hits; Williamsburg 17/20, Tribeca 18/19), but `"japanese West Village"` matches either word (1/20 both). So the tool sends the neighborhood as the search text and filters cuisine itself (`per_page` 50 when both are given).
+- **Tracing (step 12):** the LangChain callback's LLM and tool spans (with latency) were judged enough; Resy-call child spans, Resy error-type tags, and per-turn timing metadata were not built (user decision). Verified manually: no coordinates in traces.
+- **Render (step 13):** stage 6 code deployed on Render with the `RESY_*` env vars; real searches returned results with no 403s or challenge pages.
+- **Frontend tests without a DOM:** there's no React Testing Library or jsdom (not in the stack), so the chip/indicator logic lives in pure modules (`src/location.ts`, `src/hooks/streamStatus.ts`, `src/api/chatRequest.ts`) tested with Vitest; the components are thin wrappers and aren't render-tested.
+- **Changed from stage 5:** `ResyClient.venue_search` now builds the final payload (`geo` optional for the global out-of-area search; `availability`/`slot_filter` only with date + party size; `page`), and `SearchResultsRaw` gained `cuisines` (facet labels, used for the ambiguous-word fallback).

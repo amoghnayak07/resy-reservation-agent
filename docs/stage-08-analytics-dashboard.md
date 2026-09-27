@@ -17,7 +17,7 @@
 
 - `GET /api/analytics/summary?days=7|30` → totals (cost, input/output/cached tokens, LLM calls, conversations, avg cost per conversation, avg and p95 turn latency), daily series (cost, tokens), per-model breakdown.
 - `GET /api/analytics/conversations?days=7|30` → one row per conversation: short ID, started at, turns, tokens, cost, avg latency, error count. **No message text.**
-- `GET /api/analytics/tools?days=7|30` → per tool: calls, error rate, p50/p95 latency, cache hit rate.
+- `GET /api/analytics/tools?days=7|30` → per tool: calls, error rate, p50/p95 latency.
 - `days` max 30 (Hobby plan retention).
 
 ### 3. Caching and protection

@@ -248,28 +248,49 @@ async def test_get_details_posts_json_with_commit_flag() -> None:
     assert result.book_token is None
 
 
-async def test_venue_search_posts_captured_geo_payload() -> None:
+async def test_venue_search_posts_final_payload_with_availability() -> None:
     recorder = Recorder(httpx.Response(200, json=fixture("venue-search-geo.json")))
     async with make_client(recorder) as client:
         result = await client.venue_search(
-            lat=40.712941, lng=-74.006393, radius_m=16100, day=date(2026, 10, 22), party_size=2
+            query="",
+            geo=(40.713, -74.006, 40000),
+            day=date(2026, 10, 22),
+            party_size=2,
         )
 
-    assert json.loads(recorder.requests[0].content) == fixture("venue-search-geo-request.json")
+    assert json.loads(recorder.requests[0].content) == {
+        "availability": True,
+        "geo": {"latitude": 40.713, "longitude": -74.006, "radius": 40000},
+        "include_tock_inventory": False,
+        "order_by": "availability",
+        "page": 1,
+        "per_page": 20,
+        "query": "",
+        "slot_filter": {"day": "2026-10-22", "party_size": 2},
+        "types": ["venue"],
+    }
     assert len(result.search.hits) == 8
 
 
-async def test_get_venue_sends_slug_params() -> None:
-    recorder = Recorder(httpx.Response(200, json=fixture("venue.json")))
+async def test_venue_search_without_date_or_geo_omits_those_fields() -> None:
+    recorder = Recorder(httpx.Response(200, json=fixture("venue-search-amori.json")))
     async with make_client(recorder) as client:
-        result = await client.get_venue("brooklyn-chop-house-downtown-fidi", "new-york-ny")
+        await client.venue_search(query="Mori", geo=None, per_page=10)
+
+    body = json.loads(recorder.requests[0].content)
+    assert "geo" not in body
+    assert "availability" not in body and "slot_filter" not in body
+    assert (body["query"], body["per_page"]) == ("Mori", 10)
+
+
+async def test_get_venue_sends_id_param() -> None:
+    recorder = Recorder(httpx.Response(200, json=fixture("venue-by-id.json")))
+    async with make_client(recorder) as client:
+        result = await client.get_venue(87134)
 
     request = recorder.requests[0]
     assert (request.method, request.url.path) == ("GET", "/3/venue")
-    assert dict(request.url.params) == {
-        "url_slug": "brooklyn-chop-house-downtown-fidi",
-        "location": "new-york-ny",
-    }
+    assert dict(request.url.params) == {"id": "87134"}
     assert result.id.resy == 87134
 
 

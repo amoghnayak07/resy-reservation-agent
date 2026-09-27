@@ -14,7 +14,7 @@ Columns: `id` (UUID PK), `conversation_id`, `session_id` (indexed), `venue_id`, 
 ### 2. `prepare_booking` tool (`app/agent/tools/prepare_booking.py`)
 
 - Args: `slot_id` (from `search_availability` output).
-- Resolve `slot_id` from the cache; if missing/expired → return "That time is no longer held, please search again."
+- Resolve `slot_id` from the slot-ID map; if missing/expired → return "That time is no longer held, please search again."
 - Call `ResyClient.get_details` with `commit: 1` (never cached) to get the payment/cancellation details and `book_token {value, date_expires}` in one call (verified: `commit: 1` returns both). `commit: 1` may hold the table, so call it only here and in the confirm flow.
 - **Free reservations only.** Proceed only when `BookingDetails.is_free` is true: `payment.config.type == "free"`, `payment.amounts.total == 0`, and `cancellation.fee` is null. Anything else (deposit, prepayment, card required for a no-show fee) → no pending booking; explain and link to the venue on Resy. A slot already marked `requires_payment` in search is refused before calling details. The verified manual booking needed no payment method, so free reservations need no card.
 - Otherwise insert a `pending_bookings` row with `book_token`, `book_token_expires` (from `date_expires`), and `expires_at` = now + 10 min (the user's decision window). The book token may expire sooner; stage 10 refreshes it at confirm time.

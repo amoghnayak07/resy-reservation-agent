@@ -86,7 +86,6 @@ def test_search_hit_maps_to_venue() -> None:
     assert (
         venue.url == "https://resy.com/cities/new-york-ny/venues/brooklyn-chop-house-downtown-fidi"
     )
-    assert (venue.url_slug, venue.city_slug) == ("brooklyn-chop-house-downtown-fidi", "new-york-ny")
     assert (venue.lat, venue.lng) == (40.71164941860875, -74.00596236132077)
     assert venue.bookable_via_agent is True
 

@@ -124,7 +124,7 @@ Sections:
 - Hot-table sniping / Priority Notify (not planned).
 - Multi-platform support (not planned; the Scale answer explains what it would take).
 - Automated evals in CI (manual eval script instead).
-- Rate limits and caches are in-memory (single instance; reset on restart).
+- Rate limits and the slot-ID map are in-memory (single instance; reset on restart). Resy responses aren't cached.
 - Reservations only near the user's current location (~40 km radius); location permission required; no city picker (planned first after the build) and no other-city bookings or geocoding.
 - English only.
 
