@@ -3,6 +3,7 @@ reaches api.resy.com, /3/book is never called, and no reservation is made."""
 
 import copy
 import json
+import time
 import uuid
 from datetime import datetime, timedelta
 from typing import Any
@@ -12,7 +13,7 @@ import pytest
 from langchain_core.runnables import RunnableConfig
 
 from app.agent.tools.prepare_booking import SLOT_EXPIRED, make_prepare_booking_tool
-from app.agent.tools.slot_ids import SlotIdMap, SlotRef
+from app.agent.tools.slot_ids import SLOT_ID_TTL_SECONDS, SlotIdMap, SlotRef
 from app.db.models import PendingBooking
 from app.resy.client import ResyClient
 from tests.fakes import FakePendingBookingRepository
@@ -126,7 +127,8 @@ async def test_session_and_conversation_come_from_run_config_not_args() -> None:
 
 async def test_missing_or_expired_slot_id_says_search_again() -> None:
     h = Harness()
-    h.slot_map.add(CONVERSATION_ID, slot_ref(), now=0.0)  # long expired
+    # Relative to the monotonic clock: its zero is arbitrary (e.g. boot time on a fresh CI runner).
+    h.slot_map.add(CONVERSATION_ID, slot_ref(), now=time.monotonic() - SLOT_ID_TTL_SECONDS - 1)
 
     _, missing = await h.call({"slot_id": "s99"})
     _, expired = await h.call({"slot_id": "s1"})
