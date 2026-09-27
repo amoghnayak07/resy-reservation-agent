@@ -44,9 +44,8 @@ jobs:
   deploy-frontend:
     needs: checks
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
+    # Runs from the repo root: the Vercel project's Root Directory setting (`frontend`, fetched by
+    # `vercel pull`) picks the subfolder. Running from frontend/ would resolve frontend/frontend.
     env:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
