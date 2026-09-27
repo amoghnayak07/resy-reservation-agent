@@ -70,12 +70,12 @@ Add Vitest, add `npm test` to CI. Test the SSE parser (split chunks, multiple ev
 
 ## Exit criteria
 
-- [ ] Deployed app: chat works end to end with streaming and usage badges.
-- [ ] Rate limit and budget errors show friendly messages in the UI (test by lowering limits temporarily).
-- [ ] Wake-up banner appears on a cold Render instance and clears when healthy.
-- [ ] Opening a new tab starts a fresh session; conversations list is per tab.
-- [ ] Vitest runs in CI.
-- [ ] Layout usable on a phone-width screen.
+- [x] Deployed app: chat works end to end with streaming and usage badges.
+- [x] Rate limit and budget errors show friendly messages in the UI (test by lowering limits temporarily).
+- [x] Wake-up banner appears on a cold Render instance and clears when healthy.
+- [x] Opening a new tab starts a fresh session; conversations list is per tab.
+- [x] Vitest runs in CI.
+- [x] Layout usable on a phone-width screen.
 
 ## Out of scope
 
@@ -83,4 +83,10 @@ Resy, tools, dashboard, booking.
 
 ## Notes
 
-_(Fill in during the build.)_
+- `SpendGuard` follows the same Protocol + Sql/Fake split as `ConversationRepository` (stage 3), so chat tests stay Postgres-free; the fake lives in `tests/fakes.py`.
+- Cost is recorded per LLM call end event, not once per turn -- correct today (one call per turn) and forward-compatible once stage 6 adds a tool loop with multiple calls per turn.
+- `message_too_long` needed a dedicated error code distinct from generic `validation_error`: the handler matches on Pydantic's `string_too_long` error type and `loc[-1] == "message"` (verified the exact shape via FastAPI's `RequestValidationError.errors()`, not guessed).
+- OpenAI errors (`RateLimitError`, `APITimeoutError`, `APIConnectionError`) are imported directly from the `openai` package, left as a transitive dependency (via `langchain-openai`) rather than added to `pyproject.toml` -- decided not worth the explicit pin.
+- Frontend `MAX_MESSAGE_CHARS` is a hardcoded client-side constant (1000, matching the backend default): the frontend has no way to read the backend's setting (its only env var is `VITE_API_BASE_URL`), so it's a soft counter -- the server's 422 is the real limit.
+- `eslint-plugin-react-hooks@7.1.1`'s new `purity`/`set-state-in-effect` rules flag impure calls (`Date.now()`) during render and setState calls made directly in an effect body. Fixed with `useEffectEvent` for the impure logic, plus wrapping both the immediate and recurring health checks in a callback boundary (`setTimeout`/`setInterval`) rather than calling directly at the top of the effect -- worth knowing for later stages' hooks (stage 6 adds more effects for the location chip and tool indicators).
+- Usage badges only show for messages streamed live in the current tab; reloaded conversations show no usage data (no usage persistence -- explicit scope decision, not a bug).

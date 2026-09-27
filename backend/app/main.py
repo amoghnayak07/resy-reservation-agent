@@ -9,7 +9,7 @@ from app.api.chat import router as chat_router
 from app.api.conversations import router as conversations_router
 from app.config import settings
 from app.errors import register_exception_handlers
-from app.logging_config import configure_logging
+from app.logging_config import configure_logging, log_requests
 from app.observability.langfuse import init_langfuse, shutdown_langfuse
 
 
@@ -34,6 +34,8 @@ def create_app() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+    app.middleware("http")(log_requests)
 
     register_exception_handlers(app)
 

@@ -9,9 +9,10 @@ from langchain_core.language_models.fake_chat_models import FakeListChatModel
 from langgraph.checkpoint.memory import MemorySaver
 
 from app.agent.graph import build_graph
-from app.api.deps import get_conversation_repository, get_graph
+from app.api.deps import get_conversation_repository, get_graph, get_spend_guard
+from app.config import settings
 from app.main import create_app
-from tests.fakes import FakeConversationRepository, RecordingGraph
+from tests.fakes import FakeConversationRepository, FakeSpendGuard, RecordingGraph
 
 SESSION_ID = str(uuid.uuid4())
 
@@ -47,6 +48,7 @@ def client(recording_graph: RecordingGraph) -> Iterator[TestClient]:
     app = create_app()
     app.dependency_overrides[get_graph] = lambda: recording_graph
     app.dependency_overrides[get_conversation_repository] = lambda: FakeConversationRepository()
+    app.dependency_overrides[get_spend_guard] = lambda: FakeSpendGuard()
     yield TestClient(app)
     app.dependency_overrides.clear()
 
@@ -134,3 +136,27 @@ def test_chat_with_unknown_conversation_id_returns_404(client: TestClient) -> No
     response = _post_chat(client, conversation_id=str(uuid.uuid4()))
     assert response.status_code == 404
     assert response.json()["error"]["code"] == "not_found"
+
+
+def test_over_daily_budget_returns_429(client: TestClient) -> None:
+    client.app.dependency_overrides[get_spend_guard] = lambda: FakeSpendGuard(over_cap=True)  # type: ignore[attr-defined]
+    response = _post_chat(client)
+    assert response.status_code == 429
+    assert response.json()["error"]["code"] == "daily_budget_reached"
+
+
+def test_message_too_long_returns_422_message_too_long(client: TestClient) -> None:
+    response = _post_chat(client, message="a" * (settings.max_message_chars + 1))
+    assert response.status_code == 422
+    assert response.json()["error"]["code"] == "message_too_long"
+
+
+async def test_conversation_at_turn_limit_returns_409(client: TestClient) -> None:
+    fake_repo = FakeConversationRepository()
+    conversation = await fake_repo.create(SESSION_ID)
+    conversation.message_count = settings.max_turns_per_conversation
+    client.app.dependency_overrides[get_conversation_repository] = lambda: fake_repo  # type: ignore[attr-defined]
+
+    response = _post_chat(client, conversation_id=str(conversation.id))
+    assert response.status_code == 409
+    assert response.json()["error"]["code"] == "conversation_full"

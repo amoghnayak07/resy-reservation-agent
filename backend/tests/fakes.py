@@ -5,6 +5,7 @@ Postgres or a real LLM."""
 import uuid
 from collections.abc import Sequence
 from datetime import UTC, datetime
+from decimal import Decimal
 from typing import Any
 
 from langchain_core.runnables import RunnableConfig
@@ -48,6 +49,24 @@ class FakeConversationRepository:
         conversation.last_message_at = datetime.now(UTC)
         if not conversation.title:
             conversation.title = first_message[:TITLE_MAX_CHARS]
+
+
+class FakeSpendGuard:
+    """In-memory stand-in for SqlSpendGuard: no Postgres, and lets tests force
+    the over-cap path without touching daily_spend."""
+
+    def __init__(self, over_cap: bool = False) -> None:
+        self.over_cap = over_cap
+        self.recorded: list[Decimal] = []
+
+    async def check_cap(self) -> None:
+        if self.over_cap:
+            raise ApiError(
+                429, "daily_budget_reached", "Daily demo budget reached, try again tomorrow."
+            )
+
+    async def record(self, cost_usd: Decimal) -> None:
+        self.recorded.append(cost_usd)
 
 
 class RecordingGraph:

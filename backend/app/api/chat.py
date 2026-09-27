@@ -3,6 +3,7 @@ import logging
 import time
 import uuid
 from collections.abc import AsyncIterator
+from decimal import Decimal
 from typing import Any
 
 from fastapi import APIRouter, Depends
@@ -10,12 +11,21 @@ from fastapi.responses import StreamingResponse
 from langchain_core.messages import AIMessageChunk
 from langchain_core.runnables import RunnableConfig
 from langgraph.graph.state import CompiledStateGraph
+from openai import APIConnectionError, APITimeoutError, OpenAIError, RateLimitError
 
-from app.api.deps import get_conversation_repository, get_graph, get_session_id
+from app.api.deps import (
+    get_conversation_repository,
+    get_graph,
+    get_session_id,
+    get_spend_guard,
+)
 from app.api.message_text import content_to_text
 from app.config import settings
 from app.db.models import Conversation
 from app.db.repository import ConversationRepository
+from app.guards.rate_limit import enforce_rate_limits
+from app.guards.spend import SpendGuard
+from app.guards.turns import check_turn_limit
 from app.observability import langfuse as langfuse_module
 from app.observability.pricing import compute_cost
 from app.schemas.chat import ChatRequest
@@ -33,6 +43,11 @@ def _sse_event(event: str, data: dict[str, Any]) -> str:
     return f"event: {event}\ndata: {json.dumps(data)}\n\n"
 
 
+async def _stream_error(code: str, message: str) -> AsyncIterator[str]:
+    yield _sse_event("error", {"code": code, "message": message})
+    yield _sse_event("done", {})
+
+
 async def _get_or_create_conversation(
     repo: ConversationRepository, conversation_id: uuid.UUID | None, session_id: str
 ) -> Conversation:
@@ -41,14 +56,18 @@ async def _get_or_create_conversation(
     return await repo.get_owned(conversation_id, session_id)
 
 
-@router.post("")
+@router.post("", dependencies=[Depends(enforce_rate_limits)])
 async def chat(
     body: ChatRequest,
     session_id: str = Depends(get_session_id),
     repo: ConversationRepository = Depends(get_conversation_repository),
     graph: CompiledStateGraph = Depends(get_graph),
+    spend: SpendGuard = Depends(get_spend_guard),
 ) -> StreamingResponse:
+    await spend.check_cap()
+
     conversation = await _get_or_create_conversation(repo, body.conversation_id, session_id)
+    check_turn_limit(conversation)
 
     location_used = body.user_location is not None
     location: dict[str, float] | None = None
@@ -76,6 +95,7 @@ async def chat(
                     "location": location,
                 },
                 "callbacks": [handler],
+                "recursion_limit": 12,
             }
 
             start = time.monotonic()
@@ -84,6 +104,7 @@ async def chat(
             input_tokens = 0
             cached_tokens = 0
             output_tokens = 0
+            total_cost = Decimal("0")
             model_name = settings.openai_model
 
             try:
@@ -110,27 +131,52 @@ async def chat(
                         output = event["data"].get("output")
                         usage_metadata = getattr(output, "usage_metadata", None)
                         if usage_metadata:
-                            input_tokens += usage_metadata.get("input_tokens", 0)
-                            output_tokens += usage_metadata.get("output_tokens", 0)
-                            cached_tokens += (
-                                usage_metadata.get("input_token_details", {}) or {}
-                            ).get("cache_read", 0)
-                        response_metadata = getattr(output, "response_metadata", None) or {}
-                        model_name = response_metadata.get("model_name", model_name)
+                            call_input = usage_metadata.get("input_tokens", 0)
+                            call_output = usage_metadata.get("output_tokens", 0)
+                            call_cached = (usage_metadata.get("input_token_details", {}) or {}).get(
+                                "cache_read", 0
+                            )
+                            input_tokens += call_input
+                            output_tokens += call_output
+                            cached_tokens += call_cached
+                            response_metadata = getattr(output, "response_metadata", None) or {}
+                            model_name = response_metadata.get("model_name", model_name)
+                            call_cost = compute_cost(
+                                model_name, call_input, call_cached, call_output
+                            )
+                            total_cost += call_cost
+                            await spend.record(call_cost)
+            except RateLimitError:
+                logger.exception("chat stream failed: openai rate limited")
+                async for chunk in _stream_error(
+                    "llm_rate_limited",
+                    "The AI service is busy right now. Please try again shortly.",
+                ):
+                    yield chunk
+                return
+            except (APITimeoutError, APIConnectionError):
+                logger.exception("chat stream failed: openai timeout/connection")
+                async for chunk in _stream_error(
+                    "llm_unavailable", "The AI service timed out. Please try again."
+                ):
+                    yield chunk
+                return
+            except OpenAIError:
+                logger.exception("chat stream failed: openai error")
+                async for chunk in _stream_error(
+                    "llm_error", "The AI service returned an error. Please try again."
+                ):
+                    yield chunk
+                return
             except Exception:
                 logger.exception("chat stream failed")
-                yield _sse_event(
-                    "error",
-                    {
-                        "code": "internal_error",
-                        "message": "Something went wrong. Please try again.",
-                    },
-                )
-                yield _sse_event("done", {})
+                async for chunk in _stream_error(
+                    "internal_error", "Something went wrong. Please try again."
+                ):
+                    yield chunk
                 return
 
             end = time.monotonic()
-            cost = compute_cost(model_name, input_tokens, cached_tokens, output_tokens)
             yield _sse_event(
                 "usage",
                 {
@@ -138,7 +184,7 @@ async def chat(
                     "input_tokens": input_tokens,
                     "cached_tokens": cached_tokens,
                     "output_tokens": output_tokens,
-                    "cost_usd": float(cost),
+                    "cost_usd": float(total_cost),
                     "latency_ms": int((end - start) * 1000),
                     "ttft_ms": int((first_token_at - start) * 1000) if first_token_at else None,
                 },

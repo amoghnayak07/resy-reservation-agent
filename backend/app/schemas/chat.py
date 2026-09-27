@@ -3,6 +3,8 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from pydantic import BaseModel, Field, field_validator
 
+from app.config import settings
+
 
 class UserLocation(BaseModel):
     lat: float = Field(ge=-90, le=90)
@@ -12,7 +14,7 @@ class UserLocation(BaseModel):
 
 class ChatRequest(BaseModel):
     conversation_id: UUID | None = None
-    message: str = Field(min_length=1)
+    message: str = Field(min_length=1, max_length=settings.max_message_chars)
     timezone: str
     user_location: UserLocation | None = None
 

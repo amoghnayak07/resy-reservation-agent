@@ -7,6 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.engine import get_db
 from app.db.repository import ConversationRepository, SqlConversationRepository
 from app.errors import ApiError
+from app.guards.spend import SpendGuard, SqlSpendGuard
 
 
 async def get_session_id(
@@ -29,3 +30,7 @@ async def get_conversation_repository(
     db: AsyncSession = Depends(get_db),
 ) -> ConversationRepository:
     return SqlConversationRepository(db)
+
+
+async def get_spend_guard(db: AsyncSession = Depends(get_db)) -> SpendGuard:
+    return SqlSpendGuard(db)
