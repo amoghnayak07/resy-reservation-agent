@@ -133,9 +133,9 @@ async def chat(
                         if usage_metadata:
                             call_input = usage_metadata.get("input_tokens", 0)
                             call_output = usage_metadata.get("output_tokens", 0)
-                            call_cached = (
-                                usage_metadata.get("input_token_details", {}) or {}
-                            ).get("cache_read", 0)
+                            call_cached = (usage_metadata.get("input_token_details", {}) or {}).get(
+                                "cache_read", 0
+                            )
                             input_tokens += call_input
                             output_tokens += call_output
                             cached_tokens += call_cached
