@@ -8,7 +8,7 @@ import asyncio
 from langchain_core.runnables import RunnableConfig
 
 from app.agent.graph import build_graph, open_checkpointer
-from app.agent.tools.search_availability import make_search_availability_tool
+from app.agent.tools import make_tools
 from app.resy.client import ResyClient
 
 
@@ -19,7 +19,7 @@ async def main(conversation_id: str, timezone: str, lat: float | None, lng: floa
         else None
     )
     async with ResyClient.from_settings() as resy, open_checkpointer() as checkpointer:
-        graph = build_graph(checkpointer, tools=[make_search_availability_tool(resy)])
+        graph = build_graph(checkpointer, tools=make_tools(resy))
         config: RunnableConfig = {
             "configurable": {
                 "thread_id": conversation_id,

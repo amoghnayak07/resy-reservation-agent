@@ -23,7 +23,7 @@ Update the checkbox when a stage's exit criteria are met and its PR is merged.
 | 4   | Guards + chat UI                        | [stage-04-guards-chat-ui.md](stage-04-guards-chat-ui.md)           | [x]    |
 | 5   | Resy client + pydantic models           | [stage-05-resy-client-models.md](stage-05-resy-client-models.md)   | [x]    |
 | 6   | Search tool + graph tool loop + tracing | [stage-06-search-tool.md](stage-06-search-tool.md)                 | [x]    |
-| 7   | Venue details + venue calendar tools    | [stage-07-venue-details.md](stage-07-venue-details.md)             | [ ]    |
+| 7   | Venue details + venue calendar tools    | [stage-07-venue-details.md](stage-07-venue-details.md)             | [x]    |
 | 8   | Analytics dashboard                     | [stage-08-analytics-dashboard.md](stage-08-analytics-dashboard.md) | [ ]    |
 | 9   | Prepare booking tool                    | [stage-09-prepare-booking.md](stage-09-prepare-booking.md)         | [ ]    |
 | 10  | Book + confirmation gate                | [stage-10-book-confirm.md](stage-10-book-confirm.md)               | [ ]    |
