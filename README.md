@@ -10,7 +10,7 @@ A chat agent that turns natural-language requests ("table for 2 in the Financial
 > **Before you try it**
 >
 > - **The first load can take about a minute.** The backend runs on Render's free tier and sleeps after 15 idle minutes.
-> - **Allow location access** (tap "Use my location"). This version only searches and books restaurants within about 25 mi of you.
+> - **Choose your city first.** On first visit, pick a country and city (Resy's own list); the agent searches and books there, in that city's local time. Change it anytime from the location chip at the top right.
 
 ## Contents
 
@@ -28,7 +28,7 @@ A chat agent that turns natural-language requests ("table for 2 in the Financial
 
 Real conversations with the deployed agent in New York, including a real reservation it booked (cancelled afterwards).
 
-**1. Finding a table.** A cuisine search near the user: the agent asks for location first, lists nearby Japanese restaurants in Resy's order, then shows open times for the one the user picks and asks which time and seating they want.
+**1. Finding a table.** A cuisine search in the selected city: the agent lists Japanese restaurants in Resy's order, then shows open times for the one the user picks and asks which time and seating they want.
 
 ![Searching for Japanese restaurants and checking times at Susukino Ramen](docs/screenshots/chat-1.png)
 
@@ -55,11 +55,12 @@ Real conversations with the deployed agent in New York, including a real reserva
 ```
 Browser (React + MUI on Vercel)
   │  fetch + X-Session-Id header (sessionStorage guest ID)
-  │  chat body: message, timezone, user_location (only after "Use my location")
+  │  chat body: message, region (city slug from the region picker, kept in localStorage)
   │  SSE-formatted stream for chat
   ▼
 FastAPI on Render (single instance, free tier)
   ├─ guards: rate limits (in-memory), spend cap (Postgres), input limits
+  ├─ /api/regions ──► Resy city list (cached 24h, slimmed)
   ├─ /api/chat ──► LangGraph agent
   │                 ├─ call_model node (OpenAI via langchain-openai)
   │                 ├─ tools node ──► app/resy/ client ──► api.resy.com
@@ -73,7 +74,7 @@ Langfuse Cloud ◄── traces for every LLM call and tool call
 
 **LangGraph flow.** Two nodes: `call_model` and `tools`.
 
-1. `START → call_model`. The system prompt is rebuilt each turn with today's date and a 14-day calendar in the user's timezone, so the model never does weekday math.
+1. `START → call_model`. The system prompt is rebuilt each turn with today's date and a 14-day calendar in the selected city's timezone, so the model never does weekday math.
 2. `call_model → tools` when the model requests tool calls, and back to `call_model` with the results. It ends when the model replies with text.
 3. The `book` tool calls `interrupt()`. The graph pauses, its state is saved by the Postgres checkpointer, and the chat stream sends a `confirmation_required` event that the UI renders as a confirmation card.
 4. `POST /api/bookings/{id}/confirm` (with the passcode) or `/decline` resumes the graph with `Command(resume=…)`. The outcome streams back in the same SSE format.
@@ -106,7 +107,7 @@ Langfuse Cloud ◄── traces for every LLM call and tool call
 
 **Guest sessions (no authentication).** No authentication (scope cut); each browser tab gets an anonymous guest session ID. It's stored in `sessionStorage` so it's scoped to the tab and cleared on close, which limits how long a leaked ID is useful. Neither `sessionStorage` nor `localStorage` protects against XSS; an `httpOnly` cookie would, but the frontend and backend are on different domains, and cross-site cookies are blocked by many browsers. Fixing that needs a shared domain or proxy, which is out of scope. The session ID never authorizes booking; the demo passcode does.
 
-**Location scope and privacy.** This version books restaurants near you only: searches use your device location (you'll be asked when you tap "Use my location") within about 25 mi. Coordinates are rounded to about 100 m, used only for that request, and never stored, logged, or sent to the analytics service. Other cities and a manual city picker are planned next.
+**Regions and privacy.** Like resy.com, you pick a country and a city from Resy's own city list (`/3/location/config`, cached for 24 hours on the server). The choice is saved in your browser's `localStorage` and shown at the top right. Every request sends only the city's slug; the server looks up the search center, radius, and timezone from Resy's list. The browser never shares its location, and no coordinates are stored, logged, or sent to the analytics service. Asking about another city gets "change your location first", with the location chip highlighted. Slot times use each venue's own city timezone.
 
 ## Agent tools and the confirmation gate
 
@@ -166,7 +167,7 @@ Traces never contain coordinates, the passcode, or Resy tokens. Logs are structu
 
 - **One user, not every visitor.** No sign-in; bookings use one personal Resy account and require the demo passcode. Each browser tab gets an anonymous guest session (`sessionStorage`), which identifies conversations but never authorizes a booking. Cut to build and validate the reservation flow first; per-user sign-in and Resy account linking are the next version.
 - **Free reservations only.** Reservations that require payment, a card on file, or a cancellation fee are refused with a link to book on Resy. Supporting them needs card handling and deposit flows, which is more engineering than fits this version.
-- **Near you only.** Searches stay within about 25 mi of the device location; location permission is required. No city picker, no other-city bookings, no geocoding.
+- **One city at a time.** Searches stay within the selected Resy city (its center and radius); switching cities applies to the next message. No free-text geocoding ("near the Eiffel Tower") or device geolocation.
 - **Free-tier hosting.** Render sleeps after 15 idle minutes (about a minute to wake); Supabase pauses after 7 idle days. No keep-alive jobs (budget).
 - **Single instance.** Rate limits and the slot-ID map are in memory and reset on restart. Resy responses aren't cached.
 - **No canary or alerting** (budget). Breakage shows up as typed Resy errors in logs and Langfuse traces.
@@ -179,7 +180,7 @@ Traces never contain coordinates, the passcode, or Resy tokens. Logs are structu
 
 1. Sign-in for every visitor, with each user linking their own Resy account.
 2. In-app analytics dashboard.
-3. City picker when location is denied, then bookings in other cities (geocoding, per-venue timezones).
+3. Searching near a street address or landmark (geocoding) within the selected city.
 4. List and cancel reservations, reusing the confirmation gate.
 5. Paid reservations (card on file, deposits, cancellation fees).
 6. Automatic Resy token refresh.
@@ -204,7 +205,7 @@ npm run dev
 npm run typecheck && npm run lint && npm run format:check && npm test && npm run build
 ```
 
-Copy each `.env.example` to `.env` and fill in values. `scripts/chat_cli.py` chats with the agent from the terminal; `scripts/resy_probe.py` checks Resy credentials (read-only).
+Copy each `.env.example` to `.env` and fill in values. `uv run python -m scripts.chat_cli --region new-york-ny` chats with the agent from the terminal; `scripts/resy_probe.py` checks Resy credentials (read-only).
 
 ### Environment variables
 
@@ -212,7 +213,7 @@ Backend (`backend/.env`, mirrored on Render):
 
 | Variable                                                                                               | Purpose                                                             |
 | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------- |
-| `APP_ENV`, `CORS_ORIGINS`, `SEARCH_RADIUS_KM` (40)                                                     | Environment tag, allowed frontend origins, search radius            |
+| `APP_ENV`, `CORS_ORIGINS`                                                                              | Environment tag, allowed frontend origins                           |
 | `OPENAI_API_KEY`, `OPENAI_MODEL` (`gpt-6-sol`)                                                         | LLM                                                                 |
 | `DATABASE_URL`                                                                                         | Supabase session pooler, `postgresql+psycopg://…:5432/postgres`     |
 | `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`, `LANGFUSE_HOST`                                          | Tracing                                                             |

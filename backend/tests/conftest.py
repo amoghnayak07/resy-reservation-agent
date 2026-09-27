@@ -24,14 +24,14 @@ def mock_langfuse(monkeypatch: pytest.MonkeyPatch) -> list[dict[str, Any]]:
     async def fake_trace_turn(
         conversation_id: str,
         session_id: str,
-        location_used: bool,
+        region: str,
         tags: list[str] | None = None,
     ) -> AsyncIterator[tuple[FakeCallbackHandler, str]]:
         calls.append(
             {
                 "conversation_id": conversation_id,
                 "session_id": session_id,
-                "location_used": location_used,
+                "region": region,
                 "tags": tags,
             }
         )

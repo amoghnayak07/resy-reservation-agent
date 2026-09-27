@@ -9,12 +9,14 @@ from app.agent.tools import make_tools
 from app.api.bookings import router as bookings_router
 from app.api.chat import router as chat_router
 from app.api.conversations import router as conversations_router
+from app.api.regions import router as regions_router
 from app.config import settings
 from app.db.engine import async_session_maker
 from app.db.pending_bookings import SqlPendingBookingRepository
 from app.errors import register_exception_handlers
 from app.logging_config import configure_logging, log_requests
 from app.observability.langfuse import init_langfuse, shutdown_langfuse
+from app.regions import RegionDirectory
 from app.resy.client import ResyClient
 
 
@@ -23,7 +25,10 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     init_langfuse()
     async with ResyClient.from_settings() as resy, open_checkpointer() as checkpointer:
         bookings = SqlPendingBookingRepository(async_session_maker)
-        app.state.graph = build_graph(checkpointer, tools=make_tools(resy, bookings))
+        app.state.regions = RegionDirectory(resy)
+        app.state.graph = build_graph(
+            checkpointer, tools=make_tools(resy, bookings, app.state.regions)
+        )
         yield
     shutdown_langfuse()
 
@@ -48,6 +53,7 @@ def create_app() -> FastAPI:
     app.include_router(conversations_router)
     app.include_router(chat_router)
     app.include_router(bookings_router)
+    app.include_router(regions_router)
 
     @app.get("/health")
     def health() -> dict[str, str]:

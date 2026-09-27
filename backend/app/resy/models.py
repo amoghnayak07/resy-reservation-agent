@@ -15,9 +15,9 @@ import re
 from datetime import date, datetime, time
 from enum import StrEnum
 from typing import Any, Literal, Self, TypeVar
-from zoneinfo import ZoneInfo
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-from pydantic import BaseModel, ConfigDict, Field, ValidationError, model_validator
+from pydantic import BaseModel, ConfigDict, Field, RootModel, ValidationError, model_validator
 
 from app.resy.errors import ResySchemaError
 
@@ -334,6 +334,27 @@ class BookResponse(_Raw):
     reservation_id: int
     resy_token: str
     venue_opt_in: bool | None = None
+
+
+# --- raw: city list (GET /3/location/config) ------------------------------------------------
+
+
+class LocationConfigCityRaw(_Raw):
+    id: int
+    code: str | None = None
+    name: str
+    url_slug: str
+    country_code: str | None = None
+    country_name: str | None = None
+    latitude: float | None = None
+    longitude: float | None = None
+    radius: float | None = None  # miles (see PLAN.md endpoint table)
+    time_zone: str | None = None
+    show_on_web: int = 0
+
+
+class LocationConfigResponse(RootModel[list[LocationConfigCityRaw]]):
+    """The endpoint returns a bare JSON list of cities."""
 
 
 # --- domain helpers -------------------------------------------------------------------------
@@ -752,3 +773,47 @@ class BookingResult(BaseModel):
     @classmethod
     def from_response(cls, raw: BookResponse) -> Self:
         return cls(reservation_id=raw.reservation_id, resy_token=raw.resy_token)
+
+
+METERS_PER_MILE = 1609.344
+
+
+class City(BaseModel):
+    """A Resy city/region from the city list: the unit users pick in the region selector."""
+
+    slug: str
+    name: str
+    country_code: str
+    country_name: str
+    latitude: float
+    longitude: float
+    radius_miles: float
+    time_zone: str
+    visible: bool
+
+    @property
+    def radius_m(self) -> int:
+        return round(self.radius_miles * METERS_PER_MILE)
+
+    @classmethod
+    def from_raw(cls, raw: LocationConfigCityRaw) -> Self | None:
+        """None for entries missing what search needs (center, radius, time zone) or whose
+        time zone `zoneinfo` can't load."""
+        if raw.latitude is None or raw.longitude is None or not raw.radius or not raw.time_zone:
+            return None
+        try:
+            ZoneInfo(raw.time_zone)
+        except (ZoneInfoNotFoundError, ValueError):
+            logger.warning("resy_city_unknown_time_zone", extra={"endpoint": "/3/location/config"})
+            return None
+        return cls(
+            slug=raw.url_slug,
+            name=raw.name,
+            country_code=raw.country_code or "",
+            country_name=raw.country_name or "",
+            latitude=raw.latitude,
+            longitude=raw.longitude,
+            radius_miles=raw.radius,
+            time_zone=raw.time_zone,
+            visible=raw.show_on_web == 1,
+        )

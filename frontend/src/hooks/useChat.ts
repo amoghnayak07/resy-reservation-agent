@@ -8,7 +8,7 @@ import {
   postChatMessage,
 } from '../api/client'
 import { parseSSEStream } from '../api/sse'
-import type { UsageEvent, UserLocation } from '../api/types'
+import type { UsageEvent } from '../api/types'
 import { cardAfterError, openCard, supersede } from '../booking'
 import type { ConfirmationCardState } from '../booking'
 import { applyStreamEvent, INITIAL_STREAM_STATUS } from './streamStatus'
@@ -35,10 +35,12 @@ function toErrorState(err: unknown): ChatErrorState {
   return { code: 'network_error', message: 'Could not reach the server.' }
 }
 
+// `region` is the selected Resy city slug; chat and booking requests need it. When the backend
+// no longer recognizes it (422 unknown_region), `onUnknownRegion` lets the page reopen the picker.
 export function useChat(
-  timezone: string,
+  region: string | undefined,
   onTurnComplete?: () => void,
-  getLocation?: () => Promise<UserLocation | undefined>,
+  onUnknownRegion?: () => void,
 ) {
   const [conversationId, setConversationId] = useState<string | undefined>(undefined)
   const [messages, setMessages] = useState<ChatMessage[]>([])
@@ -87,8 +89,18 @@ export function useChat(
     [onTurnComplete, updateMessage],
   )
 
+  const reportError = useCallback(
+    (err: unknown) => {
+      const state = toErrorState(err)
+      if (state.code === 'unknown_region') onUnknownRegion?.()
+      setError(state)
+    },
+    [onUnknownRegion],
+  )
+
   const sendMessage = useCallback(
     async (text: string) => {
+      if (!region) return
       setError(null)
       setStreamStatus(INITIAL_STREAM_STATUS)
       const humanMessage: ChatMessage = { id: crypto.randomUUID(), role: 'human', content: text }
@@ -105,24 +117,24 @@ export function useChat(
 
       let response
       try {
-        const location = await getLocation?.()
-        response = await postChatMessage(buildChatRequest(text, timezone, conversationId, location))
+        response = await postChatMessage(buildChatRequest(text, region, conversationId))
       } catch (err) {
         setMessages((prev) => prev.filter((m) => m.id !== assistantId))
         setIsStreaming(false)
-        setError(toErrorState(err))
+        reportError(err)
         onTurnComplete?.()
         return
       }
       await consumeStream(response, assistantId)
     },
-    [conversationId, timezone, onTurnComplete, getLocation, consumeStream],
+    [conversationId, region, onTurnComplete, reportError, consumeStream],
   )
 
   // Confirm (with passcode) or decline the card on message `messageId`; the server resumes the
   // paused booking and streams the outcome into a new assistant message.
   const respondToConfirmation = useCallback(
     async (messageId: string, card: ConfirmationCardState, passcode?: string) => {
+      if (!region) return
       const approved = passcode !== undefined
       setError(null)
       setStreamStatus(INITIAL_STREAM_STATUS)
@@ -134,10 +146,11 @@ export function useChat(
       let response
       try {
         response = approved
-          ? await confirmBooking(card.pendingBookingId, { passcode, timezone })
-          : await declineBooking(card.pendingBookingId, { timezone })
+          ? await confirmBooking(card.pendingBookingId, { passcode, region })
+          : await declineBooking(card.pendingBookingId, { region })
       } catch (err) {
         const { code, message } = toErrorState(err)
+        if (code === 'unknown_region') onUnknownRegion?.()
         updateMessage(messageId, (m) => ({
           ...m,
           confirmation: cardAfterError(card, code, message),
@@ -154,7 +167,7 @@ export function useChat(
       setMessages((prev) => [...prev, { id: assistantId, role: 'ai', content: '' }])
       await consumeStream(response, assistantId)
     },
-    [timezone, updateMessage, consumeStream],
+    [region, updateMessage, consumeStream, onUnknownRegion],
   )
 
   const startNewConversation = useCallback(() => {
@@ -164,8 +177,8 @@ export function useChat(
     setStreamStatus(INITIAL_STREAM_STATUS)
   }, [])
 
-  const clearLocationRequired = useCallback(
-    () => setStreamStatus((prev) => ({ ...prev, locationRequired: false })),
+  const clearRegionChangeRequired = useCallback(
+    () => setStreamStatus((prev) => ({ ...prev, regionChangeRequired: false })),
     [],
   )
 
@@ -183,7 +196,7 @@ export function useChat(
     messages,
     isStreaming,
     streamStatus,
-    clearLocationRequired,
+    clearRegionChangeRequired,
     error,
     clearError,
     sendMessage,

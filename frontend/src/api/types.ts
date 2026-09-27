@@ -11,17 +11,31 @@ export interface ApiErrorBody {
   }
 }
 
-export interface UserLocation {
-  lat: number
-  lng: number
-  accuracy_m: number
-}
-
+// A Resy city slug (e.g. "new-york-ny") from GET /api/regions; the backend resolves it to the
+// search center, radius, and timezone.
 export interface ChatRequestBody {
   conversation_id?: string
   message: string
-  timezone: string
-  user_location?: UserLocation
+  region: string
+}
+
+export interface RegionCity {
+  slug: string
+  name: string
+}
+
+export interface RegionCountry {
+  code: string
+  name: string
+  cities: RegionCity[]
+}
+
+export interface RegionsResponse {
+  countries: RegionCountry[]
+}
+
+export interface RegionChangeRequiredEvent {
+  city?: string
 }
 
 export interface ConversationOut {
@@ -83,11 +97,11 @@ export interface ConfirmationRequiredEvent {
 
 export interface ConfirmBookingBody {
   passcode: string
-  timezone: string
+  region: string
 }
 
 export interface DeclineBookingBody {
-  timezone: string
+  region: string
 }
 
 export interface UsageEvent {
@@ -110,7 +124,7 @@ export type ChatEvent =
   | { event: 'token'; data: TokenEvent }
   | { event: 'tool_start'; data: ToolStartEvent }
   | { event: 'tool_end'; data: ToolEndEvent }
-  | { event: 'location_required'; data: Record<string, never> }
+  | { event: 'region_change_required'; data: RegionChangeRequiredEvent }
   | { event: 'confirmation_required'; data: ConfirmationRequiredEvent }
   | { event: 'usage'; data: UsageEvent }
   | { event: 'error'; data: ErrorEvent }

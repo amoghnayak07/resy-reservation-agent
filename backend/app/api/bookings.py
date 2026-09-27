@@ -13,7 +13,13 @@ from langchain_core.runnables import RunnableConfig
 from langgraph.graph.state import CompiledStateGraph
 from langgraph.types import Command
 
-from app.api.deps import get_graph, get_pending_booking_repository, get_session_id, get_spend_guard
+from app.api.deps import (
+    get_graph,
+    get_pending_booking_repository,
+    get_region_directory,
+    get_session_id,
+    get_spend_guard,
+)
 from app.api.streaming import SSE_HEADERS, GraphRun, pending_confirmations, sse_event
 from app.config import settings
 from app.db.models import PendingBooking
@@ -22,6 +28,8 @@ from app.errors import ApiError
 from app.guards.rate_limit import enforce_confirm_rate_limits
 from app.guards.spend import SpendGuard
 from app.observability import langfuse as langfuse_module
+from app.regions import RegionDirectory, region_config, resolve_region
+from app.resy.models import City
 from app.schemas.bookings import BookingActionRequest, ConfirmBookingRequest
 
 router = APIRouter(prefix="/api/bookings", tags=["bookings"])
@@ -75,7 +83,7 @@ def _resume_stream(
     spend: SpendGuard,
     row: PendingBooking,
     session_id: str,
-    timezone: str,
+    city: City,
     *,
     approved: bool,
 ) -> StreamingResponse:
@@ -83,7 +91,7 @@ def _resume_stream(
         async with langfuse_module.trace_turn(
             conversation_id=str(row.conversation_id),
             session_id=session_id,
-            location_used=False,
+            region=city.slug,
             tags=["booking_attempt" if approved else "booking_declined"],
         ) as (handler, trace_id):
             yield sse_event(
@@ -93,9 +101,7 @@ def _resume_stream(
                 "configurable": {
                     "thread_id": str(row.conversation_id),
                     "session_id": session_id,
-                    "timezone": timezone,
-                    "location_available": False,
-                    "location": None,
+                    **region_config(city),
                 },
                 "callbacks": [handler],
                 "recursion_limit": 12,
@@ -120,14 +126,16 @@ async def confirm_booking(
     bookings: PendingBookingRepository = Depends(get_pending_booking_repository),
     graph: CompiledStateGraph = Depends(get_graph),
     spend: SpendGuard = Depends(get_spend_guard),
+    regions: RegionDirectory = Depends(get_region_directory),
 ) -> StreamingResponse:
     row = await _owned(bookings, booking_id, session_id)
     if not _passcode_ok(body.passcode):
         raise ApiError(403, "invalid_passcode", "That passcode isn't right.")
     await spend.check_cap()
     await _require_paused(graph, row)
+    city = await resolve_region(regions, body.region)
     await _transition(bookings, row, session_id, "confirming")
-    return _resume_stream(graph, bookings, spend, row, session_id, body.timezone, approved=True)
+    return _resume_stream(graph, bookings, spend, row, session_id, city, approved=True)
 
 
 @router.post("/{booking_id}/decline")
@@ -138,9 +146,11 @@ async def decline_booking(
     bookings: PendingBookingRepository = Depends(get_pending_booking_repository),
     graph: CompiledStateGraph = Depends(get_graph),
     spend: SpendGuard = Depends(get_spend_guard),
+    regions: RegionDirectory = Depends(get_region_directory),
 ) -> StreamingResponse:
     row = await _owned(bookings, booking_id, session_id)
     await spend.check_cap()
     await _require_paused(graph, row)
+    city = await resolve_region(regions, body.region)
     await _transition(bookings, row, session_id, "declined")
-    return _resume_stream(graph, bookings, spend, row, session_id, body.timezone, approved=False)
+    return _resume_stream(graph, bookings, spend, row, session_id, city, approved=False)

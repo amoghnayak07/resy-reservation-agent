@@ -9,6 +9,7 @@ from app.db.pending_bookings import PendingBookingRepository, SqlPendingBookingR
 from app.db.repository import ConversationRepository, SqlConversationRepository
 from app.errors import ApiError
 from app.guards.spend import SpendGuard, SqlSpendGuard
+from app.regions import RegionDirectory
 
 
 async def get_session_id(
@@ -25,6 +26,10 @@ async def get_session_id(
 
 def get_graph(request: Request) -> CompiledStateGraph:
     return request.app.state.graph
+
+
+def get_region_directory(request: Request) -> RegionDirectory:
+    return request.app.state.regions
 
 
 async def get_conversation_repository(

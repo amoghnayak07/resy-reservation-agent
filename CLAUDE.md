@@ -39,7 +39,7 @@ A chat agent that turns natural-language requests ("table for 2 in the West Vill
 │  ├─ app/
 │  │  ├─ main.py             # app factory, lifespan, CORS, routers
 │  │  ├─ config.py           # pydantic-settings; all env vars defined here
-│  │  ├─ api/                # routers: health, chat, conversations, analytics, bookings
+│  │  ├─ api/                # routers: health, chat, conversations, analytics, bookings, regions
 │  │  ├─ schemas/            # API request/response models
 │  │  ├─ agent/
 │  │  │  ├─ state.py
@@ -114,7 +114,7 @@ Run all relevant checks before saying a task is done.
 8. **Never render LLM or tool output as raw HTML.** Use a Markdown renderer with raw HTML disabled.
 9. **The guest session ID identifies; it never authorizes.** Every conversation/booking query filters by `session_id`. Booking always requires the passcode.
 10. **Never retry a Resy write automatically.** Reads may retry on 5xx/timeouts with backoff.
-11. **Dates:** all "today" logic uses the user's timezone sent with each chat request (a validated IANA name; required, and there is no server-side default timezone). The system prompt always includes today's date and a 14-day calendar in that timezone; don't rely on the LLM for weekday math.
+11. **Dates:** all "today" logic uses the selected region's timezone (the city's `time_zone` from Resy's city list; the region is required on every request and there is no server-side default). The system prompt always includes today's date and a 14-day calendar in that timezone; don't rely on the LLM for weekday math. Slot times are in the venue's city timezone.
 12. **"Not released yet" ≠ "fully booked."** Dates after a venue's `last_calendar_day` haven't opened; the agent must say so.
 13. **Don't add tools, dependencies outside the stack, or scope** without the user's approval. Deferred tools live in `docs/PLAN.md` → "Decide later."
 14. **No git state changes.** Never run git commands that change the repository (`branch`, `checkout -b`, `add`, `commit`, `push`, `merge`, `rebase`, `reset`, `stash`, `tag`). Read-only commands (`status`, `diff`, `log`) are fine. The user creates branches, commits, pushes, and opens PRs. When work is ready, give a summary of changes and a suggested commit message.
@@ -125,14 +125,14 @@ The full routing table and time-window rules live in `docs/stage-06-search-tool.
 
 - **Resy search is fuzzy.** Never treat a search hit as the user's restaurant unless the name matches (exact/strong match). Fuzzy-only results mean "did you mean…?" or "not on Resy."
 - **Restaurant names and cuisines are different searches.** Names go through name matching; cuisines are filtered by each hit's `cuisine` list.
-- **Show Resy's results in Resy's order.** Results are filtered to the user's area (distance from the user's location to each venue) and by the rules in stage 6, but never re-ranked.
+- **Show Resy's results in Resy's order.** Results are filtered to the selected region (distance from the region's center to each venue, within the region's radius) and by the rules in stage 6, but never re-ranked.
 - **Only free reservations are booked:** booking details must show `payment.config.type == "free"`, `payment.amounts.total == 0`, and no cancellation fee (and the slot itself must not be paid). Anything requiring payment or a card gets an explanation and a Resy link. Free reservations need no payment method.
 - **Resolve the venue before asking questions,** then ask only for what's missing, in one message. Never re-ask for given details or assume a party size.
 - **Never pick an alternative** time, venue, or seating type for the user.
 - **Fully specified request + exact slot available** → `prepare_booking` then `book` in the same turn. The confirmation card is the user's consent; don't ask "shall I book?" first.
 - **Never claim a reservation exists** until `book` succeeds.
 - **Dates without a year** resolve to the next upcoming occurrence. If the date is today and the time has passed, ask.
-- **Searches are local.** No location shared → ask the user to share it. Requests for another city, or restaurants outside the radius, get a clear "this version only books near you" answer.
+- **Searches stay in the selected region.** Requests about another city or country, or restaurants outside the region's radius, get a clear "change your location first" answer pointing to the location selector (top right); never search elsewhere.
 - **Never pass search highlight markup** (e.g., `<b>`) or raw Resy tokens to the LLM.
 
 ---
@@ -145,17 +145,17 @@ The full routing table and time-window rules live in `docs/stage-06-search-tool.
 - The guest session ID is a UUID created with `crypto.randomUUID()`, stored in `sessionStorage`, and sent as the `X-Session-Id` header. No cookies.
 - Client IP for rate limiting comes from the first entry of `X-Forwarded-For` (Render proxy).
 
-**Location and timezone (scope: the user's own area).**
+**Region (location and timezone).**
 
-- Reservations are searched only within `SEARCH_RADIUS_KM` (default 40) of the user's device location. **Location permission is required for searches**; there's no default city and no city picker in this build (planned next). No geocoding.
-- The frontend requests location only when the user taps "Use my location" (`navigator.geolocation`), keeps it in memory for the tab, and sends `user_location: {lat, lng, accuracy_m}` in the chat request body with each message.
-- The chat request body also carries `timezone` (browser IANA name). Since searches are local, it's also the venues' timezone.
-- The backend rounds coordinates to 3 decimals on receipt and passes location and timezone to the graph via run config. **The LLM never sees coordinates.** Coordinates are never stored in the database, logged, or sent to Langfuse; traces record only `location_used` and the city label.
+- The user picks a region like on resy.com: on first visit a modal asks for a **country**, then a **city/region**. Options are the cities in Resy's city list (`GET /3/location/config`) with `show_on_web == 1`, served slimmed by `GET /api/regions`. After both are chosen the modal closes and the region is shown top right; clicking it reopens the modal to change it.
+- The selection (the city's `url_slug`) is stored in `localStorage` and sent as `region` with every request that needs location or time (chat, booking confirm/decline). No device geolocation, no geocoding; the browser sends no coordinates and no timezone.
+- The backend resolves `region` against its cached city list (unknown slug → 422) and never trusts client coordinates. Search center = the city's `latitude`/`longitude`; radius = the city's `radius` (miles) converted to meters; timezone = the city's `time_zone` (IANA or legacy names like `EST5EDT`, all loadable by `zoneinfo`). Region center, radius, and timezone reach the graph via run config. **The LLM never sees coordinates**; traces record only the region slug.
+- Slot and booking times use the venue's city timezone: a search hit's `location.url_slug` looked up in the city list, falling back to the region's.
 - Neighborhoods are matched by name against each hit's `neighborhood` field, not by coordinates.
 
 **Database.** Connect through Supabase's **session pooler** (IPv4, port 5432). URL-encode the password. Use a small pool (`pool_size=5`, `max_overflow=5`, `pool_pre_ping=True`). The LangGraph checkpointer uses its own `psycopg_pool.AsyncConnectionPool` (`min_size=2`, `max_size=3`, autocommit, dict rows), separate from the SQLAlchemy pool, because the checkpointer only accepts psycopg connections. Both pools open in the FastAPI lifespan; worst case is 13 connections, which fits the free-tier session pooler limit. App tables are managed by Alembic; LangGraph checkpointer tables are created by the checkpointer's own idempotent `setup()` at startup.
 
-**State and caching.** In-memory state lives in the FastAPI process on Render: the slot-ID map (short `slot_id` → config token, 15-min expiry), rate-limit counters, and (stage 8) analytics results. Resy responses are **not** cached; every search and slot lookup is live. Render runs a single instance, so this is acceptable; everything resets when the service restarts or sleeps (document this). Anything that must survive restarts (daily spend, pending bookings, conversations) lives in Postgres.
+**State and caching.** In-memory state lives in the FastAPI process on Render: the slot-ID map (short `slot_id` → config token, 15-min expiry), rate-limit counters, and (stage 8) analytics results. Resy responses are **not** cached (every search and slot lookup is live), with one exception: the city list from `/3/location/config` is cached in memory for 24h and kept slimmed (slug, name, country, coordinates, radius, time zone; no SEO metadata or shape polygons). Render runs a single instance, so this is acceptable; everything resets when the service restarts or sleeps (document this). Anything that must survive restarts (daily spend, pending bookings, conversations) lives in Postgres.
 
 **Tool outputs are compact.** Return only the fields the LLM needs, with caps on list sizes. Long Resy tokens (config/book tokens) stay server-side, referenced by short IDs.
 
@@ -178,7 +178,7 @@ Cost = `(input − cached) × input_rate + cached × cached_rate + output × out
 | `token`                 | `{text}`                                                                                                   |
 | `tool_start`            | `{name, call_id}`                                                                                          |
 | `tool_end`              | `{name, call_id, ok, duration_ms}`                                                                         |
-| `location_required`     | `{}` (a search needed the user's location; frontend highlights the location chip)                          |
+| `region_change_required` | `{city?}` (the request is about another place; frontend highlights the region selector)                  |
 | `confirmation_required` | `{pending_booking_id, summary}` (stage 10)                                                                 |
 | `usage`                 | `{model, input_tokens, cached_tokens, output_tokens, cost_usd, latency_ms, ttft_ms}` (aggregated per turn) |
 | `error`                 | `{code, message}`                                                                                          |
@@ -205,7 +205,7 @@ Send a comment ping (`: ping`) every 15s during long tool calls. Set `Cache-Cont
 Backend (`backend/.env`, mirrored on Render):
 
 ```
-APP_ENV, CORS_ORIGINS, SEARCH_RADIUS_KM=40
+APP_ENV, CORS_ORIGINS
 OPENAI_API_KEY, OPENAI_MODEL=gpt-6-sol
 DATABASE_URL                      # postgresql+psycopg://…@…pooler.supabase.com:5432/postgres
 LANGFUSE_PUBLIC_KEY, LANGFUSE_SECRET_KEY, LANGFUSE_HOST

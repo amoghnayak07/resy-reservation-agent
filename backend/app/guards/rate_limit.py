@@ -75,6 +75,23 @@ async def enforce_confirm_rate_limits(
     )
 
 
+REGIONS_LIMIT_PER_MIN = 30
+
+
+async def enforce_regions_rate_limit(request: Request) -> None:
+    """GET /api/regions is public (no session yet on first visit): per IP only."""
+    _enforce(
+        (
+            (
+                f"regions-ip:{_client_ip(request)}",
+                REGIONS_LIMIT_PER_MIN,
+                60,
+                "Too many requests, slow down.",
+            ),
+        )
+    )
+
+
 async def enforce_rate_limits(request: Request, session_id: str = Depends(get_session_id)) -> None:
     ip = _client_ip(request)
     _enforce(

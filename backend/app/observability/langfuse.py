@@ -37,20 +37,20 @@ def shutdown_langfuse() -> None:
 async def trace_turn(
     conversation_id: str,
     session_id: str,
-    location_used: bool,
+    region: str,
     tags: list[str] | None = None,
 ) -> AsyncIterator[tuple[CallbackHandler, str]]:
     """One trace per chat turn (or booking confirm/decline): session_id = conversation,
     user_id = guest session.
 
-    Never pass coordinates here -- only the location_used flag, per CLAUDE.md.
+    Only the region slug is recorded, never coordinates (CLAUDE.md).
     """
     trace_id = Langfuse.create_trace_id()
     handler = CallbackHandler(trace_context={"trace_id": trace_id})
     with propagate_attributes(
         session_id=conversation_id,
         user_id=session_id,
-        metadata={"location_used": location_used},
+        metadata={"region": region},
         tags=tags,
     ):
         yield handler, trace_id

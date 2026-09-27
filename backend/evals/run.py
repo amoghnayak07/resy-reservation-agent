@@ -7,8 +7,8 @@ reaches Resy. Costs OpenAI money, so it's not in CI.
 
 Case format (see cases.json):
   turns            user messages, in order
-  timezone         IANA name (default America/New_York)
-  location         "ny" | "la" | null (null = location not shared)
+  region           Resy city slug (default new-york-ny), from the slimmed city-list fixture;
+                   sets the search center, radius, and timezone like production
   now              optional fixed local time "YYYY-MM-DDTHH:MM" (default: real now)
   tools            tool name -> output (or list of outputs, one per call; last repeats).
                    "@name" refers to cases.json "fixtures"; "{arg:x}" echoes call argument x.
@@ -48,13 +48,36 @@ from app.agent import nodes
 from app.agent.graph import build_graph
 from app.agent.tools import book, get_venue_calendar, get_venue_details, prepare_booking
 from app.agent.tools import search_availability as search
+from app.api.message_text import content_to_text
 from app.config import settings
 from app.observability.pricing import compute_cost
+from app.regions import region_config
+from app.resy.models import City, LocationConfigCityRaw
 
 CASES_FILE = Path(__file__).with_name("cases.json")
-LOCATIONS = {"ny": {"lat": 40.713, "lng": -74.006}, "la": {"lat": 34.052, "lng": -118.244}}
+CITY_LIST = Path(__file__).parents[1] / "tests" / "fixtures" / "resy" / "location-config.json"
+
+
+def load_regions() -> dict[str, City]:
+    raw = json.loads(CITY_LIST.read_text(encoding="utf-8"))
+    cities = (City.from_raw(LocationConfigCityRaw.model_validate(entry)) for entry in raw)
+    return {city.slug: city for city in cities if city is not None}
+
+
+REGIONS = load_regions()
 WEEKDAYS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
-BOOKING_CLAIMS = ["is booked", "has been booked", "you're booked", "reservation is confirmed"]
+# Specific phrases only: "is booked through Tock" or "nothing is booked" aren't claims.
+BOOKING_CLAIMS = [
+    "you're booked",
+    "you are booked",
+    "is booked for",
+    "been booked for",
+    "reservation is confirmed",
+    "booking is confirmed",
+    "confirmed on resy",
+    "i've booked",
+    "i booked",
+]
 TOOL_SPECS: list[tuple[str, str, type[BaseModel]]] = [
     (search.TOOL_NAME, search.DESCRIPTION, search.SearchAvailabilityArgs),
     (
@@ -118,8 +141,13 @@ class Recorder:
         self._fixtures = fixtures
         self._today = today
         self._counts: dict[str, int] = {}
+        self._last_search: Any = None
 
     def output_for(self, name: str, args: dict[str, Any]) -> Any:
+        if name == prepare_booking.TOOL_NAME and name not in self._outputs:
+            prepared = self._prepared_from_search(args.get("slot_id"))
+            if prepared is not None:
+                return prepared
         planned = self._outputs.get(name, f"@default_{name}")
         if isinstance(planned, list):
             index = self._counts.get(name, 0)
@@ -127,7 +155,28 @@ class Recorder:
         self._counts[name] = self._counts.get(name, 0) + 1
         if isinstance(planned, str) and planned.startswith("@"):
             planned = self._fixtures[planned[1:]]
-        return fill(planned, self._today, args)
+        output = fill(planned, self._today, args)
+        if name == search.TOOL_NAME:
+            self._last_search = output
+        return output
+
+    def _prepared_from_search(self, slot_id: Any) -> dict[str, Any] | None:
+        """A prepare_booking result matching the slot the model picked from the last search
+        (a fixed canned summary would contradict the request, and the model rightly stops)."""
+        search_out = self._last_search if isinstance(self._last_search, dict) else {}
+        for venue in search_out.get("venues", []):
+            for slot in venue.get("slots", []):
+                if slot.get("slot_id") == slot_id:
+                    base = fill(self._fixtures["default_prepare_booking"], self._today)
+                    base.pop("address", None)  # the fixture's address belongs to another venue
+                    return base | {
+                        "restaurant": venue.get("name"),
+                        "date": search_out.get("date"),
+                        "time": slot.get("time"),
+                        "party_size": search_out.get("party_size"),
+                        "seating": slot.get("seating"),
+                    }
+        return None
 
     def tools(self) -> list[BaseTool]:
         return [self._stub(name, description, schema) for name, description, schema in TOOL_SPECS]
@@ -149,11 +198,29 @@ class Recorder:
 # --- checks ---------------------------------------------------------------------------------
 
 
+def _norm(text: str) -> str:
+    """Casefold and straighten curly quotes, so "Joe’s" matches "joe's"."""
+    return text.casefold().translate(str.maketrans("‘’“”", "''\"\""))
+
+
+def _unnegated(phrase: str, text: str) -> bool:
+    """`phrase` occurs without a negation just before it ("isn't fully booked" doesn't count)."""
+    for match in re.finditer(re.escape(_norm(phrase)), text):
+        before = text[max(0, match.start() - 20) : match.start()]
+        if not re.search(r"\b(nothing|not|no|never)\b|n't\b", before):
+            return True
+    return False
+
+
+def _claims_booking(text: str) -> bool:
+    return any(_unnegated(claim, text) for claim in BOOKING_CLAIMS)
+
+
 def _matches(expected: Any, actual: Any) -> bool:
     if isinstance(expected, list):
         return any(_matches(e, actual) for e in expected)
     if isinstance(expected, str) and isinstance(actual, str):
-        return expected.casefold() in actual.casefold()
+        return _norm(expected) in _norm(actual)
     return expected == actual
 
 
@@ -170,7 +237,7 @@ def check(case: dict[str, Any], rec: Recorder, reply: str, today: date) -> list[
     expect = fill(case.get("expect", {}), today)
     calls = rec.calls
     names = [name for _, name, _ in calls]
-    text = reply.casefold()
+    text = _norm(reply)
     failures: list[str] = []
 
     for spec in expect.get("calls_include", []):
@@ -188,13 +255,13 @@ def check(case: dict[str, Any], rec: Recorder, reply: str, today: date) -> list[
         all((t, n) in {(c[0], c[1]) for c in calls} for n in same) for t in {c[0] for c in calls}
     ):
         failures.append(f"{same} not called in one turn")
-    if expect.get("reply_any") and not any(w.casefold() in text for w in expect["reply_any"]):
+    if expect.get("reply_any") and not any(_norm(w) in text for w in expect["reply_any"]):
         failures.append(f"reply lacks any of {expect['reply_any']}")
     for group in expect.get("reply_all", []):
-        if not any(w.casefold() in text for w in group):
+        if not any(_norm(w) in text for w in group):
             failures.append(f"reply lacks any of {group}")
     for word in expect.get("reply_none", []):
-        if word.casefold() in text:
+        if _unnegated(word, text):
             failures.append(f"reply contains {word!r}")
 
     # Invariants for every case.
@@ -202,7 +269,11 @@ def check(case: dict[str, Any], rec: Recorder, reply: str, today: date) -> list[
         "prepare_booking" not in names or names.index("book") < names.index("prepare_booking")
     ):
         failures.append("book called without a prior prepare_booking")
-    if any(claim in text for claim in BOOKING_CLAIMS):
+    prepared_turns = {t for t, n, _ in calls if n == "prepare_booking"}
+    booked_turns = {t for t, n, _ in calls if n == "book"}
+    if prepared_turns - booked_turns:  # prompt rule: book right after prepare, same turn
+        failures.append("prepare_booking not followed by book in the same turn")
+    if _claims_booking(text):
         failures.append("reply claims a booking")
     return failures
 
@@ -219,8 +290,8 @@ class _FrozenClock(datetime):
 
 
 async def run_case(case: dict[str, Any], fixtures: dict[str, Any], model: str) -> dict[str, Any]:
-    tz_name = case.get("timezone", "America/New_York")
-    tz = ZoneInfo(tz_name)
+    city = REGIONS[case.get("region", "new-york-ny")]
+    tz = ZoneInfo(city.time_zone)
     fixed = datetime.fromisoformat(case["now"]).replace(tzinfo=tz) if case.get("now") else None
     today = (fixed or datetime.now(tz)).date()
     rec = Recorder(case, fixtures, today)
@@ -232,15 +303,11 @@ async def run_case(case: dict[str, Any], fixtures: dict[str, Any], model: str) -
         max_retries=2,
     )
     graph = build_graph(MemorySaver(), llm=llm, tools=rec.tools())
-    location_key = case.get("location", "ny")
-    location = LOCATIONS[location_key] if location_key else None
     config: RunnableConfig = {
         "configurable": {
             "thread_id": str(uuid.uuid4()),
             "session_id": "eval",
-            "timezone": tz_name,
-            "location_available": location is not None,
-            "location": location,
+            **region_config(city),
         },
         "recursion_limit": 12,
     }
@@ -259,7 +326,8 @@ async def run_case(case: dict[str, Any], fixtures: dict[str, Any], model: str) -
 
     messages = state.get("messages", [])
     last_ai = next((m for m in reversed(messages) if isinstance(m, AIMessage)), None)
-    reply = str(last_ai.content) if last_ai else ""
+    # Text blocks only, as the chat UI shows it (the model also returns reasoning blocks).
+    reply = content_to_text(last_ai.content) if last_ai else ""
     input_tokens = cached = output_tokens = 0
     for message in messages:
         usage = getattr(message, "usage_metadata", None) if isinstance(message, AIMessage) else None
@@ -271,6 +339,7 @@ async def run_case(case: dict[str, Any], fixtures: dict[str, Any], model: str) -
         "id": case["id"],
         "failures": check(case, rec, reply, today),
         "calls": [name for _, name, _ in rec.calls],
+        "reply": reply,
         "input_tokens": input_tokens,
         "output_tokens": output_tokens,
         "cost": float(compute_cost(model, input_tokens, cached, output_tokens)),
@@ -281,6 +350,7 @@ async def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", default=settings.openai_model)
     parser.add_argument("--case", action="append", help="run only these case IDs")
+    parser.add_argument("--out", type=Path, help="also write results (with replies) as JSON")
     args = parser.parse_args()
 
     data = json.loads(CASES_FILE.read_text(encoding="utf-8"))
@@ -305,6 +375,10 @@ async def main() -> int:
         f"\n{args.model}: {passed}/{len(results)} passed, "
         f"{total_in} input + {total_out} output tokens, ${total_cost:.4f}"
     )
+    if args.out:
+        args.out.write_text(
+            json.dumps({"model": args.model, "results": results}, indent=2), encoding="utf-8"
+        )
     return 0 if passed == len(results) else 1
 
 

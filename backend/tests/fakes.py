@@ -7,8 +7,10 @@ import uuid
 from collections.abc import Iterator, Sequence
 from datetime import UTC, datetime
 from decimal import Decimal
+from pathlib import Path
 from typing import Any
 
+import httpx
 from langchain_core.callbacks import CallbackManagerForLLMRun
 from langchain_core.language_models.fake_chat_models import GenericFakeChatModel
 from langchain_core.messages import AIMessage, AIMessageChunk, BaseMessage
@@ -21,6 +23,11 @@ from app.db.models import Conversation, PendingBooking
 from app.db.pending_bookings import expire_if_due
 from app.db.repository import TITLE_MAX_CHARS
 from app.errors import ApiError
+from app.regions import RegionDirectory, region_config
+from app.resy.client import ResyClient
+from app.resy.models import City, LocationConfigCityRaw
+
+FIXTURES = Path(__file__).parent / "fixtures" / "resy"
 
 
 class FakeConversationRepository:
@@ -179,3 +186,29 @@ class RecordingGraph:
 
     def __getattr__(self, name: str) -> Any:
         return getattr(self._graph, name)
+
+
+def fixture_regions() -> RegionDirectory:
+    """A RegionDirectory serving the slimmed city-list fixture through a mocked transport."""
+    body = json.loads((FIXTURES / "location-config.json").read_text(encoding="utf-8"))
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        assert request.url.path == "/3/location/config"
+        return httpx.Response(200, json=body)
+
+    resy = ResyClient(
+        api_key="k", auth_token="t", writes_enabled=False, transport=httpx.MockTransport(handler)
+    )
+    return RegionDirectory(resy)
+
+
+def fixture_city(slug: str) -> City:
+    body = json.loads((FIXTURES / "location-config.json").read_text(encoding="utf-8"))
+    raw = next(c for c in body if c["url_slug"] == slug)
+    city = City.from_raw(LocationConfigCityRaw.model_validate(raw))
+    assert city is not None
+    return city
+
+
+NEW_YORK = fixture_city("new-york-ny")
+NY_REGION = region_config(NEW_YORK)  # run-config entries for the New York region

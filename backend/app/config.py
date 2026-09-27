@@ -10,7 +10,6 @@ class Settings(BaseSettings):
     app_env: str = "dev"
     cors_origins: str = "http://localhost:5173"
     render_git_commit: str = "dev"
-    search_radius_km: float = 40.0
 
     openai_api_key: str
     openai_model: str = "gpt-6-sol"

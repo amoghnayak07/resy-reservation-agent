@@ -29,16 +29,32 @@ def sse_event(event: str, data: dict[str, Any]) -> str:
     return f"event: {event}\ndata: {json.dumps(data)}\n\n"
 
 
-def tool_outcome(output: Any) -> tuple[bool, str | None]:
-    """(ok, error code) from a tool's output: tools return JSON with an "error" key on
-    failure (e.g. "location_required")."""
+def _parse_tool_output(output: Any) -> dict[str, Any]:
     content = getattr(output, "content", output)
     try:
         parsed = json.loads(content) if isinstance(content, str) else None
     except ValueError:
-        return True, None
-    error = parsed.get("error") if isinstance(parsed, dict) else None
+        return {}
+    return parsed if isinstance(parsed, dict) else {}
+
+
+def tool_outcome(output: Any) -> tuple[bool, str | None]:
+    """(ok, error code) from a tool's output: tools return JSON with an "error" key on
+    failure (e.g. "resy_unavailable")."""
+    error = _parse_tool_output(output).get("error")
     return (error is None, str(error) if error else None)
+
+
+def region_change(output: Any) -> dict[str, Any] | None:
+    """Data for `region_change_required` when a search found the venue outside the selected
+    region (or no region was set), so the frontend highlights the region selector."""
+    parsed = _parse_tool_output(output)
+    if parsed.get("out_of_area"):
+        city = parsed.get("city")
+        return {"city": city} if isinstance(city, str) and city else {}
+    if parsed.get("error") == "region_required":
+        return {}
+    return None
 
 
 async def pending_confirmations(
@@ -106,13 +122,14 @@ class GraphRun:
                 elif kind in ("on_tool_end", "on_tool_error"):
                     call_id = str(event["run_id"])
                     if kind == "on_tool_end":
-                        ok, error_code = tool_outcome(event["data"].get("output"))
+                        output = event["data"].get("output")
+                        ok, _ = tool_outcome(output)
+                        change = region_change(output)
+                        if change is not None:
+                            yield sse_event("region_change_required", change)
                     else:
                         # book's interrupt() surfaces as a tool error; it's a pause, not a failure.
                         ok = isinstance(event["data"].get("error"), GraphBubbleUp)
-                        error_code = None
-                    if error_code == "location_required":
-                        yield sse_event("location_required", {})
                     started = tool_started.pop(call_id, now)
                     yield sse_event(
                         "tool_end",

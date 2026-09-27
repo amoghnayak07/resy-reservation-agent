@@ -1,4 +1,4 @@
-"""`search_availability` tool (stage 6): finds Resy venues and open times near the user.
+"""`search_availability` tool (stage 6): finds Resy venues and open times in the selected region.
 
 Modes: venue by ID (`/3/venue?id=` + `/4/find`), name search, cuisine search, area search.
 Slots for name/cuisine/area come from the search response itself (already filtered by party
@@ -13,7 +13,7 @@ from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import date, datetime, time
 from typing import Any, Literal
-from zoneinfo import ZoneInfo
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from langchain_core.runnables import RunnableConfig
 from langchain_core.tools import BaseTool, StructuredTool
@@ -29,7 +29,7 @@ from app.agent.tools.location import (
 from app.agent.tools.matching import NameMatch, classify_name
 from app.agent.tools.slot_ids import SlotIdMap, SlotRef, slot_ids
 from app.agent.tools.time_windows import SearchKind, TimeWindow, build_window
-from app.config import settings
+from app.regions import RegionDirectory, RegionsUnavailableError
 from app.resy.client import ResyClient
 from app.resy.errors import ResyError
 from app.resy.models import (
@@ -56,7 +56,7 @@ MAX_DID_YOU_MEAN = 3
 MAX_NEIGHBORHOODS_SEEN = 15
 MAX_NEARBY_TIMES = 6
 
-DESCRIPTION = """Search Resy near the user for restaurants and open reservation times.
+DESCRIPTION = """Search Resy in the user's selected region for restaurants and open times.
 
 Use `query` for a restaurant name, `cuisine` for a type of food (e.g. "Japanese", "sushi"), \
 `neighborhood` to restrict to an area by name, or `venue_id` for a venue already identified \
@@ -68,7 +68,7 @@ time. Never guess a party size.
 
 Results: `match` is "exact", "ambiguous", or "none" for name searches; never treat \
 `did_you_mean` candidates as the user's restaurant. `out_of_area: true` means the venue is \
-outside the user's area. Slots carry a `slot_id` for booking; slots with a `note` can't be \
+outside the selected region. Slots carry a `slot_id` for booking; slots with a `note` can't be \
 booked here."""
 
 
@@ -94,11 +94,17 @@ class _Ctx:
     resy: ResyClient
     slot_map: SlotIdMap
     user: UserLocation
-    tz: ZoneInfo
+    tz: ZoneInfo  # the selected region's
     now: datetime
     conversation_id: str
     radius_km: float
     query: ReservationQuery
+    city_zones: dict[str, str] = field(default_factory=dict)  # city slug -> time zone
+
+    def zone_for(self, city_slug: str | None) -> ZoneInfo:
+        """A venue's city time zone (from the city list), else the region's."""
+        name = self.city_zones.get(city_slug or "")
+        return ZoneInfo(name) if name else self.tz
 
     @property
     def today(self) -> date:
@@ -131,17 +137,19 @@ def make_search_availability_tool(
     *,
     slot_map: SlotIdMap = slot_ids,
     now_fn: Callable[[ZoneInfo], datetime] | None = None,
+    regions: RegionDirectory | None = None,
 ) -> BaseTool:
     clock = now_fn or (lambda tz: datetime.now(tz))
 
     async def search_availability(config: RunnableConfig, **kwargs: Any) -> str:
         configurable = config.get("configurable", {})
         location = configurable.get("location")
-        if not location:
+        if not location or not configurable.get("radius_m"):
             return _dump(
                 {
-                    "error": "location_required",
-                    "message": "Ask the user to tap 'Use my location'; searches are local.",
+                    "error": "region_required",
+                    "message": "No region is selected; ask the user to pick one with the "
+                    "location selector at the top right.",
                 }
             )
         tz = ZoneInfo(configurable["timezone"])
@@ -152,8 +160,9 @@ def make_search_availability_tool(
             tz=tz,
             now=clock(tz),
             conversation_id=str(configurable.get("thread_id", "")),
-            radius_km=settings.search_radius_km,
+            radius_km=configurable["radius_m"] / 1000,
             query=ReservationQuery(**kwargs),
+            city_zones=await _city_zones(regions),
         )
         if ctx.query.date is not None and ctx.query.date < ctx.today:
             return _dump({"error": "date_in_past", "message": "That date has already passed."})
@@ -237,9 +246,11 @@ async def _venue_by_id(ctx: _Ctx, venue_id: int) -> dict[str, Any]:
     venue_out["bookable_via_agent"] = venue.bookable_via_agent
     if venue.not_bookable_reason:
         venue_out["not_bookable_reason"] = venue.not_bookable_reason
+    find_loc = result.venue.location
+    zone = _find_zone(ctx, find_loc.time_zone if find_loc else None, loc.url_slug if loc else None)
     slots = [
         s
-        for s in _to_slots(result.slots, result.templates, venue.id, ctx)
+        for s in _to_slots(result.slots, result.templates, venue.id, ctx, zone)
         if _fits_party(s, ctx.query.party_size)
     ]
     return base | _with_slots(ctx, [(venue, venue_out, slots)], _window(ctx, "venue"))
@@ -419,20 +430,44 @@ def _screen(candidates: list[_Candidate], party_size: int | None, today: date) -
 def _hit_slots(hit: SearchHitRaw, venue: Venue, ctx: _Ctx) -> list[Slot]:
     if hit.availability is None:
         return []
-    return _to_slots(hit.availability.slots, hit.availability.templates, venue.id, ctx)
+    zone = ctx.zone_for(hit.location.url_slug if hit.location else None)
+    return _to_slots(hit.availability.slots, hit.availability.templates, venue.id, ctx, zone)
 
 
 def _to_slots(
-    raws: list[SlotRaw], templates: dict[str, TemplateRaw], venue_id: int, ctx: _Ctx
+    raws: list[SlotRaw],
+    templates: dict[str, TemplateRaw],
+    venue_id: int,
+    ctx: _Ctx,
+    zone: ZoneInfo,
 ) -> list[Slot]:
     assert ctx.query.party_size is not None
     slots = [
         Slot.from_raw(
-            raw, venue_id=venue_id, party_size=ctx.query.party_size, tz=ctx.tz, templates=templates
+            raw, venue_id=venue_id, party_size=ctx.query.party_size, tz=zone, templates=templates
         )
         for raw in raws
     ]
     return dedupe_slots(slots)
+
+
+async def _city_zones(regions: RegionDirectory | None) -> dict[str, str]:
+    if regions is None:
+        return {}
+    try:
+        return {slug: city.time_zone for slug, city in (await regions.cities()).items()}
+    except RegionsUnavailableError:
+        return {}
+
+
+def _find_zone(ctx: _Ctx, find_zone: str | None, city_slug: str | None) -> ZoneInfo:
+    """Venue-by-ID times: /4/find's venue time zone, else the city list, else the region."""
+    if find_zone:
+        try:
+            return ZoneInfo(find_zone)
+        except (ZoneInfoNotFoundError, ValueError):
+            pass
+    return ctx.zone_for(city_slug)
 
 
 def _fits_party(slot: Slot, party_size: int | None) -> bool:

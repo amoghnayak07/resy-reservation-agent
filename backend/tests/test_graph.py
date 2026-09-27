@@ -5,7 +5,6 @@ from langchain_core.tools import tool
 from langgraph.checkpoint.memory import MemorySaver
 
 from app.agent.graph import build_graph
-from app.agent.nodes import latest_city
 from tests.fakes import scripted_model
 
 TZ_CONFIGURABLE = {"timezone": "America/New_York"}
@@ -79,7 +78,6 @@ async def test_tool_loop_routes_model_tools_model_end() -> None:
     kinds = [type(m).__name__ for m in result["messages"]]
     assert kinds == ["HumanMessage", "AIMessage", "ToolMessage", "AIMessage"]
     assert result["messages"][-1].content == "Nothing open nearby."
-    assert latest_city(result["messages"]) == "New York"
 
 
 async def test_unexpected_tool_error_becomes_tool_message() -> None:
