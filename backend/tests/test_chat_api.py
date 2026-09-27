@@ -138,6 +138,7 @@ def test_no_location_sets_location_used_false(
     assert recording_graph.last_config is not None
     configurable = recording_graph.last_config.get("configurable", {})
     assert configurable["location"] is None
+    assert configurable["session_id"] == SESSION_ID  # prepare_booking reads it from here
     assert mock_langfuse[0]["location_used"] is False
 
 

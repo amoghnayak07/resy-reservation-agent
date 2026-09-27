@@ -9,6 +9,8 @@ from app.agent.tools import make_tools
 from app.api.chat import router as chat_router
 from app.api.conversations import router as conversations_router
 from app.config import settings
+from app.db.engine import async_session_maker
+from app.db.pending_bookings import SqlPendingBookingRepository
 from app.errors import register_exception_handlers
 from app.logging_config import configure_logging, log_requests
 from app.observability.langfuse import init_langfuse, shutdown_langfuse
@@ -19,7 +21,8 @@ from app.resy.client import ResyClient
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     init_langfuse()
     async with ResyClient.from_settings() as resy, open_checkpointer() as checkpointer:
-        app.state.graph = build_graph(checkpointer, tools=make_tools(resy))
+        bookings = SqlPendingBookingRepository(async_session_maker)
+        app.state.graph = build_graph(checkpointer, tools=make_tools(resy, bookings))
         yield
     shutdown_langfuse()
 

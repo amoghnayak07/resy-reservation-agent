@@ -14,6 +14,7 @@ const TOOL_LABELS: Record<string, string> = {
   search_availability: 'Searching Resy…',
   get_venue_details: 'Looking up the restaurant…',
   get_venue_calendar: 'Checking open dates…',
+  prepare_booking: 'Preparing your booking…',
 }
 
 export function applyStreamEvent(status: StreamStatus, event: ChatEvent): StreamStatus {
