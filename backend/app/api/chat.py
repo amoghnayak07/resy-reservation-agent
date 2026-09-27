@@ -102,6 +102,7 @@ async def chat(
             run_config: RunnableConfig = {
                 "configurable": {
                     "thread_id": str(conversation.id),
+                    "session_id": session_id,
                     "timezone": body.timezone,
                     "location_available": location_used,
                     "location": location,

@@ -55,12 +55,12 @@ A small helper marks rows past `expires_at` as `expired` when they're read (no b
 
 ## Exit criteria
 
-- [ ] Choosing a time on the deployed app yields an accurate summary and a `pending_bookings` row.
-- [ ] A fully specified request with an exact available slot reaches `prepare_booking` in one turn; a near-miss time does not.
-- [ ] No reservation appears in the Resy account.
-- [ ] Reservations requiring payment are refused politely with a Resy link.
-- [ ] Traced in Langfuse; book token never appears in traces.
-- [ ] Tests green.
+- [x] Choosing a time on the deployed app yields an accurate summary and a `pending_bookings` row.
+- [x] A fully specified request with an exact available slot reaches `prepare_booking` in one turn; a near-miss time does not.
+- [x] No reservation appears in the Resy account.
+- [x] Reservations requiring payment are refused politely with a Resy link.
+- [x] Traced in Langfuse; book token never appears in traces.
+- [x] Tests green.
 
 ## Out of scope
 
@@ -68,4 +68,9 @@ Executing the booking, confirmation UI.
 
 ## Notes
 
-_(Fill in: typical `book_token` lifetime (compare `date_expires` with the request time), whether `commit: 1` holds the table, other payment types observed.)_
+- `commit: 1` on the deployed app created no reservation in the Resy account. Whether it holds the table, the typical `book_token` lifetime, and non-`free` payment types weren't measured.
+- `status` is text with a CHECK constraint; `conversation_id` is a FK to `conversations` (cascade delete).
+- Changed from stage 2: `scripts/chat_cli.py` conversation ID is optional; without one it creates a conversation row (needed by the FK).
+- Changed from stage 3: `session_id` added to the chat run config; `prepare_booking` reads it there.
+- Changed from stage 6: slot-map entries keep the venue's Resy URL, so refusals link to Resy without another call.
+- Changed from stage 7: the prompt's "Booking isn't available yet" line replaced by the `prepare_booking` rules.

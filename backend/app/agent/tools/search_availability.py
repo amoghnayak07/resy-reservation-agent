@@ -520,6 +520,7 @@ def _register(ctx: _Ctx, venue: Venue, slot: Slot) -> str:
         seating_type=slot.seating_type,
         bookable=slot.bookable and venue.bookable_via_agent,
         requires_payment=slot.requires_payment,
+        venue_url=venue.url,
     )
     return ctx.slot_map.add(ctx.conversation_id, ref)
 

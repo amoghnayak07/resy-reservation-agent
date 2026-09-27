@@ -20,6 +20,7 @@ class SlotRef:
     seating_type: str | None
     bookable: bool
     requires_payment: bool
+    venue_url: str | None = None  # Resy link for "book it on Resy instead" answers
 
 
 class SlotIdMap:

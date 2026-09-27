@@ -17,7 +17,8 @@ from langchain_core.outputs import ChatGenerationChunk
 from langchain_core.runnables import Runnable, RunnableConfig
 from langgraph.graph.state import CompiledStateGraph
 
-from app.db.models import Conversation
+from app.db.models import Conversation, PendingBooking
+from app.db.pending_bookings import expire_if_due
 from app.db.repository import TITLE_MAX_CHARS
 from app.errors import ApiError
 
@@ -73,6 +74,29 @@ class FakeSpendGuard:
 
     async def record(self, cost_usd: Decimal) -> None:
         self.recorded.append(cost_usd)
+
+
+class FakePendingBookingRepository:
+    """In-memory stand-in for SqlPendingBookingRepository."""
+
+    def __init__(self) -> None:
+        self.rows: dict[uuid.UUID, PendingBooking] = {}
+
+    async def create(self, booking: PendingBooking) -> PendingBooking:
+        self.rows[booking.id] = booking
+        return booking
+
+    async def get_owned(
+        self, booking_id: uuid.UUID, *, session_id: str, conversation_id: uuid.UUID, now: datetime
+    ) -> PendingBooking | None:
+        booking = self.rows.get(booking_id)
+        if booking is None or (booking.session_id, booking.conversation_id) != (
+            session_id,
+            conversation_id,
+        ):
+            return None
+        expire_if_due(booking, now)
+        return booking
 
 
 class ToolCallingFakeModel(GenericFakeChatModel):
