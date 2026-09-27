@@ -1,14 +1,14 @@
 import type { ChatEvent } from '../api/types'
 
 // Per-turn stream state derived from SSE events: which tools are running (for the
-// "Searching Resy…" indicator) and whether a search needed the user's location.
+// "Searching Resy…" indicator) and whether the agent asked the user to change location.
 
 export interface StreamStatus {
   activeTools: Record<string, string> // call_id -> tool name
-  locationRequired: boolean
+  regionChangeRequired: boolean
 }
 
-export const INITIAL_STREAM_STATUS: StreamStatus = { activeTools: {}, locationRequired: false }
+export const INITIAL_STREAM_STATUS: StreamStatus = { activeTools: {}, regionChangeRequired: false }
 
 const TOOL_LABELS: Record<string, string> = {
   search_availability: 'Searching Resy…',
@@ -30,8 +30,8 @@ export function applyStreamEvent(status: StreamStatus, event: ChatEvent): Stream
       delete activeTools[event.data.call_id]
       return { ...status, activeTools }
     }
-    case 'location_required':
-      return { ...status, locationRequired: true }
+    case 'region_change_required':
+      return { ...status, regionChangeRequired: true }
     case 'done':
     case 'error':
       return { ...status, activeTools: {} }

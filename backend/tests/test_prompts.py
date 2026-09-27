@@ -8,7 +8,7 @@ def test_calendar_lists_14_days_with_correct_weekdays() -> None:
     now = datetime(2026, 9, 26, 10, 0)  # Saturday
 
     prompt = build_system_prompt(
-        now=now, tz="America/New_York", location_available=False, city=None
+        now=now, tz="America/New_York", region_name="New York", country_name="United States"
     )
 
     assert "Today is 2026-09-26 (Saturday)" in prompt
@@ -22,7 +22,7 @@ def test_date_rules_text_present() -> None:
     now = datetime(2026, 9, 26, 10, 0)
 
     prompt = build_system_prompt(
-        now=now, tz="America/New_York", location_available=False, city=None
+        now=now, tz="America/New_York", region_name="New York", country_name="United States"
     )
 
     assert "next upcoming occurrence" in prompt
@@ -32,11 +32,14 @@ def test_date_rules_text_present() -> None:
 
 def test_search_rules_ask_for_a_target_and_never_pick_alternatives() -> None:
     prompt = build_system_prompt(
-        now=datetime(2026, 9, 26, 10, 0), tz="America/New_York", location_available=True, city=None
+        now=datetime(2026, 9, 26, 10, 0),
+        tz="America/New_York",
+        region_name="New York",
+        country_name="United States",
     )
 
     assert "If the user gave none" in prompt  # no restaurant/cuisine/neighborhood → ask
-    assert "Use my location" in prompt
+    assert "change their location first" in prompt  # another city → change region
     assert "Never pick an alternative time, venue, or seating" in prompt
     assert 'Only `match: "exact"` is the user\'s restaurant' in prompt
 
@@ -46,28 +49,30 @@ def test_timezone_conversion_affects_calendar_start_day() -> None:
 
     now_la = utc_instant.astimezone(ZoneInfo("America/Los_Angeles"))
     prompt_la = build_system_prompt(
-        now=now_la, tz="America/Los_Angeles", location_available=False, city=None
+        now=now_la,
+        tz="America/Los_Angeles",
+        region_name="Los Angeles",
+        country_name="United States",
     )
     assert "Today is 2026-09-26 (Saturday)" in prompt_la
     assert "- 2026-09-26 (Saturday)" in prompt_la
 
     now_ny = utc_instant.astimezone(ZoneInfo("America/New_York"))
     prompt_ny = build_system_prompt(
-        now=now_ny, tz="America/New_York", location_available=False, city=None
+        now=now_ny, tz="America/New_York", region_name="New York", country_name="United States"
     )
     assert "Today is 2026-09-27 (Sunday)" in prompt_ny
     assert "- 2026-09-27 (Sunday)" in prompt_ny
 
 
-def test_location_and_city_lines() -> None:
-    now = datetime(2026, 9, 26, 10, 0)
-
-    prompt_no_location = build_system_prompt(
-        now=now, tz="America/New_York", location_available=False, city=None
+def test_region_line_names_the_region_and_its_timezone() -> None:
+    prompt = build_system_prompt(
+        now=datetime(2026, 10, 3, 22, 30),
+        tz="PST8PDT",
+        region_name="Los Angeles",
+        country_name="United States",
     )
-    assert "location is not available yet" in prompt_no_location
-
-    prompt_with_city = build_system_prompt(
-        now=now, tz="America/New_York", location_available=True, city="the West Village"
-    )
-    assert "near the West Village" in prompt_with_city
+    assert "selected region is Los Angeles, United States" in prompt
+    assert "timezone PST8PDT" in prompt
+    assert "Today is 2026-10-03 (Saturday)" in prompt
+    assert "Use my location" not in prompt

@@ -31,6 +31,7 @@ from app.api.deps import (
     get_conversation_repository,
     get_graph,
     get_pending_booking_repository,
+    get_region_directory,
     get_spend_guard,
 )
 from app.config import settings
@@ -39,17 +40,19 @@ from app.guards import rate_limit
 from app.main import create_app
 from app.resy.client import ResyClient
 from tests.fakes import (
+    NY_REGION,
     FakeConversationRepository,
     FakePendingBookingRepository,
     FakeSpendGuard,
     ToolCallingFakeModel,
+    fixture_regions,
 )
 from tests.test_chat_api import _parse_sse
 from tests.test_search_tool import NY, fixture
 
 SESSION_ID = str(uuid.uuid4())
 PASSCODE = "correct-horse"
-TZ = "America/New_York"
+REGION = "new-york-ny"
 TOKEN = "rgs://resy/87134/4257306/2/2026-10-22/2026-10-22/19:00:00/2/Dining Room"
 FRESH = "2099-01-01T00:00:00Z"
 SECRETS = ("SCRUBBED_RESY_TOKEN", "BOOK_TOKEN", PASSCODE, "rgs://")
@@ -158,12 +161,14 @@ class Harness:
         app.dependency_overrides[get_conversation_repository] = lambda: self.conversations
         app.dependency_overrides[get_spend_guard] = lambda: FakeSpendGuard()
         app.dependency_overrides[get_pending_booking_repository] = lambda: self.bookings
+        regions = fixture_regions()
+        app.dependency_overrides[get_region_directory] = lambda: regions
         self.client = TestClient(app)
 
     def chat(self, message: str = "book 7pm for 2") -> list[tuple[str, dict[str, Any]]]:
         response = self.client.post(
             "/api/chat",
-            json={"message": message, "timezone": TZ, "conversation_id": self.conversation_id},
+            json={"message": message, "region": REGION, "conversation_id": self.conversation_id},
             headers={"X-Session-Id": SESSION_ID},
         )
         assert response.status_code == 200
@@ -181,14 +186,14 @@ class Harness:
     ) -> Any:
         return self.client.post(
             f"/api/bookings/{booking_id}/confirm",
-            json={"passcode": passcode, "timezone": TZ},
+            json={"passcode": passcode, "region": REGION},
             headers={"X-Session-Id": session_id},
         )
 
     def decline(self, booking_id: str) -> Any:
         return self.client.post(
             f"/api/bookings/{booking_id}/decline",
-            json={"timezone": TZ},
+            json={"region": REGION},
             headers={"X-Session-Id": SESSION_ID},
         )
 
@@ -318,7 +323,7 @@ async def test_resume_without_confirming_state_does_not_book() -> None:
     fake = FakeResy()
     h = await asyncio.to_thread(Harness, fake)
     config: RunnableConfig = {
-        "configurable": {"thread_id": h.conversation_id, "session_id": SESSION_ID, "timezone": TZ}
+        "configurable": {"thread_id": h.conversation_id, "session_id": SESSION_ID, **NY_REGION}
     }
     await h.graph.ainvoke({"messages": [("user", "book it")]}, config=config)
     (booking_id,) = [str(k) for k in h.bookings.rows]

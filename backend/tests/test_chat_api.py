@@ -2,6 +2,7 @@ import json
 import uuid
 from collections.abc import Iterator
 from typing import Any
+from unittest.mock import ANY
 
 import httpx
 import pytest
@@ -16,6 +17,7 @@ from app.api.deps import (
     get_conversation_repository,
     get_graph,
     get_pending_booking_repository,
+    get_region_directory,
     get_spend_guard,
 )
 from app.config import settings
@@ -26,8 +28,10 @@ from tests.fakes import (
     FakePendingBookingRepository,
     FakeSpendGuard,
     RecordingGraph,
+    fixture_regions,
     scripted_model,
 )
+from tests.test_search_tool import fixture
 
 SESSION_ID = str(uuid.uuid4())
 
@@ -67,17 +71,19 @@ def client(recording_graph: RecordingGraph) -> Iterator[TestClient]:
     app.dependency_overrides[get_pending_booking_repository] = lambda: (
         FakePendingBookingRepository()
     )
+    regions = fixture_regions()
+    app.dependency_overrides[get_region_directory] = lambda: regions
     yield TestClient(app)
     app.dependency_overrides.clear()
 
 
 def _post_chat(client: TestClient, **body: Any) -> Any:
-    payload = {"message": "hi", "timezone": "America/New_York", **body}
+    payload = {"message": "hi", "region": "new-york-ny", **body}
     return client.post("/api/chat", json=payload, headers={"X-Session-Id": SESSION_ID})
 
 
 def test_missing_session_id_returns_400(client: TestClient) -> None:
-    response = client.post("/api/chat", json={"message": "hi", "timezone": "America/New_York"})
+    response = client.post("/api/chat", json={"message": "hi", "region": "new-york-ny"})
     assert response.status_code == 400
     assert response.json()["error"]["code"] == "invalid_session"
 
@@ -85,17 +91,11 @@ def test_missing_session_id_returns_400(client: TestClient) -> None:
 def test_invalid_session_id_returns_400(client: TestClient) -> None:
     response = client.post(
         "/api/chat",
-        json={"message": "hi", "timezone": "America/New_York"},
+        json={"message": "hi", "region": "new-york-ny"},
         headers={"X-Session-Id": "not-a-uuid"},
     )
     assert response.status_code == 400
     assert response.json()["error"]["code"] == "invalid_session"
-
-
-def test_invalid_timezone_returns_422(client: TestClient) -> None:
-    response = _post_chat(client, timezone="Not/A_Zone")
-    assert response.status_code == 422
-    assert response.json()["error"]["code"] == "validation_error"
 
 
 def test_stream_emits_meta_token_usage_done_in_order(client: TestClient) -> None:
@@ -121,34 +121,36 @@ def test_stream_emits_meta_token_usage_done_in_order(client: TestClient) -> None
     assert tokens == "hello there"
 
 
-def test_user_location_is_rounded_and_coordinates_never_reach_langfuse(
+def test_region_resolves_to_center_radius_and_timezone_in_run_config(
     client: TestClient, recording_graph: RecordingGraph, mock_langfuse: list[dict[str, Any]]
 ) -> None:
-    response = _post_chat(
-        client, user_location={"lat": 40.71234567, "lng": -74.00987654, "accuracy_m": 15}
-    )
+    response = _post_chat(client, region="los-angeles-ca")
     assert response.status_code == 200
 
     assert recording_graph.last_config is not None
     configurable = recording_graph.last_config.get("configurable", {})
-    assert configurable["location"] == {"lat": 40.712, "lng": -74.01}
-
-    assert len(mock_langfuse) == 1
-    assert mock_langfuse[0]["location_used"] is True
-    assert "lat" not in mock_langfuse[0]
-    assert "lng" not in mock_langfuse[0]
-
-
-def test_no_location_sets_location_used_false(
-    client: TestClient, recording_graph: RecordingGraph, mock_langfuse: list[dict[str, Any]]
-) -> None:
-    response = _post_chat(client)
-    assert response.status_code == 200
-    assert recording_graph.last_config is not None
-    configurable = recording_graph.last_config.get("configurable", {})
-    assert configurable["location"] is None
+    assert configurable["region_slug"] == "los-angeles-ca"
+    assert configurable["region_name"] == "Los Angeles"
+    assert configurable["timezone"] == "PST8PDT"
+    assert configurable["radius_m"] == round(19 * 1609.344)
+    assert set(configurable["location"]) == {"lat", "lng"}
     assert configurable["session_id"] == SESSION_ID  # prepare_booking reads it from here
-    assert mock_langfuse[0]["location_used"] is False
+
+    assert mock_langfuse == [
+        {"conversation_id": ANY, "session_id": SESSION_ID, "region": "los-angeles-ca", "tags": None}
+    ]  # the slug only: no coordinates reach Langfuse
+
+
+def test_unknown_region_returns_422(client: TestClient) -> None:
+    response = _post_chat(client, region="atlantis")
+    assert response.status_code == 422
+    assert response.json()["error"]["code"] == "unknown_region"
+
+
+def test_malformed_region_returns_422_validation_error(client: TestClient) -> None:
+    response = _post_chat(client, region="New York!")
+    assert response.status_code == 422
+    assert response.json()["error"]["code"] == "validation_error"
 
 
 def test_chat_with_unknown_conversation_id_returns_404(client: TestClient) -> None:
@@ -170,35 +172,40 @@ def test_message_too_long_returns_422_message_too_long(client: TestClient) -> No
     assert response.json()["error"]["code"] == "message_too_long"
 
 
-def test_tool_events_and_location_required_are_streamed(client: TestClient) -> None:
-    def no_network(request: httpx.Request) -> httpx.Response:
-        raise AssertionError("no Resy call expected without a location")
+def test_out_of_region_venue_streams_region_change_required(client: TestClient) -> None:
+    """A New York venue asked for from the Los Angeles region: the tool reports out_of_area and
+    the stream tells the frontend to highlight the region selector."""
+
+    def resy_venue(request: httpx.Request) -> httpx.Response:
+        assert request.url.path == "/3/venue"  # never /4/find for an out-of-region venue
+        return httpx.Response(200, json=fixture("venue-by-id.json"))
 
     resy = ResyClient(
-        api_key="k", auth_token="t", writes_enabled=False, transport=httpx.MockTransport(no_network)
+        api_key="k", auth_token="t", writes_enabled=False, transport=httpx.MockTransport(resy_venue)
     )
     llm = scripted_model(
         AIMessage(
             content="",
             tool_calls=[
-                {"name": "search_availability", "args": {"cuisine": "thai"}, "id": "call-1"}
+                {"name": "search_availability", "args": {"venue_id": 87134}, "id": "call-1"}
             ],
         ),
-        AIMessage(content="Please tap 'Use my location' so I can search near you."),
+        AIMessage(content="That's in New York; change your location first."),
     )
     graph = build_graph(MemorySaver(), llm=llm, tools=[make_search_availability_tool(resy)])
     client.app.dependency_overrides[get_graph] = lambda: graph  # type: ignore[attr-defined]
 
-    events = _parse_sse(_post_chat(client, message="thai tonight for 2").text)
+    events = _parse_sse(_post_chat(client, message="BCH FiDi", region="los-angeles-ca").text)
     event_names = [name for name, _ in events]
 
     start = event_names.index("tool_start")
-    assert event_names[start : start + 3] == ["tool_start", "location_required", "tool_end"]
+    assert event_names[start : start + 3] == ["tool_start", "region_change_required", "tool_end"]
+    assert events[start + 1][1] == {"city": "New York"}
     tool_start = events[start][1]
     tool_end = events[start + 2][1]
     assert tool_start["name"] == "search_availability"
     assert tool_end["call_id"] == tool_start["call_id"]
-    assert tool_end["ok"] is False
+    assert tool_end["ok"] is True
     assert isinstance(tool_end["duration_ms"], int)
     assert event_names[-2:] == ["usage", "done"]
 

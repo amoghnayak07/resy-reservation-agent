@@ -1,17 +1,12 @@
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field
 
-from app.schemas.chat import validate_timezone_name
+from app.schemas.chat import RegionSlug
 
 
 class BookingActionRequest(BaseModel):
-    """Decline body. `timezone` (the user's, as in chat) goes into the resumed run's config."""
+    """Decline body. `region` (as in chat) sets the resumed run's timezone and names."""
 
-    timezone: str
-
-    @field_validator("timezone")
-    @classmethod
-    def validate_timezone(cls, value: str) -> str:
-        return validate_timezone_name(value)
+    region: RegionSlug
 
 
 class ConfirmBookingRequest(BookingActionRequest):

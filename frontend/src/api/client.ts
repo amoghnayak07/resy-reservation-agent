@@ -7,6 +7,7 @@ import type {
   DeclineBookingBody,
   HealthResponse,
   MessageOut,
+  RegionsResponse,
 } from './types'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string
@@ -48,6 +49,11 @@ export async function getHealth(signal?: AbortSignal): Promise<HealthResponse> {
     throw new Error(`Health check failed: ${response.status}`)
   }
   return (await response.json()) as HealthResponse
+}
+
+export async function getRegions(): Promise<RegionsResponse> {
+  const response = await apiFetch('/api/regions')
+  return (await response.json()) as RegionsResponse
 }
 
 export async function listConversations(): Promise<ConversationOut[]> {

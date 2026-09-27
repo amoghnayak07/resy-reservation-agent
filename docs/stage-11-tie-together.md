@@ -84,12 +84,12 @@ Sections:
 
 ### 6. Pre-launch checklist (maintainer only; not in the README)
 
-- [ ] Supabase project isn't paused (restore in dashboard if needed).
-- [ ] Resy auth token valid well past the review window.
-- [ ] `RESY_WRITES_ENABLED=true` and `DEMO_BOOKING_PASSCODE` set in production.
-- [ ] Spend cap and rate limits at intended values.
-- [ ] Open the app once to wake Render before sharing.
-- [ ] Sharing notes tell visitors to allow location access, and that the proof booking was made in New York.
+- [x] Supabase project isn't paused (restore in dashboard if needed).
+- [x] Resy auth token valid well past the review window.
+- [x] `RESY_WRITES_ENABLED=true` and `DEMO_BOOKING_PASSCODE` set in production.
+- [x] Spend cap and rate limits at intended values.
+- [x] Open the app once to wake Render before sharing.
+- [x] Sharing notes tell visitors to allow location access, and that the proof booking was made in New York.
 
 ## Agreed README content
 
@@ -131,9 +131,9 @@ Sections:
 ## Exit criteria
 
 - [ ] E2E test passes in CI.
-- [ ] Eval results recorded for both models.
+- [x] Eval results recorded for both models.
 - [ ] README complete: architecture, trade-offs, cuts, what's next, screenshots.
-- [ ] Pre-launch checklist done.
+- [x] Pre-launch checklist done.
 - [ ] All PLAN.md stages checked except stage 8 (dashboard), which follows this stage.
 - [ ] Deferred from stage 1: PR checks block merging on failure (verify by pushing a formatting error once).
 - [x] Deferred from stage 1: merging to `master` deploys both apps automatically via CI, with auto-deploy off on both platforms.
@@ -143,6 +143,6 @@ Sections:
 _(Fill in: final measured numbers and any last-minute changes.)_
 
 - Stage 8 (dashboard) moved after this stage: the README describes observability through Langfuse and lists the dashboard as next; measured numbers come from the Langfuse UI.
-- README scope (user decision): architecture, trade-offs, cuts, screenshots, and why Resy. Cost/latency numbers and the review questions stay out of the README (kept for discussion; numbers from Langfuse). Eval results are recorded here, not in the README. No third-party repo references anywhere.
+- README scope (user decision): architecture, trade-offs, cuts, screenshots, and why Resy. Cost/latency numbers and the review questions stay out of the README (kept for discussion; numbers from Langfuse). Eval results are kept locally in gitignored `backend/evals/results.md`, not in the README. No third-party repo references anywhere.
 - Eval cases are JSON (`cases.json`), not YAML: PyYAML is only a transitive dependency.
 - Frontend CI deploy fixed: `VERCEL_ORG_ID` must be the team ID (`team_…`), matching `vercel link`'s `.vercel/project.json`; the Vercel CLI runs from the repo root because the project's Root Directory is `frontend` (running from `frontend/` resolves `frontend/frontend`). Vercel Git auto-deploy is off via `vercel.json` `git.deploymentEnabled: false`.

@@ -10,14 +10,13 @@ import Typography from '@mui/material/Typography'
 import { ChatInput } from '../components/ChatInput'
 import { ChatMessageBubble } from '../components/ChatMessageBubble'
 import { ConversationDrawer } from '../components/ConversationDrawer'
-import { LocationChip } from '../components/LocationChip'
+import { RegionChip } from '../components/RegionChip'
+import { RegionDialog } from '../components/RegionDialog'
 import { WakeUpBanner } from '../components/WakeUpBanner'
 import { activityLabel } from '../hooks/streamStatus'
 import { useChat } from '../hooks/useChat'
 import { useHealthCheck } from '../hooks/useHealthCheck'
-import { useLocation } from '../hooks/useLocation'
-
-const TIMEZONE = Intl.DateTimeFormat().resolvedOptions().timeZone
+import { useRegion } from '../hooks/useRegion'
 
 export function ChatPage() {
   const { state: healthState, retry: retryHealth } = useHealthCheck()
@@ -26,32 +25,31 @@ export function ChatPage() {
   const scrollAnchorRef = useRef<HTMLDivElement>(null)
 
   const handleTurnComplete = useCallback(() => setRefreshKey((key) => key + 1), [])
-  const location = useLocation()
+  const isHealthy = healthState === 'healthy'
+  const regions = useRegion(isHealthy)
 
   const {
     conversationId,
     messages,
     isStreaming,
     streamStatus,
-    clearLocationRequired,
+    clearRegionChangeRequired,
     error,
     clearError,
     sendMessage,
     respondToConfirmation,
     startNewConversation,
     loadConversation,
-  } = useChat(TIMEZONE, handleTurnComplete, location.getForRequest)
+  } = useChat(regions.region?.slug, handleTurnComplete, regions.invalidate)
 
-  const handleEnableLocation = () => {
-    clearLocationRequired()
-    void location.enable()
+  const handleOpenRegionPicker = () => {
+    clearRegionChangeRequired()
+    regions.openPicker()
   }
 
   useEffect(() => {
     scrollAnchorRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
-
-  const isHealthy = healthState === 'healthy'
 
   const handleSelect = (id: string) => {
     void loadConversation(id)
@@ -74,18 +72,24 @@ export function ChatPage() {
         refreshKey={refreshKey}
       />
       <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, height: '100%' }}>
-        <AppBar position="static" color="default" sx={{ display: { sm: 'none' } }}>
+        <AppBar position="static" color="default" elevation={0}>
           <Toolbar>
             <IconButton
               edge="start"
               onClick={() => setDrawerOpen(true)}
               aria-label="Open conversations"
+              sx={{ display: { sm: 'none' } }}
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" sx={{ ml: 1 }}>
+            <Typography variant="h6" sx={{ ml: { xs: 1, sm: 0 }, flexGrow: 1 }} noWrap>
               Resy Reservation Agent
             </Typography>
+            <RegionChip
+              region={regions.region}
+              highlighted={streamStatus.regionChangeRequired}
+              onClick={handleOpenRegionPicker}
+            />
           </Toolbar>
         </AppBar>
 
@@ -108,14 +112,22 @@ export function ChatPage() {
           <div ref={scrollAnchorRef} />
         </Box>
 
-        <LocationChip
-          status={location.status}
-          highlighted={streamStatus.locationRequired}
-          onEnable={handleEnableLocation}
-          onDisable={location.disable}
+        <ChatInput
+          disabled={!isHealthy || isStreaming || !regions.region}
+          onSend={(text) => void sendMessage(text)}
         />
-        <ChatInput disabled={!isHealthy || isStreaming} onSend={(text) => void sendMessage(text)} />
       </Box>
+
+      <RegionDialog
+        open={regions.pickerOpen}
+        required={regions.region === null}
+        countries={regions.countries}
+        state={regions.state}
+        current={regions.region}
+        onSelect={regions.select}
+        onClose={regions.closePicker}
+        onRetry={() => void regions.retry()}
+      />
 
       <Snackbar open={error !== null} autoHideDuration={6000} onClose={clearError}>
         <Alert severity="error" onClose={clearError} sx={{ width: '100%' }}>

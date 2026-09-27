@@ -1,32 +1,15 @@
+from typing import Annotated
 from uuid import UUID
-from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field
 
 from app.config import settings
 
-
-class UserLocation(BaseModel):
-    lat: float = Field(ge=-90, le=90)
-    lng: float = Field(ge=-180, le=180)
-    accuracy_m: float = Field(ge=0)
-
-
-def validate_timezone_name(value: str) -> str:
-    try:
-        ZoneInfo(value)
-    except ZoneInfoNotFoundError as exc:
-        raise ValueError(f"Unknown IANA timezone: {value!r}") from exc
-    return value
+# A Resy city `url_slug` (e.g. "new-york-ny"); resolved server-side against the city list.
+RegionSlug = Annotated[str, Field(min_length=1, max_length=100, pattern=r"^[a-z0-9-]+$")]
 
 
 class ChatRequest(BaseModel):
     conversation_id: UUID | None = None
     message: str = Field(min_length=1, max_length=settings.max_message_chars)
-    timezone: str
-    user_location: UserLocation | None = None
-
-    @field_validator("timezone")
-    @classmethod
-    def validate_timezone(cls, value: str) -> str:
-        return validate_timezone_name(value)
+    region: RegionSlug

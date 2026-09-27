@@ -31,6 +31,7 @@ from app.resy.models import (
     CalendarResponse,
     DetailsResponse,
     FindResponse,
+    LocationConfigResponse,
     VenueResponse,
     VenueSearchResponse,
     parse_response,
@@ -183,6 +184,12 @@ class ResyClient:
             },
         )
         return parse_response(DetailsResponse, data, endpoint)
+
+    async def get_location_config(self) -> LocationConfigResponse:
+        """GET /3/location/config: Resy's city list (region selector). Cached by the caller."""
+        endpoint = "/3/location/config"
+        data = await self._request("GET", endpoint)
+        return parse_response(LocationConfigResponse, data, endpoint)
 
     async def get_venue(self, venue_id: int) -> VenueResponse:
         """GET /3/venue?id= (same response as the slug lookup resy.com pages use)."""

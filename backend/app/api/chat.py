@@ -13,6 +13,7 @@ from app.api.deps import (
     get_conversation_repository,
     get_graph,
     get_pending_booking_repository,
+    get_region_directory,
     get_session_id,
     get_spend_guard,
 )
@@ -24,6 +25,7 @@ from app.guards.rate_limit import enforce_rate_limits
 from app.guards.spend import SpendGuard
 from app.guards.turns import check_turn_limit
 from app.observability import langfuse as langfuse_module
+from app.regions import RegionDirectory, region_config, resolve_region
 from app.schemas.chat import ChatRequest
 
 router = APIRouter(prefix="/api/chat", tags=["chat"])
@@ -80,19 +82,13 @@ async def chat(
     graph: CompiledStateGraph = Depends(get_graph),
     spend: SpendGuard = Depends(get_spend_guard),
     bookings: PendingBookingRepository = Depends(get_pending_booking_repository),
+    regions: RegionDirectory = Depends(get_region_directory),
 ) -> StreamingResponse:
     await spend.check_cap()
+    city = await resolve_region(regions, body.region)
 
     conversation = await _get_or_create_conversation(repo, body.conversation_id, session_id)
     check_turn_limit(conversation)
-
-    location_used = body.user_location is not None
-    location: dict[str, float] | None = None
-    if body.user_location is not None:
-        location = {
-            "lat": round(body.user_location.lat, 3),
-            "lng": round(body.user_location.lng, 3),
-        }
 
     await close_open_confirmations(
         graph, bookings, {"configurable": {"thread_id": str(conversation.id)}}, session_id
@@ -102,7 +98,7 @@ async def chat(
         async with langfuse_module.trace_turn(
             conversation_id=str(conversation.id),
             session_id=session_id,
-            location_used=location_used,
+            region=city.slug,
         ) as (handler, trace_id):
             yield sse_event("meta", {"conversation_id": str(conversation.id), "trace_id": trace_id})
 
@@ -110,9 +106,7 @@ async def chat(
                 "configurable": {
                     "thread_id": str(conversation.id),
                     "session_id": session_id,
-                    "timezone": body.timezone,
-                    "location_available": location_used,
-                    "location": location,
+                    **region_config(city),
                 },
                 "callbacks": [handler],
                 "recursion_limit": 12,

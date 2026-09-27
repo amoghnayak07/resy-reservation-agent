@@ -21,16 +21,16 @@ describe('stream status', () => {
     expect(activityLabel(ended)).toBe('Working…')
   })
 
-  it('flags location_required for the chip highlight', () => {
+  it('flags region_change_required for the region chip highlight', () => {
     const status = run([
       { event: 'tool_start', data: { name: 'search_availability', call_id: 'c1' } },
-      { event: 'location_required', data: {} },
+      { event: 'region_change_required', data: { city: 'New York' } },
       {
         event: 'tool_end',
-        data: { name: 'search_availability', call_id: 'c1', ok: false, duration_ms: 3 },
+        data: { name: 'search_availability', call_id: 'c1', ok: true, duration_ms: 3 },
       },
     ])
-    expect(status.locationRequired).toBe(true)
+    expect(status.regionChangeRequired).toBe(true)
     expect(status.activeTools).toEqual({})
   })
 

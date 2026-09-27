@@ -1,13 +1,11 @@
-import type { ChatRequestBody, UserLocation } from './types'
+import type { ChatRequestBody } from './types'
 
-// `user_location` is attached only when the user has turned location on.
+// Every chat request carries the selected region (a Resy city slug); nothing else about the
+// user's location or timezone is sent.
 export function buildChatRequest(
   message: string,
-  timezone: string,
+  region: string,
   conversationId: string | undefined,
-  location: UserLocation | undefined,
 ): ChatRequestBody {
-  const body: ChatRequestBody = { conversation_id: conversationId, message, timezone }
-  if (location) body.user_location = location
-  return body
+  return { conversation_id: conversationId, message, region }
 }

@@ -30,6 +30,7 @@ from app.api.deps import (
     get_conversation_repository,
     get_graph,
     get_pending_booking_repository,
+    get_region_directory,
     get_spend_guard,
 )
 from app.config import settings
@@ -41,9 +42,10 @@ from tests.fakes import (
     FakePendingBookingRepository,
     FakeSpendGuard,
     ToolCallingFakeModel,
+    fixture_regions,
 )
 from tests.test_chat_api import _parse_sse
-from tests.test_search_tool import LOWER_MANHATTAN, NY, fixture
+from tests.test_search_tool import NY, fixture
 
 SESSION_ID = str(uuid.uuid4())
 TZ = "America/New_York"
@@ -154,6 +156,8 @@ def test_search_to_confirmed_booking() -> None:
     app.dependency_overrides[get_conversation_repository] = lambda: conversations
     app.dependency_overrides[get_spend_guard] = lambda: FakeSpendGuard()
     app.dependency_overrides[get_pending_booking_repository] = lambda: bookings
+    regions = fixture_regions()
+    app.dependency_overrides[get_region_directory] = lambda: regions
     client = TestClient(app)
     headers = {"X-Session-Id": SESSION_ID}
 
@@ -163,8 +167,7 @@ def test_search_to_confirmed_booking() -> None:
         json={
             "conversation_id": conversation_id,
             "message": "Table for 2 at Brooklyn Chop House FiDi on Oct 22 at noon",
-            "timezone": TZ,
-            "user_location": {**LOWER_MANHATTAN, "accuracy_m": 20},
+            "region": "new-york-ny",
         },
     )
     events = _parse_sse(chat.text)
@@ -184,7 +187,7 @@ def test_search_to_confirmed_booking() -> None:
     confirm = client.post(
         f"/api/bookings/{card['pending_booking_id']}/confirm",
         headers=headers,
-        json={"passcode": "e2e-passcode", "timezone": TZ},
+        json={"passcode": "e2e-passcode", "region": "new-york-ny"},
     )
     resumed = _parse_sse(confirm.text)
 

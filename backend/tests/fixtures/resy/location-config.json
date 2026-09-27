@@ -1,0 +1,230 @@
+[
+  {
+    "all_cities_header": 0,
+    "blog_url": null,
+    "code": "ny",
+    "content_tier": 1,
+    "country_code": "US",
+    "country_id": 233,
+    "country_name": "United States",
+    "has_rga_venues": true,
+    "id": 1,
+    "latitude": 40.7128,
+    "longitude": -74.006,
+    "map_center": {
+      "latitude": 40.712941,
+      "longitude": -74.006393
+    },
+    "name": "New York",
+    "radius": 10,
+    "shape_data": "{\"coordinates\": [[[-73.7449495, 40.6431148], [-73.7708528, 40.5838874], [-73.8475083, 40.5424707], [-73.9441148, 40.5282888], [-74.0279066, 40.5503048], [-74.0975952, 40.5351542], [-74.2521554, 40.4890997], [-74.257487, 40.5100249], [-74.2489032, 40.5500215], [-74.2172239, 40.5577544], [-74.2001341, 40.6011027], [-74.2027323, 40.6313592], [-74.1824784, 40.646381], [-74.1427891, 40.6405172], [-74.0953541, 40.6469259], [-74.0619661, 40.6521814], [-74.0297231, 40.704434], [-74.0117355, 40.7608119], [-73.9767703, 40.8074861], [-73.9288868, 40.8802042], [-73.9068358, 40.8700446], [-73.8916369, 40.8012769], [-73.854452, 40.7763992], [-73.84249, 40.80349], [-73.8006, 40.80661], [-73.76421, 40.7931], [-73.74361, 40.76814], [-73.72782, 40.74265], [-73.7237, 40.7005], [-73.72957, 40.67938], [-73.7449495, 40.6431148]]], \"type\": \"Polygon\"}",
+    "show_in_app": 1,
+    "show_in_display": 1,
+    "show_on_web": 1,
+    "time_zone": "EST5EDT",
+    "url_slug": "new-york-ny",
+    "waitlist_max_distance": 1,
+    "waitlist_travel_mode": "walking",
+    "metadata": {
+      "description": "Reservations at New York's best restaurants are available on Resy. Grab a seat!",
+      "keywords": [
+        "dining",
+        "dinner"
+      ],
+      "all_cities": {
+        "header": "Discover Restaurants to Love in New York.",
+        "tagline": "Resy powers the world's best restaurants, using technology to imagine the future of hospitality."
+      }
+    }
+  },
+  {
+    "all_cities_header": 0,
+    "blog_url": null,
+    "code": "la",
+    "content_tier": 1,
+    "country_code": "US",
+    "country_id": 233,
+    "country_name": "United States",
+    "has_rga_venues": true,
+    "id": 2,
+    "latitude": 34.041515,
+    "longitude": -118.280131,
+    "map_center": {
+      "latitude": 34.0522342,
+      "longitude": -118.2436849
+    },
+    "name": "Los Angeles",
+    "radius": 19,
+    "shape_data": null,
+    "show_in_app": 1,
+    "show_in_display": 1,
+    "show_on_web": 1,
+    "time_zone": "PST8PDT",
+    "url_slug": "los-angeles-ca",
+    "waitlist_max_distance": 5,
+    "waitlist_travel_mode": "driving",
+    "metadata": {
+      "description": "Reservations at Los Angeles's best restaurants are available on Resy. Grab a sea",
+      "keywords": [
+        "dining",
+        "dinner"
+      ],
+      "all_cities": {
+        "header": "Discover Restaurants to Love in Los Angeles.",
+        "tagline": "Resy powers the world's best restaurants, using technology to imagine the future of hospitality."
+      }
+    }
+  },
+  {
+    "all_cities_header": 1,
+    "blog_url": null,
+    "code": "abl",
+    "content_tier": 3,
+    "country_code": "US",
+    "country_id": 233,
+    "country_name": "United States",
+    "has_rga_venues": false,
+    "id": 1007,
+    "latitude": 32.4487364,
+    "longitude": -99.7331439,
+    "map_center": {
+      "latitude": 32.4487364,
+      "longitude": -99.7331439
+    },
+    "name": "Abilene, TX",
+    "radius": 12,
+    "shape_data": null,
+    "show_in_app": 0,
+    "show_in_display": 0,
+    "show_on_web": 1,
+    "time_zone": "CST6CDT",
+    "url_slug": "abilene-tx",
+    "waitlist_max_distance": null,
+    "waitlist_travel_mode": null,
+    "metadata": {
+      "description": "Reservations at Abilene, TX's best restaurants are available on Resy. Grab a sea",
+      "keywords": [
+        "dining",
+        "dinner"
+      ],
+      "all_cities": {
+        "header": "Discover Restaurants to Love in Abilene, TX.",
+        "tagline": "Resy powers the world's best restaurants, using technology to imagine the future of hospitality."
+      }
+    }
+  },
+  {
+    "all_cities_header": 1,
+    "blog_url": null,
+    "code": "crn",
+    "content_tier": 2,
+    "country_code": "ES",
+    "country_id": 206,
+    "country_name": "Spain",
+    "has_rga_venues": false,
+    "id": 801,
+    "latitude": 43.3623436,
+    "longitude": -8.4115401,
+    "map_center": {
+      "latitude": 43.3623436,
+      "longitude": -8.4115401
+    },
+    "name": "A Coruña, Spain",
+    "radius": 2,
+    "shape_data": null,
+    "show_in_app": 0,
+    "show_in_display": 0,
+    "show_on_web": 1,
+    "time_zone": "Europe/Madrid",
+    "url_slug": "a-coruna-spain",
+    "waitlist_max_distance": null,
+    "waitlist_travel_mode": null,
+    "metadata": {
+      "description": "Reservations at A Coruña, Spain's best restaurants are available on Resy. Grab a",
+      "keywords": [
+        "dining",
+        "dinner"
+      ],
+      "all_cities": {
+        "header": "Discover Restaurants to Love in A Coruña, Spain.",
+        "tagline": "Resy powers the world's best restaurants, using technology to imagine the future of hospitality."
+      }
+    }
+  },
+  {
+    "all_cities_header": 0,
+    "blog_url": null,
+    "code": "abrd",
+    "content_tier": 3,
+    "country_code": "US",
+    "country_id": 233,
+    "country_name": "United States",
+    "has_rga_venues": false,
+    "id": 1368,
+    "latitude": 40.4170948,
+    "longitude": -74.2221155,
+    "map_center": {
+      "latitude": 40.4170948,
+      "longitude": -74.2221155
+    },
+    "name": "Aberdeen Township, NJ",
+    "radius": 4,
+    "shape_data": null,
+    "show_in_app": 0,
+    "show_in_display": 0,
+    "show_on_web": 0,
+    "time_zone": "EST5EDT",
+    "url_slug": "aberdeen-township-nj",
+    "waitlist_max_distance": null,
+    "waitlist_travel_mode": null,
+    "metadata": {
+      "description": "Reservations at Aberdeen Township, NJ's best restaurants are available on Resy. ",
+      "keywords": [
+        "dining",
+        "dinner"
+      ],
+      "all_cities": {
+        "header": "Discover Restaurants to Love in Aberdeen Township, NJ.",
+        "tagline": "Resy powers the world's best restaurants, using technology to imagine the future of hospitality."
+      }
+    }
+  },
+  {
+    "all_cities_header": 0,
+    "blog_url": null,
+    "code": "li",
+    "content_tier": 2,
+    "country_code": "US",
+    "country_id": 233,
+    "country_name": "United States",
+    "has_rga_venues": true,
+    "id": 7,
+    "latitude": 40.926011,
+    "longitude": -72.494534,
+    "map_center": {
+      "latitude": 40.926011,
+      "longitude": -72.494534
+    },
+    "name": "Hamptons",
+    "radius": 30,
+    "shape_data": "{\"coordinates\": [[[-72.87286, 41.06923], [-72.21093, 41.22641], [-71.9912, 41.12098], [-71.74676, 41.09614], [-72.30706, 40.735], [-72.68609, 40.67879], [-72.87286, 41.06923]]], \"type\": \"Polygon\"}",
+    "show_in_app": 0,
+    "show_in_display": 1,
+    "show_on_web": 1,
+    "time_zone": "EST5EDT",
+    "url_slug": "hamptons-ny",
+    "waitlist_max_distance": null,
+    "waitlist_travel_mode": null,
+    "metadata": {
+      "description": "Reservations at Hamptons's best restaurants are available on Resy. Grab a seat!",
+      "keywords": [
+        "dining",
+        "dinner"
+      ],
+      "all_cities": {
+        "header": "Discover Restaurants to Love in Hamptons.",
+        "tagline": "Resy powers the world's best restaurants, using technology to imagine the future of hospitality."
+      }
+    }
+  }
+]

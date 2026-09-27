@@ -24,3 +24,8 @@ Thumbs.db
 
 .vercel
 .env*
+
+# Local-only files (not committed)
+backend/evals/results.md
+# Full Resy city list (2.8 MB); tests use the slimmed location-config.json
+backend/tests/fixtures/resy/locations.json

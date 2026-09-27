@@ -213,6 +213,7 @@ async def test_graph_checks_calendar_after_empty_search_then_searches_by_venue_i
             "thread_id": "conv-1",
             "timezone": "America/New_York",
             "location": LOWER_MANHATTAN,
+            "radius_m": 16_093,
         }
     }
 

@@ -13,7 +13,9 @@ import httpx
 
 from app.agent.tools.search_availability import make_search_availability_tool
 from app.agent.tools.slot_ids import SlotIdMap
+from app.regions import RegionDirectory
 from app.resy.client import ResyClient
+from tests.fakes import fixture_regions
 
 FIXTURES = Path(__file__).parent / "fixtures" / "resy"
 NY = ZoneInfo("America/New_York")
@@ -78,7 +80,10 @@ async def call_tool(
     fake: FakeResy,
     *,
     location: dict[str, float] | None = LOWER_MANHATTAN,
+    radius_m: int = 40_000,
+    timezone: str = "America/New_York",
     slot_map: SlotIdMap | None = None,
+    regions: RegionDirectory | None = None,
     **args: Any,
 ) -> dict[str, Any]:
     resy = ResyClient(
@@ -89,13 +94,17 @@ async def call_tool(
         retry_backoff_s=0,
     )
     tool = make_search_availability_tool(
-        resy, slot_map=slot_map or SlotIdMap(), now_fn=lambda tz: NOW.astimezone(tz)
+        resy,
+        slot_map=slot_map or SlotIdMap(),
+        now_fn=lambda tz: NOW.astimezone(tz),
+        regions=regions,
     )
     config = {
         "configurable": {
             "thread_id": "conv-1",
-            "timezone": "America/New_York",
+            "timezone": timezone,
             "location": location,
+            "radius_m": radius_m,
         }
     }
     async with resy:
@@ -114,11 +123,41 @@ def venue(result: dict[str, Any], name: str) -> dict[str, Any]:
 # --- guards -----------------------------------------------------------------------------
 
 
-async def test_no_location_returns_location_required_without_calling_resy() -> None:
+async def test_no_region_returns_region_required_without_calling_resy() -> None:
     fake = FakeResy(router())
     result = await call_tool(fake, location=None, cuisine="japanese")
-    assert result["error"] == "location_required"
+    assert result["error"] == "region_required"
     assert fake.requests == []
+
+
+async def test_search_uses_the_region_center_and_radius() -> None:
+    fake = FakeResy(router(sushi=fixture("venue-search-geo.json"), **{"sushi#2": EMPTY_PAGE}))
+    await call_tool(
+        fake, location={"lat": 40.7128, "lng": -74.006}, radius_m=16_093, cuisine="sushi"
+    )
+    geo = fake.searches()[0]["geo"]
+    assert geo == {"latitude": 40.7128, "longitude": -74.006, "radius": 16_093}
+
+
+async def test_slot_times_use_the_venue_city_time_zone() -> None:
+    """A New York venue searched with a Los Angeles region timezone still gets New York times:
+    the hit's location.url_slug is looked up in the city list."""
+    fake = FakeResy(router(Tribeca=fixture("venue-search-geo.json"), **{"Tribeca#2": EMPTY_PAGE}))
+    slot_map = SlotIdMap()
+    result = await call_tool(
+        fake,
+        slot_map=slot_map,
+        regions=fixture_regions(),
+        timezone="PST8PDT",
+        neighborhood="Tribeca",
+        **DAY_ARGS,
+        **WIDE_RANGE,
+    )
+    first = next(v for v in result["venues"] if v.get("slots"))
+    ref = slot_map.get("conv-1", first["slots"][0]["slot_id"])
+    assert ref is not None
+    assert ref.start.tzinfo is not None
+    assert ref.start.utcoffset() == ref.start.astimezone(ZoneInfo("EST5EDT")).utcoffset()
 
 
 async def test_past_date_is_rejected() -> None:
