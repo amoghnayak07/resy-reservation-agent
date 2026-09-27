@@ -1,0 +1,293 @@
+{
+  "meta": { "engine": "ELASTIC", "total": 2722, "page": 1, "per_page": 20, "total_pages": 137 },
+  "search": {
+    "nbPages": 137,
+    "cuisines": ["American", "Italian", "Japanese", "French", "Mediterranean", "Mexican", "Sushi", "New American", "Chinese", "Korean", "Seafood", "Steakhouse", "Indian", "Thai", "Greek", "Pizza", "Asian", "Kosher", "Middle Eastern", "European"],
+    "hitsPerPage": 20,
+    "hits": [
+      {
+        "inventory_type_id": 2, "region": "NY", "max_party_size": 6, "price_range_id": 3,
+        "reopen": { "date": null }, "country": "United States",
+        "contact": { "phone_number": "+10000000000" }, "locality": "New York",
+        "rating": { "average": 4.14474, "count": 76 }, "global_dining_access": 0, "currency_code": "USD",
+        "requires_reservation_transfers": 0, "id": { "resy": 87134 }, "is_gdc": 0, "is_rga": 0,
+        "neighborhood": "Financial District", "cuisine": ["Steakhouse"],
+        "waitlist": { "available": 0, "label": "Join Wait List", "current": null },
+        "images": ["https://image.resy.com/3/003/2/87134/7da5980387c5dd3ff7baac67f6eca33487cd2a63/jpg/640x360"],
+        "source": { "privacy_policy": null, "name": null, "logo": null, "terms_of_service": null },
+        "travel_time": { "distance": 0.09214423347228559 },
+        "availability": {
+          "status": null, "notifies": [], "events": [],
+          "templates": {
+            "3533613": { "cancellation_fee": null, "payment_structure": null, "id": 3533613, "is_default": 0, "large_party_cancellation_fee": null, "large_party_size_cancel": null, "deposit_fee": null, "is_paid": false, "secs_cancel_cut_off": null, "reservation_config": { "time_off_market": null, "type": "", "badge": null, "secs_off_market": 3600 }, "venue_id": 87134, "name": "3533613" },
+            "3533618": { "cancellation_fee": null, "payment_structure": null, "id": 3533618, "is_default": 0, "large_party_cancellation_fee": null, "large_party_size_cancel": null, "deposit_fee": null, "is_paid": false, "secs_cancel_cut_off": null, "reservation_config": { "time_off_market": "23:00:00", "type": "", "badge": null, "secs_off_market": 86400 }, "venue_id": 87134, "name": "3533618" }
+          },
+          "notify_options": [
+            { "min_request_datetime": "2026-10-22 16:00:00", "max_request_datetime": "2026-10-22 22:00:00", "step_minutes": 30, "service_type_id": 2 },
+            { "min_request_datetime": "2026-10-22 12:00:00", "max_request_datetime": "2026-10-22 16:00:00", "step_minutes": 30, "service_type_id": 3 }
+          ],
+          "slots": [
+            { "is_global_dining_access": false, "reservation_config": { "badge": null }, "shift": { "id": 2340285, "service": { "type": { "id": 3 } }, "day": "2026-10-22" }, "has_add_ons": false, "display_config": { "color": { "font": null, "background": null } }, "exclusive": { "is_eligible": true, "id": 0 }, "config": { "type": "Dining Room", "token": "rgs://resy/87134/3533613/3/2026-10-22/2026-10-22/12:00:00/2/Dining Room", "id": 1829820 }, "template": { "id": 3533613 }, "date": { "end": "2026-10-22 13:30:00", "start": "2026-10-22 12:00:00" } },
+            { "is_global_dining_access": false, "reservation_config": { "badge": null }, "shift": { "id": 2340285, "service": { "type": { "id": 3 } }, "day": "2026-10-22" }, "has_add_ons": false, "display_config": { "color": { "font": null, "background": null } }, "exclusive": { "is_eligible": true, "id": 0 }, "config": { "type": "Dining Room", "token": "rgs://resy/87134/3533613/3/2026-10-22/2026-10-22/13:30:00/2/Dining Room", "id": 1829819 }, "template": { "id": 3533613 }, "date": { "end": "2026-10-22 15:00:00", "start": "2026-10-22 13:30:00" } },
+            { "is_global_dining_access": false, "reservation_config": { "badge": null }, "shift": { "id": 2340290, "service": { "type": { "id": 2 } }, "day": "2026-10-22" }, "has_add_ons": false, "display_config": { "color": { "font": null, "background": null } }, "exclusive": { "is_eligible": true, "id": 0 }, "config": { "type": "Dining Room", "token": "rgs://resy/87134/3533618/2/2026-10-22/2026-10-22/16:00:00/2/Dining Room", "id": 1829820 }, "template": { "id": 3533618 }, "date": { "end": "2026-10-22 17:30:00", "start": "2026-10-22 16:00:00" } }
+          ],
+          "service_types": { "2": {}, "3": {} }, "gating_errors": {}
+        },
+        "is_tock_inventory": false, "url_slug": "brooklyn-chop-house-downtown-fidi",
+        "content": [{ "name": "why_we_like_it", "display": { "type": "text" }, "icon": { "url": "https://s3.amazonaws.com/resy.com/images/icons/heart.svg" }, "locale": { "language": "en-us" }, "body": "Only in New York does a chop house serve LSD. In this case, that stands for lobster, steak, and Peking duck — all combined into one decadent feast that just might have you seeing colors. The rest of their standard menu is anything but, with dumplings, satay, and noodles alongside the usual chops and steaks.  ", "title": null, "attribution": null }],
+        "_geoloc": { "lat": 40.71164941860875, "lng": -74.00596236132077 },
+        "_highlightResult": { "locality": { "value": "New York", "matchLevel": "none", "matchedWords": [] }, "neighborhood": { "value": "Financial District", "matchLevel": "none", "matchedWords": [] }, "cuisine": [{ "value": "Steakhouse", "matchLevel": "none", "matchedWords": [] }], "name": { "value": "Brooklyn Chop House - Downtown FIDI", "matchLevel": "none", "matchedWords": [] }, "location": { "name": { "value": "New York", "matchLevel": "none", "matchedWords": [] } } },
+        "is_global_dining_access": false, "name": "Brooklyn Chop House - Downtown FIDI", "favorite": false, "collections": [],
+        "currency_symbol": "$", "feature_recaptcha": false, "gda_concierge_booking": false, "is_gns": 0,
+        "location": { "code": "ny", "id": 1, "name": "New York", "url_slug": "new-york-ny" }
+      },
+      {
+        "inventory_type_id": 2, "region": "NY", "max_party_size": 6, "price_range_id": 2,
+        "reopen": { "date": null }, "country": "United States",
+        "contact": { "phone_number": "+10000000000" }, "locality": "New York",
+        "rating": { "average": 4.64507, "count": 7441 }, "global_dining_access": 1, "currency_code": "USD",
+        "requires_reservation_transfers": 0, "id": { "resy": 60029 }, "is_gdc": 1, "is_rga": 1,
+        "neighborhood": "Lower Manhattan", "cuisine": ["French"],
+        "waitlist": { "available": 0, "label": "Join Wait List", "current": null },
+        "images": ["https://image.resy.com/3/003/2/60029/cc549754aa2c6d5992e8c129590a242635b43c2f/jpg/640x360"],
+        "source": { "privacy_policy": null, "name": null, "logo": null, "terms_of_service": null },
+        "travel_time": { "distance": 0.09605244186637026 },
+        "availability": {
+          "status": null, "notifies": [], "events": [],
+          "templates": {
+            "1677971": { "cancellation_fee": null, "payment_structure": null, "id": 1677971, "is_default": 0, "large_party_cancellation_fee": 50.0, "large_party_size_cancel": 5, "deposit_fee": null, "is_paid": false, "secs_cancel_cut_off": null, "reservation_config": { "time_off_market": null, "type": "Dining Room", "badge": null, "secs_off_market": 1800 }, "venue_id": 60029, "name": "1677971" },
+            "3805357": { "cancellation_fee": null, "payment_structure": null, "id": 3805357, "is_default": 0, "large_party_cancellation_fee": 50.0, "large_party_size_cancel": 5, "deposit_fee": null, "is_paid": false, "secs_cancel_cut_off": null, "reservation_config": { "time_off_market": null, "type": "Dining Room", "badge": null, "secs_off_market": 1800 }, "venue_id": 60029, "name": "3805357" }
+          },
+          "notify_options": [
+            { "min_request_datetime": "2026-10-22 17:00:00", "max_request_datetime": "2026-10-22 22:00:00", "step_minutes": 30, "service_type_id": 2 },
+            { "min_request_datetime": "2026-10-22 11:30:00", "max_request_datetime": "2026-10-22 14:30:00", "step_minutes": 30, "service_type_id": 3 }
+          ],
+          "slots": [
+            { "is_global_dining_access": false, "reservation_config": { "badge": null }, "shift": { "id": 2952610, "service": { "type": { "id": 3 } }, "day": "2026-10-22" }, "has_add_ons": false, "display_config": { "color": { "font": null, "background": null } }, "exclusive": { "is_eligible": true, "id": 0 }, "config": { "type": "Dining Room", "token": "rgs://resy/60029/3805357/3/2026-10-22/2026-10-22/11:30:00/2/Dining Room", "id": 1045113 }, "template": { "id": 3805357 }, "date": { "end": "2026-10-22 13:00:00", "start": "2026-10-22 11:30:00" } },
+            { "is_global_dining_access": false, "reservation_config": { "badge": null }, "shift": { "id": 547367, "service": { "type": { "id": 2 } }, "day": "2026-10-22" }, "has_add_ons": false, "display_config": { "color": { "font": null, "background": null } }, "exclusive": { "is_eligible": true, "id": 0 }, "config": { "type": "Dining Room", "token": "rgs://resy/60029/1677971/2/2026-10-22/2026-10-22/17:00:00/2/Dining Room", "id": 1045110 }, "template": { "id": 1677971 }, "date": { "end": "2026-10-22 18:45:00", "start": "2026-10-22 17:00:00" } },
+            { "is_global_dining_access": false, "reservation_config": { "badge": null }, "shift": { "id": 547367, "service": { "type": { "id": 2 } }, "day": "2026-10-22" }, "has_add_ons": false, "display_config": { "color": { "font": null, "background": null } }, "exclusive": { "is_eligible": true, "id": 0 }, "config": { "type": "Dining Room", "token": "rgs://resy/60029/1677971/2/2026-10-22/2026-10-22/20:30:00/2/Dining Room", "id": 1045112 }, "template": { "id": 1677971 }, "date": { "end": "2026-10-22 22:15:00", "start": "2026-10-22 20:30:00" } }
+          ],
+          "service_types": { "2": {}, "3": {} }, "gating_errors": {}
+        },
+        "is_tock_inventory": false, "url_slug": "le-gratin",
+        "content": [{ "name": "why_we_like_it", "display": { "type": "text" }, "icon": { "url": "https://s3.amazonaws.com/resy.com/images/icons/heart.svg" }, "locale": { "language": "en-us" }, "body": "Talk about returning to your roots: Though known for his sophisticated high-end French cuisine, Daniel Boulud is from the great gastronomic capital of Lyon and with Le Gratin, he pays tribute to the hearty, homey cooking of the convivial Lyonnais bistros known as bouchons. The defining dish here? The creamy potato extravaganza that is the gratin dauphinois, of course.", "title": null, "attribution": null }],
+        "_geoloc": { "lat": 40.711596195436, "lng": -74.0068499597795 },
+        "_highlightResult": { "locality": { "value": "New York", "matchLevel": "none", "matchedWords": [] }, "neighborhood": { "value": "Lower Manhattan", "matchLevel": "none", "matchedWords": [] }, "cuisine": [{ "value": "French", "matchLevel": "none", "matchedWords": [] }], "name": { "value": "Le Gratin", "matchLevel": "none", "matchedWords": [] }, "location": { "name": { "value": "New York", "matchLevel": "none", "matchedWords": [] } } },
+        "is_global_dining_access": true, "name": "Le Gratin", "favorite": false,
+        "collections": [{ "name": "Global Dining Access", "collection_slug": "global-dining-access", "image": "https://s3.amazonaws.com/resy.com/images/lists/rga.svg", "id": "14", "file_name": "rga", "type_id": 10, "short_name": "Global Dining Access" }],
+        "currency_symbol": "$", "feature_recaptcha": false, "collection": ["4", "14", "883", "889"], "gda_concierge_booking": false, "is_gns": 0,
+        "location": { "code": "ny", "id": 1, "name": "New York", "url_slug": "new-york-ny" }
+      },
+      {
+        "inventory_type_id": 2, "region": "NY", "max_party_size": 6,
+        "tock_business_page_url": "https://www.exploretock.com/icca/?tock_resy_origin=resy_redirect&size=2&date=2026-10-22",
+        "price_range_id": 4, "reopen": { "date": null }, "country": "US",
+        "contact": { "phone_number": null }, "locality": "New York",
+        "rating": { "average": 4.6, "count": 0 }, "global_dining_access": 0, "currency_code": "USD",
+        "requires_reservation_transfers": 0, "id": { "resy": 24492 }, "is_gdc": 0, "is_rga": 0,
+        "neighborhood": "", "cuisine": ["Edomae Sushi/ Italian Kappo"], "waitlist": {},
+        "images": ["https://tock-public.imgix.net/imagesprod/user_uploaded_images_v1/dcbac97e32cc41d22eb29b88c2eaed00.jpg?auto=format&ixlib=java-2.3.2"],
+        "source": { "privacy_policy": null, "name": null, "logo": null, "terms_of_service": null },
+        "travel_time": { "distance": 0.11297439680102948 },
+        "tock_business_search_url": "https://www.exploretock.com/icca/?tock_resy_origin=resy_redirect&size=2&date=2026-10-22",
+        "availability": {
+          "status": null, "notifies": [], "events": [], "templates": {}, "notify_options": [],
+          "slots": [
+            { "is_global_dining_access": false, "reservation_config": { "badge": null }, "shift": { "id": null, "service": { "type": { "id": null } }, "day": "2026-10-22" }, "has_add_ons": false, "tock_booking_url": null, "display_config": { "color": { "font": "#FFFFFF", "background": "#1A1A1A" } }, "exclusive": { "is_eligible": false, "id": 0 }, "config": { "type": null, "token": null, "id": null, "table_config_id": null }, "template": { "id": 0 }, "date": { "end": "2026-10-22 19:00:00", "start": "2026-10-22 17:30:00" } }
+          ],
+          "service_types": {},
+          "tock_notify_url": "https://www.exploretock.com/icca/waitlist?date=2026-10-22&size=2&tock_resy_origin=resy_redirect",
+          "gating_errors": {},
+          "experiences": [
+            {
+              "images": ["https://tock-public.imgix.net/imagesprod/user_uploaded_images_v1/d65a44e4-d906-4890-a865-ba1b7eb5dfe6.jpg?auto=format&ixlib=java-2.3.2"],
+              "experience_type_display": "", "name": "Italian Kappo Counter(Non-Sushi Course)", "hide_experience_chip": false, "id": "444695",
+              "tock_notify_url": "https://www.exploretock.com/icca/waitlist?date=2026-10-22&experienceId=444695&size=2&tock_resy_origin=resy_redirect",
+              "slots": [
+                { "date": { "start": "2026-10-22 18:00:00", "end": "2026-10-22 19:30:00" }, "tock_booking_url": "https://www.exploretock.com/icca/syndicate?dateTime=2026-10-22T18%3A00&offeringId=444695&size=2&seatingAreaId=1563&tock_resy_origin=resy_redirect", "is_global_dining_access": false, "exclusive": { "id": 0, "is_eligible": false }, "display_config": { "color": { "font": "#FFFFFF", "background": "#1A1A1A" } }, "config": { "type": "Bar", "token": null, "id": null, "table_config_id": null }, "shift": { "day": "2026-10-22", "id": null, "service": { "type": { "id": null } } }, "reservation_config": { "badge": null }, "template": { "id": 0 }, "has_add_ons": false }
+              ],
+              "price_type_display": "Prepaid", "event_time_display": null
+            }
+          ]
+        },
+        "is_tock_inventory": true, "url_slug": "icca", "content": [],
+        "_geoloc": { "lat": 40.7142199, "lng": -74.0077371 },
+        "_highlightResult": { "locality": { "value": "New York", "matchLevel": "none", "matchedWords": [] }, "cuisine": [{ "value": "Edomae Sushi/ Italian Kappo", "matchLevel": "none", "matchedWords": [] }], "name": { "value": "icca", "matchLevel": "none", "matchedWords": [] }, "location": { "name": { "value": "New York", "matchLevel": "none", "matchedWords": [] } } },
+        "is_global_dining_access": false, "name": "icca", "favorite": null, "collections": [],
+        "currency_symbol": "$", "feature_recaptcha": false, "gda_concierge_booking": false, "is_gns": 0,
+        "location": { "code": "ny", "id": 0, "name": "New York", "url_slug": "new-york-ny" }
+      },
+      {
+        "inventory_type_id": 2, "region": "NY", "max_party_size": 8, "price_range_id": 2,
+        "reopen": { "date": "2023-06-09" }, "country": "United States",
+        "contact": { "phone_number": "+10000000000" }, "locality": "New York",
+        "rating": { "average": 4.69919, "count": 2224 }, "global_dining_access": 0, "currency_code": "USD",
+        "requires_reservation_transfers": 0, "id": { "resy": 72993 }, "is_gdc": 0, "is_rga": 0,
+        "neighborhood": "Tribeca", "cuisine": ["Peruvian"],
+        "waitlist": { "available": 0, "label": "Join Wait List", "current": null },
+        "images": ["https://image.resy.com/3/003/2/72993/67c8ec4c2a128c64ca6e48fa580614575d886224/jpg/640x360"],
+        "source": { "privacy_policy": null, "name": null, "logo": null, "terms_of_service": null },
+        "travel_time": { "distance": 0.11920539056192893 },
+        "availability": {
+          "status": null, "notifies": [], "events": [],
+          "templates": {
+            "2221216": { "cancellation_fee": 25.0, "payment_structure": null, "id": 2221216, "is_default": 0, "large_party_cancellation_fee": null, "large_party_size_cancel": null, "deposit_fee": null, "is_paid": true, "secs_cancel_cut_off": 86400, "reservation_config": { "time_off_market": null, "type": "", "badge": null, "secs_off_market": 1800 }, "venue_id": 72993, "name": "2221216" },
+            "4257306": { "cancellation_fee": null, "payment_structure": null, "id": 4257306, "is_default": 0, "large_party_cancellation_fee": null, "large_party_size_cancel": null, "deposit_fee": null, "is_paid": false, "secs_cancel_cut_off": null, "reservation_config": { "time_off_market": null, "type": "", "badge": null, "secs_off_market": 1800 }, "venue_id": 72993, "name": "4257306" },
+            "4257307": { "cancellation_fee": 25.0, "payment_structure": null, "id": 4257307, "is_default": 0, "large_party_cancellation_fee": null, "large_party_size_cancel": null, "deposit_fee": null, "is_paid": true, "secs_cancel_cut_off": 86400, "reservation_config": { "time_off_market": null, "type": "Dinner ", "badge": null, "secs_off_market": 1800 }, "venue_id": 72993, "name": "4257307" }
+          },
+          "notify_options": [
+            { "min_request_datetime": "2026-10-22 17:00:00", "max_request_datetime": "2026-10-22 22:00:00", "step_minutes": 30, "service_type_id": 2 },
+            { "min_request_datetime": "2026-10-22 12:00:00", "max_request_datetime": "2026-10-22 15:00:00", "step_minutes": 30, "service_type_id": 3 }
+          ],
+          "slots": [
+            { "is_global_dining_access": false, "reservation_config": { "badge": null }, "shift": { "id": 803018, "service": { "type": { "id": 3 } }, "day": "2026-10-22" }, "has_add_ons": false, "display_config": { "color": { "font": null, "background": null } }, "exclusive": { "is_eligible": true, "id": 0 }, "config": { "type": "Dining", "token": "rgs://resy/72993/2221216/3/2026-10-22/2026-10-22/12:00:00/2/Dining", "id": 1371574 }, "template": { "id": 2221216 }, "date": { "end": "2026-10-22 13:45:00", "start": "2026-10-22 12:00:00" } },
+            { "is_global_dining_access": false, "reservation_config": { "badge": null }, "shift": { "id": 3397696, "service": { "type": { "id": 2 } }, "day": "2026-10-22" }, "has_add_ons": false, "display_config": { "color": { "font": null, "background": null } }, "exclusive": { "is_eligible": true, "id": 0 }, "config": { "type": "Dinner ", "token": "rgs://resy/72993/4257307/2/2026-10-22/2026-10-22/17:00:00/2/Dining", "id": 1371574 }, "template": { "id": 4257307 }, "date": { "end": "2026-10-22 18:30:00", "start": "2026-10-22 17:00:00" } },
+            { "is_global_dining_access": false, "reservation_config": { "badge": null }, "shift": { "id": 3397696, "service": { "type": { "id": 2 } }, "day": "2026-10-22" }, "has_add_ons": false, "display_config": { "color": { "font": null, "background": null } }, "exclusive": { "is_eligible": true, "id": 0 }, "config": { "type": "Patio", "token": "rgs://resy/72993/4257306/2/2026-10-22/2026-10-22/17:00:00/2/Patio", "id": 2218670 }, "template": { "id": 4257306 }, "date": { "end": "2026-10-22 18:30:00", "start": "2026-10-22 17:00:00" } }
+          ],
+          "service_types": { "2": {}, "3": {} }, "gating_errors": {}
+        },
+        "is_tock_inventory": false, "url_slug": "artesano",
+        "content": [{ "name": "why_we_like_it", "display": { "type": "text" }, "icon": { "url": "https://s3.amazonaws.com/resy.com/images/icons/heart.svg" }, "locale": { "language": "en-us" }, "body": "This is tweezer food we actually want to eat. Artesano goes about Peruvian cuisine with a precision we don’t see often: Think octopus emulsions, rocoto gel, and cauliflower tiger’s milk alongside more robust dishes like Peruvian fried rice and short ribs.", "title": null, "attribution": null }],
+        "_geoloc": { "lat": 40.7144744, "lng": -74.0074309 },
+        "_highlightResult": { "locality": { "value": "New York", "matchLevel": "none", "matchedWords": [] }, "neighborhood": { "value": "Tribeca", "matchLevel": "none", "matchedWords": [] }, "cuisine": [{ "value": "Peruvian", "matchLevel": "none", "matchedWords": [] }], "name": { "value": "Artesano", "matchLevel": "none", "matchedWords": [] }, "location": { "name": { "value": "New York", "matchLevel": "none", "matchedWords": [] } } },
+        "is_global_dining_access": false, "name": "Artesano", "favorite": false,
+        "collections": [{ "name": "Resy Staff Picks in New York", "collection_slug": "resy-staff-picks-in-new-york", "image": "https://s3.amazonaws.com/resy.com/images/lists/staff-picks.svg", "id": "4", "file_name": "staff-picks", "type_id": 1, "short_name": "Staff Picks" }],
+        "currency_symbol": "$", "feature_recaptcha": false, "collection": ["4", "1085", "1089", "1173"], "gda_concierge_booking": false, "is_gns": 0,
+        "location": { "code": "ny", "id": 1, "name": "New York", "url_slug": "new-york-ny" }
+      },
+      {
+        "inventory_type_id": 2, "region": "NY", "max_party_size": 8, "price_range_id": 2,
+        "reopen": { "date": null }, "country": "United States",
+        "contact": { "phone_number": "+10000000000" }, "locality": "New York",
+        "rating": { "average": 4.5328, "count": 1128 }, "global_dining_access": 0, "currency_code": "USD",
+        "requires_reservation_transfers": 0, "id": { "resy": 80538 }, "is_gdc": 0, "is_rga": 0,
+        "neighborhood": "Tribeca", "cuisine": ["Cajun"],
+        "waitlist": { "available": 0, "label": "Join Wait List", "current": null },
+        "images": ["https://image.resy.com/3/003/2/80538/5aed15804bbc397caa68d24a50c6d5927dc7759e/jpg/640x360"],
+        "source": { "privacy_policy": null, "name": null, "logo": null, "terms_of_service": null },
+        "travel_time": { "distance": 0.15598120087770947 },
+        "availability": {
+          "status": null, "notifies": [], "events": [],
+          "templates": {
+            "3394543": { "cancellation_fee": null, "payment_structure": null, "id": 3394543, "is_default": 0, "large_party_cancellation_fee": 15.0, "large_party_size_cancel": 8, "deposit_fee": null, "is_paid": false, "secs_cancel_cut_off": null, "reservation_config": { "time_off_market": null, "type": "Dining Room", "badge": null, "secs_off_market": 900 }, "venue_id": 80538, "name": "3394543" }
+          },
+          "notify_options": [
+            { "min_request_datetime": "2026-10-22 16:00:00", "max_request_datetime": "2026-10-22 23:00:00", "step_minutes": 30, "service_type_id": 2 },
+            { "min_request_datetime": "2026-10-22 11:30:00", "max_request_datetime": "2026-10-22 16:00:00", "step_minutes": 30, "service_type_id": 3 }
+          ],
+          "slots": [
+            { "is_global_dining_access": false, "reservation_config": { "badge": null }, "shift": { "id": 2133919, "service": { "type": { "id": 3 } }, "day": "2026-10-22" }, "has_add_ons": false, "display_config": { "color": { "font": null, "background": null } }, "exclusive": { "is_eligible": true, "id": 0 }, "config": { "type": "Dining Room", "token": "rgs://resy/80538/3394543/3/2026-10-22/2026-10-22/11:30:00/2/Balcony", "id": 1597171 }, "template": { "id": 3394543 }, "date": { "end": "2026-10-22 12:45:00", "start": "2026-10-22 11:30:00" } }
+          ],
+          "service_types": { "2": {}, "3": {} }, "gating_errors": {}
+        },
+        "is_tock_inventory": false, "url_slug": "1803",
+        "content": [{ "name": "why_we_like_it", "display": { "type": "text" }, "icon": { "url": "https://s3.amazonaws.com/resy.com/images/icons/heart.svg" }, "locale": { "language": "en-us" }, "body": "Named for the year of the Louisiana Purchase from the U.S. to France, 1803 serves up Cajun food in a black-and-white tiled space that looks straight out of the French Quarter. Must-orders include the dirty rice, the seafood-filled gumbo, and the Hurricane cocktail.", "title": null, "attribution": null }],
+        "_geoloc": { "lat": 40.7151916539295, "lng": -74.0065802759972 },
+        "_highlightResult": { "locality": { "value": "New York", "matchLevel": "none", "matchedWords": [] }, "neighborhood": { "value": "Tribeca", "matchLevel": "none", "matchedWords": [] }, "cuisine": [{ "value": "Cajun", "matchLevel": "none", "matchedWords": [] }], "name": { "value": "1803", "matchLevel": "none", "matchedWords": [] }, "location": { "name": { "value": "New York", "matchLevel": "none", "matchedWords": [] } } },
+        "is_global_dining_access": false, "name": "1803", "favorite": false, "collections": [],
+        "currency_symbol": "$", "feature_recaptcha": false, "gda_concierge_booking": false, "is_gns": 0,
+        "location": { "code": "ny", "id": 1, "name": "New York", "url_slug": "new-york-ny" }
+      },
+      {
+        "inventory_type_id": 2, "region": "NY", "max_party_size": 40, "price_range_id": 1,
+        "reopen": { "date": null }, "country": "United States",
+        "contact": { "phone_number": "+10000000000" }, "locality": "New York",
+        "rating": { "average": 4.67972, "count": 1124 }, "global_dining_access": 0, "currency_code": "USD",
+        "requires_reservation_transfers": 0, "id": { "resy": 59213 }, "is_gdc": 0, "is_rga": 0,
+        "neighborhood": "New York", "cuisine": ["Italian & Pizza"],
+        "waitlist": { "available": 0, "label": "Join Wait List", "current": null },
+        "images": ["https://image.resy.com/3/003/2/59213/cca4463bbfd3d8be49b8330f3464bbd61f063c75/jpg/640x360"],
+        "source": { "privacy_policy": null, "name": null, "logo": null, "terms_of_service": null },
+        "travel_time": { "distance": 0.21987009051116227 },
+        "availability": {
+          "status": null, "notifies": [], "events": [],
+          "templates": {
+            "1883203": { "cancellation_fee": null, "payment_structure": null, "id": 1883203, "is_default": 0, "large_party_cancellation_fee": null, "large_party_size_cancel": null, "deposit_fee": null, "is_paid": false, "secs_cancel_cut_off": null, "reservation_config": { "time_off_market": null, "type": "", "badge": null, "secs_off_market": 1800 }, "venue_id": 59213, "name": "1883203" }
+          },
+          "notify_options": [
+            { "min_request_datetime": "2026-10-22 16:00:00", "max_request_datetime": "2026-10-22 21:30:00", "step_minutes": 30, "service_type_id": 2 },
+            { "min_request_datetime": "2026-10-22 11:00:00", "max_request_datetime": "2026-10-22 15:30:00", "step_minutes": 30, "service_type_id": 3 }
+          ],
+          "slots": [
+            { "is_global_dining_access": false, "reservation_config": { "badge": null }, "shift": { "id": 631129, "service": { "type": { "id": 3 } }, "day": "2026-10-22" }, "has_add_ons": false, "display_config": { "color": { "font": null, "background": null } }, "exclusive": { "is_eligible": true, "id": 0 }, "config": { "type": "Dining Room", "token": "rgs://resy/59213/1883203/3/2026-10-22/2026-10-22/11:00:00/2/Dining Room", "id": 1996387 }, "template": { "id": 1883203 }, "date": { "end": "2026-10-22 12:30:00", "start": "2026-10-22 11:00:00" } },
+            { "is_global_dining_access": false, "reservation_config": { "badge": null }, "shift": { "id": 631129, "service": { "type": { "id": 3 } }, "day": "2026-10-22" }, "has_add_ons": false, "display_config": { "color": { "font": null, "background": null } }, "exclusive": { "is_eligible": true, "id": 0 }, "config": { "type": "Table", "token": "rgs://resy/59213/1883203/3/2026-10-22/2026-10-22/11:00:00/2/Table", "id": 1023063 }, "template": { "id": 1883203 }, "date": { "end": "2026-10-22 12:30:00", "start": "2026-10-22 11:00:00" } },
+            { "is_global_dining_access": false, "reservation_config": { "badge": null }, "shift": { "id": 631129, "service": { "type": { "id": 3 } }, "day": "2026-10-22" }, "has_add_ons": false, "display_config": { "color": { "font": null, "background": null } }, "exclusive": { "is_eligible": true, "id": 0 }, "config": { "type": "Bar", "token": "rgs://resy/59213/1883203/3/2026-10-22/2026-10-22/11:30:00/2/Bar", "id": 1023065 }, "template": { "id": 1883203 }, "date": { "end": "2026-10-22 13:00:00", "start": "2026-10-22 11:30:00" } }
+          ],
+          "service_types": { "2": {}, "3": {} }, "gating_errors": {}
+        },
+        "is_tock_inventory": false, "url_slug": "keste-pizza-and-vino",
+        "content": [{ "name": "why_we_like_it", "display": { "type": "text" }, "icon": { "url": "https://s3.amazonaws.com/resy.com/images/icons/heart.svg" }, "locale": { "language": "en-us" }, "body": "In a city known for its pizzerias, Kesté stands out. Chef-proprietor Roberto Caporuscio studied pizza-making in Naples, opened his first Kesté (the name is Neapolitan dialect for “this is it”) in Manhattan in 2009, and is U.S. president of Italy’s Pizza Academy Foundation — which makes sure that pizza is made right around the world. All his pies (which include gluten-free options) are superlative, but don’t miss the signature montanara pizzas, made with dough that’s lightly fried.", "title": null, "attribution": null }],
+        "_geoloc": { "lat": 40.7099510833961, "lng": -74.0049689153415 },
+        "_highlightResult": { "locality": { "value": "New York", "matchLevel": "none", "matchedWords": [] }, "neighborhood": { "value": "New York", "matchLevel": "none", "matchedWords": [] }, "cuisine": [{ "value": "Italian & Pizza", "matchLevel": "none", "matchedWords": [] }], "name": { "value": "Kesté Pizza & Vino", "matchLevel": "none", "matchedWords": [] }, "location": { "name": { "value": "New York", "matchLevel": "none", "matchedWords": [] } } },
+        "is_global_dining_access": false, "name": "Kesté Pizza & Vino", "favorite": false,
+        "collections": [{ "name": "Where to Dine with a Crew in New York", "collection_slug": "where-to-dine-with-a-crew-in-new-york", "image": "https://s3.amazonaws.com/resy.com/images/lists/groups.svg", "id": "878", "file_name": "groups", "type_id": 1, "short_name": "Good for Groups" }],
+        "currency_symbol": "$", "feature_recaptcha": false, "collection": ["878", "1099"], "gda_concierge_booking": false, "is_gns": 0,
+        "location": { "code": "ny", "id": 1, "name": "New York", "url_slug": "new-york-ny" }
+      },
+      {
+        "inventory_type_id": 2, "region": "NY", "max_party_size": 10, "price_range_id": 1,
+        "reopen": { "date": null }, "country": "United States",
+        "contact": { "phone_number": "+10000000000" }, "locality": "New York",
+        "rating": { "average": 4.76684, "count": 2063 }, "global_dining_access": 0, "currency_code": "USD",
+        "requires_reservation_transfers": 0, "id": { "resy": 68244 }, "is_gdc": 0, "is_rga": 0,
+        "neighborhood": "Tribeca", "cuisine": ["American"],
+        "waitlist": { "available": 0, "label": "Join Wait List", "current": null },
+        "images": ["https://image.resy.com/3/003/2/68244/7790e745dbf5fac6d17973695e376f8f801fa683/jpg/640x360"],
+        "source": { "privacy_policy": null, "name": null, "logo": null, "terms_of_service": null },
+        "travel_time": { "distance": 0.2416061471888704 },
+        "availability": {
+          "status": null, "notifies": [], "events": [],
+          "templates": {
+            "4081789": { "cancellation_fee": 50.0, "payment_structure": null, "id": 4081789, "is_default": 0, "large_party_cancellation_fee": null, "large_party_size_cancel": null, "deposit_fee": null, "is_paid": true, "secs_cancel_cut_off": 86400, "reservation_config": { "time_off_market": null, "type": "Standard", "badge": null, "secs_off_market": 3600 }, "venue_id": 68244, "name": "4081789" }
+          },
+          "notify_options": [
+            { "min_request_datetime": "2026-10-22 16:30:00", "max_request_datetime": "2026-10-22 23:30:00", "step_minutes": 30, "service_type_id": 2 }
+          ],
+          "slots": [
+            { "is_global_dining_access": false, "reservation_config": { "badge": null }, "shift": { "id": 3287296, "service": { "type": { "id": 2 } }, "day": "2026-10-22" }, "has_add_ons": false, "display_config": { "color": { "font": null, "background": null } }, "exclusive": { "is_eligible": true, "id": 0 }, "config": { "type": "Standard", "token": "rgs://resy/68244/4081789/2/2026-10-22/2026-10-22/16:45:00/2/Dining Room", "id": 1232464 }, "template": { "id": 4081789 }, "date": { "end": "2026-10-22 18:15:00", "start": "2026-10-22 16:45:00" } },
+            { "is_global_dining_access": false, "reservation_config": { "badge": null }, "shift": { "id": 3287296, "service": { "type": { "id": 2 } }, "day": "2026-10-22" }, "has_add_ons": false, "display_config": { "color": { "font": null, "background": null } }, "exclusive": { "is_eligible": true, "id": 0 }, "config": { "type": "Standard", "token": "rgs://resy/68244/4081789/2/2026-10-22/2026-10-22/22:45:00/2/Lounge", "id": 1232473 }, "template": { "id": 4081789 }, "date": { "end": "2026-10-23 00:15:00", "start": "2026-10-22 22:45:00" } }
+          ],
+          "service_types": { "2": {} }, "gating_errors": {}
+        },
+        "is_tock_inventory": false, "url_slug": "holywater",
+        "content": [{ "name": "why_we_like_it", "display": { "type": "text" }, "icon": { "url": "https://s3.amazonaws.com/resy.com/images/icons/heart.svg" }, "locale": { "language": "en-us" }, "body": "Because the nautically-themed Holywater may be one of the prettiest and cushiest cocktail bars in the city that feels more like a time-honed saloon than a Tribeca drinking den. Plus, there’s NOLA infused in the air, cocktails, and food (do not skip the gumbo), where seafood towers abound, and the drinks never fail.", "title": null, "attribution": null }],
+        "_geoloc": { "lat": 40.7160119, "lng": -74.0085892 },
+        "_highlightResult": { "locality": { "value": "New York", "matchLevel": "none", "matchedWords": [] }, "neighborhood": { "value": "Tribeca", "matchLevel": "none", "matchedWords": [] }, "cuisine": [{ "value": "American", "matchLevel": "none", "matchedWords": [] }], "name": { "value": "Holywater", "matchLevel": "none", "matchedWords": [] }, "location": { "name": { "value": "New York", "matchLevel": "none", "matchedWords": [] } } },
+        "is_global_dining_access": false, "name": "Holywater", "favorite": false,
+        "collections": [{ "name": "The Best Places to Drink in New York", "collection_slug": "the-best-places-to-drink-in-new-york", "image": "https://s3.amazonaws.com/resy.com/images/lists/cocktails.svg", "id": "1028", "file_name": "cocktails", "type_id": 1, "short_name": "Where to Drink" }],
+        "currency_symbol": "$", "feature_recaptcha": false, "collection": ["891", "1028"], "gda_concierge_booking": false, "is_gns": 0,
+        "location": { "code": "ny", "id": 1, "name": "New York", "url_slug": "new-york-ny" }
+      },
+      {
+        "inventory_type_id": 2, "region": "NY", "max_party_size": 6, "price_range_id": 4,
+        "reopen": { "date": "2022-01-03" }, "country": "United States",
+        "contact": { "phone_number": "" }, "locality": "New York",
+        "rating": { "average": 4.89391, "count": 1659 }, "global_dining_access": 0, "currency_code": "USD",
+        "requires_reservation_transfers": 0, "id": { "resy": 54504 }, "is_gdc": 0, "is_rga": 0,
+        "neighborhood": "Tribeca", "cuisine": ["Sushi"],
+        "waitlist": { "available": 0, "label": "Join Wait List", "current": null },
+        "images": ["https://image.resy.com/3/003/2/54504/47c99d5dfbc34700f79f7d36b5af94be7d7bac3d/jpg/640x360"],
+        "source": { "privacy_policy": null, "name": null, "logo": null, "terms_of_service": null },
+        "travel_time": { "distance": 0.22396579569267705 },
+        "availability": {
+          "status": null, "notifies": [], "events": [],
+          "templates": {
+            "1255294": { "cancellation_fee": null, "payment_structure": null, "id": 1255294, "is_default": 1, "large_party_cancellation_fee": null, "large_party_size_cancel": null, "deposit_fee": null, "is_paid": false, "secs_cancel_cut_off": null, "reservation_config": { "time_off_market": null, "type": "", "badge": null, "secs_off_market": null }, "venue_id": 54504, "name": "UPDATED_DEFAULT_TEMPLATE" }
+          },
+          "notify_options": [], "slots": [], "service_types": {}, "gating_errors": {}
+        },
+        "is_tock_inventory": false, "url_slug": "ito",
+        "content": [{ "name": "why_we_like_it", "display": { "type": "text" }, "icon": { "url": "https://s3.amazonaws.com/resy.com/images/icons/heart.svg" }, "locale": { "language": "en-us" }, "body": "Expect exquisitely crafted sushi and other omakase specialties at this cutting-edge Tribeca destination restaurant — a collaboration between Masa Ito, Kevin Kim, and VCR Group.", "title": null, "attribution": null }],
+        "_geoloc": { "lat": 40.71329, "lng": -74.01064 },
+        "_highlightResult": { "locality": { "value": "New York", "matchLevel": "none", "matchedWords": [] }, "neighborhood": { "value": "Tribeca", "matchLevel": "none", "matchedWords": [] }, "cuisine": [{ "value": "Sushi", "matchLevel": "none", "matchedWords": [] }], "name": { "value": "ITO NYC", "matchLevel": "none", "matchedWords": [] }, "location": { "name": { "value": "New York", "matchLevel": "none", "matchedWords": [] } } },
+        "is_global_dining_access": false, "name": "ITO NYC", "favorite": false,
+        "collections": [{ "name": "New York’s Essential Omakase Spots", "collection_slug": "new-yorks-essential-omakase-spots", "image": "https://s3.amazonaws.com/resy.com/images/lists/sushi.svg", "id": "917", "file_name": "sushi", "type_id": 1, "short_name": "Omakase" }],
+        "currency_symbol": "$", "feature_recaptcha": false, "collection": ["888", "889", "891", "917"], "gda_concierge_booking": false, "is_gns": 0,
+        "location": { "code": "ny", "id": 1, "name": "New York", "url_slug": "new-york-ny" }
+      }
+    ],
+    "page": 1,
+    "nbHits": 2722
+  },
+  "suggestions": []
+}

@@ -27,6 +27,12 @@ class Settings(BaseSettings):
     max_message_chars: int = 1000
     max_turns_per_conversation: int = 30
 
+    # Personal-account tokens, rotated by hand (no auto-refresh). Empty defaults keep CI and
+    # the migrate job working without them; the Resy client refuses to send a request unset.
+    resy_api_key: str = ""
+    resy_auth_token: str = ""
+    resy_writes_enabled: bool = False
+
     @property
     def cors_origins_list(self) -> list[str]:
         return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]

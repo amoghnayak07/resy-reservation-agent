@@ -47,7 +47,7 @@ A small helper marks rows past `expires_at` as `expired` when they're read (no b
 
 ## Tests
 
-- Details fixture → summary with policy/fees; book token absent from tool output.
+- Details fixture (`tests/fixtures/resy/details-commit1.json`; `details-commit0.json` for the no-token case) → summary with policy/fees; book token absent from tool output.
 - Expired/missing `slot_id` → "search again" message.
 - Paid variants (synthetic: `payment.config.type` not `free`, nonzero `payment.amounts.total`, non-null `cancellation.fee`) → refused with explanation, no row created; `requires_payment` slot refused before details is called.
 - Session/conversation stored from run config, not tool args.

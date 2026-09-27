@@ -58,7 +58,7 @@ One real booking at a no-fee restaurant through the deployed app. The user then 
 
 ## Tests (fake model + mocked client; writes never hit Resy)
 
-- Happy path: tool interrupts → `confirmation_required` emitted → confirm with correct passcode → resume → mocked `book` called once → `confirmed`.
+- Happy path: tool interrupts → `confirmation_required` emitted → confirm with correct passcode → resume → mocked `book` (response from `tests/fixtures/resy/book.json`) called once → `confirmed`.
 - Wrong passcode → 403, no resume, `book` not called.
 - Double confirm → second gets 409; `book` called once.
 - Expired pending booking → 410.
@@ -83,4 +83,4 @@ Cancel/list tools (deferred), paid reservations, modifying bookings.
 
 ## Notes
 
-_(Fill in: verified `/3/book` request/response fields, live booking date/venue, cancellation done.)_
+_(`/3/book` request/response fields were verified in stage 5: form-encoded with `replace=1`, integer `reservation_id`, boolean `venue_opt_in`; see the PLAN.md endpoint table. Fill in: live booking date/venue, cancellation done.)_

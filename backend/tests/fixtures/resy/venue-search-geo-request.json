@@ -1,0 +1,11 @@
+{
+  "availability": true,
+  "geo": { "latitude": 40.712941, "longitude": -74.006393, "radius": 16100 },
+  "include_tock_inventory": true,
+  "order_by": "availability",
+  "page": 1,
+  "per_page": 20,
+  "query": "",
+  "slot_filter": { "day": "2026-10-22", "party_size": 2 },
+  "types": ["venue"]
+}

@@ -10,8 +10,9 @@
 ### 1. `get_venue_details` tool (`app/agent/tools/get_venue_details.py`)
 
 - Args: `venue_id`.
-- Calls `ResyClient.get_venue` (`/3/venue`; params and fields from the stage 5 capture).
-- Compact output: name, neighborhood, address, cuisine, price range, rating if present, description truncated to ~500 characters (the `/3/details` response carries it as the `venue.content[]` entry named `why_we_like_it`; check whether `/3/venue` has the same `content` array), Resy URL, and any cancellation/deposit notes present in the response.
+- `/3/venue` is looked up by slug, not ID: the tool maps `venue_id` to the `url_slug` + `city_slug` of a `Venue` already seen in this conversation (search results cache). An unknown `venue_id` → ask the agent to search for the venue first.
+- Calls `ResyClient.get_venue(url_slug, city_slug)` and maps with `VenueDetails.from_response` (verified fields in the PLAN.md endpoint table).
+- Compact output: name, neighborhood, address, cuisine, price range, rating if present, description (`content[]` entry `why_we_like_it`) truncated to ~500 characters, need-to-know notes if present, and the Resy URL (`links.web`).
 - Cache ≈ 6h.
 
 ### 2. `get_venue_calendar` tool (`app/agent/tools/get_venue_calendar.py`)
@@ -21,7 +22,8 @@
 - Compact output:
   - `reservations_open_through`: `last_calendar_day`;
   - `available_dates`: dates where `inventory.reservation` is available;
-  - `unavailable_count`: dates in the window that are not available;
+  - `sold_out_dates`: dates Resy marks `"sold-out"` (fully booked, released);
+  - `unavailable_count`: other dates in the window that are not available;
   - `walk_ins`: summary of walk-in availability;
   - a note that dates after `last_calendar_day` are **not released yet**.
 - Don't send all 30 raw entries to the model.
@@ -48,8 +50,8 @@ Other rules:
 
 ## Tests
 
-- Venue details fixture → compact output with truncated description, no raw tokens.
-- Calendar fixture → `available_dates` correct; `last_calendar_day` surfaced; unknown inventory value → `unknown` (not counted as available).
+- Venue details (`tests/fixtures/resy/venue.json`) → compact output with truncated description, no raw tokens; unknown `venue_id` (not in the search cache) → "search first" without calling Resy.
+- Calendar (`venue-calendar.json`) → `available_dates` correct; Sept 27 (`"sold-out"`) in `sold_out_dates`, not described as unreleased; `last_calendar_day` surfaced; unknown inventory value → `unknown` (not counted as available).
 - Output size stays under a fixed character budget.
 - Fake-model graph test: model calls calendar after an empty search, then search with `venue_id`.
 
@@ -69,4 +71,4 @@ Booking, dashboard.
 
 ## Notes
 
-_(Fill in: verified `/3/venue` fields, any other `inventory` values observed.)_
+_(Verified `/3/venue` fields are in the PLAN.md endpoint table (stage 5). Fill in: any other `inventory` values observed.)_

@@ -10,7 +10,16 @@ from typing import Any
 from starlette.requests import Request
 from starlette.responses import Response
 
-_EXTRA_FIELDS = ("request_id", "session_id_hash", "path", "status", "duration_ms")
+_EXTRA_FIELDS = (
+    "request_id",
+    "session_id_hash",
+    "path",
+    "status",
+    "duration_ms",
+    "method",
+    "endpoint",
+    "attempt",
+)
 
 
 class JsonFormatter(logging.Formatter):

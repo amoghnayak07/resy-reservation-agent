@@ -1,0 +1,225 @@
+{
+  "cancellation": {
+    "credit": {
+      "date_cut_off": null
+    },
+    "display": {
+      "policy": [
+        "While you won't be charged if you need to cancel, we ask that you do so at least 24 hours in advance."
+      ]
+    },
+    "fee": null,
+    "refund": {
+      "date_cut_off": "2026-10-22T16:00:00Z"
+    }
+  },
+  "change": {
+    "date_cut_off": "2026-10-22T16:00:00Z"
+  },
+  "config": {
+    "add_ons": null,
+    "double_confirmation": null,
+    "event": null,
+    "features": null,
+    "is_event": false,
+    "menu_items": null,
+    "service_charge_options": null,
+    "type": ""
+  },
+  "locale": {
+    "currency": "USD",
+    "time_zone": "EST5EDT"
+  },
+  "payment": {
+    "amounts": {
+      "items": [],
+      "reservation_charge": 0,
+      "subtotal": 0,
+      "add_ons": 0,
+      "quantity": 2,
+      "resy_fee": 0,
+      "service_fee": 0,
+      "service_charge": {
+        "amount": 0,
+        "value": "0%"
+      },
+      "tax": 0.0,
+      "total": 0.0,
+      "surcharge": 0.0,
+      "price_per_unit": 0.0
+    },
+    "comp": false,
+    "config": {
+      "type": "free"
+    },
+    "display": {
+      "balance": {
+        "value": "",
+        "modifier": ""
+      },
+      "buy": {
+        "action": "NOW",
+        "after_modifier": "",
+        "before_modifier": "",
+        "init": "",
+        "value": "RESERVE"
+      },
+      "description": []
+    },
+    "options": [
+      {
+        "amounts": {
+          "price_per_unit": 0.0,
+          "resy_fee": 0,
+          "service_fee": 0,
+          "service_charge": {
+            "amount": 0,
+            "value": "0%"
+          },
+          "tax": 0.0,
+          "total": 0.0
+        }
+      }
+    ]
+  },
+  "user": {
+    "payment_methods": null
+  },
+  "venue": {
+    "config": {
+      "allow_bypass_payment_method": 1,
+      "allow_multiple_resys": 0,
+      "enable_invite": 1,
+      "enable_resypay": 0,
+      "hospitality_included": 0
+    },
+    "content": [
+      {
+        "attribution": null,
+        "body": "Only in New York does a chop house serve LSD. In this case, that stands for lobster, steak, and Peking duck \u2014 all combined into one decadent feast that just might have you seeing colors. The rest of their standard menu is anything but, with dumplings, satay, and noodles alongside the usual chops and steaks.  ",
+        "display": {
+          "type": "text"
+        },
+        "icon": {
+          "url": "https://s3.amazonaws.com/resy.com/images/icons/heart.svg"
+        },
+        "locale": {
+          "language": "en-us"
+        },
+        "name": "why_we_like_it",
+        "title": null
+      },
+      {
+        "attribution": null,
+        "body": "",
+        "display": {
+          "type": "text"
+        },
+        "icon": {
+          "url": "https://s3.amazonaws.com/resy.com/images/icons/quote.svg"
+        },
+        "locale": {
+          "language": "en-us"
+        },
+        "name": "tagline",
+        "title": null
+      },
+      {
+        "attribution": null,
+        "body": null,
+        "display": {
+          "type": "text"
+        },
+        "icon": {
+          "url": "https://s3.amazonaws.com/resy.com/images/icons/chat.svg"
+        },
+        "locale": null,
+        "name": "from_the_venue",
+        "title": null
+      },
+      {
+        "attribution": null,
+        "body": "",
+        "display": {
+          "type": "text"
+        },
+        "icon": {
+          "url": "https://s3.amazonaws.com/resy.com/images/icons/info.svg"
+        },
+        "locale": {
+          "language": "en-us"
+        },
+        "name": "need_to_know",
+        "title": null
+      },
+      {
+        "attribution": null,
+        "body": "Home of the L.S.D. - Only Place On Earth where guests can enjoy Salt & Pepper / Ginger Garlic Lobster \u2014- 3LB 35 Day Dry Aged Porterhouse Steak & 7Lb Authentic Peking Duck ALL ON ONE TABLE Dim Sum & Chops featuring one of kind - Pastrami - Bacon Cheeseburger & French Onion Soup Dumplings. Voted Best New Restaurant 2018 by Thrillist - BEST STEAKHOUSE in NYC by NEWSWEEK 2019!",
+        "display": {
+          "type": "text"
+        },
+        "icon": {
+          "url": null
+        },
+        "locale": {
+          "language": "en-us"
+        },
+        "name": "about",
+        "title": null
+      },
+      {
+        "attribution": null,
+        "body": null,
+        "display": {
+          "type": "text"
+        },
+        "icon": {
+          "url": null
+        },
+        "locale": null,
+        "name": "pickup_description",
+        "title": null
+      }
+    ],
+    "location": {
+      "address_1": "150 Nassau St",
+      "address_2": null,
+      "code": "ny",
+      "country": "United States",
+      "cross_street_1": "",
+      "cross_street_2": "",
+      "id": 1,
+      "latitude": 40.71164941860875,
+      "locality": "New York",
+      "longitude": -74.00596236132077,
+      "neighborhood": "Financial District",
+      "postal_code": "10038",
+      "region": "NY"
+    },
+    "contact": {
+      "phone_number": "+10000000000"
+    },
+    "rater": [
+      {
+        "name": "Resy",
+        "scale": 5,
+        "score": 4.14474,
+        "total": 76
+      }
+    ],
+    "source": {
+      "name": null,
+      "logo": null,
+      "terms_of_service": null,
+      "privacy_policy": null
+    },
+    "tax_included": false
+  },
+  "viewers": {
+    "total": 0
+  },
+  "book_token": {
+    "date_expires": "2026-09-27T12:06:55Z",
+    "value": "SCRUBBED_BOOK_TOKEN"
+  }
+}
