@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -16,6 +18,14 @@ class Settings(BaseSettings):
     langfuse_public_key: str
     langfuse_secret_key: str
     langfuse_host: str = "https://us.cloud.langfuse.com"
+
+    daily_spend_cap_usd: Decimal = Decimal("2.00")
+    rate_limit_session_per_min: int = 10
+    rate_limit_ip_per_hour: int = 60
+    rate_limit_ip_per_day: int = 200
+
+    max_message_chars: int = 1000
+    max_turns_per_conversation: int = 30
 
     @property
     def cors_origins_list(self) -> list[str]:
