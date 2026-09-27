@@ -27,10 +27,10 @@ Update the checkbox when a stage's exit criteria are met and its PR is merged.
 | 8   | Analytics dashboard                     | [stage-08-analytics-dashboard.md](stage-08-analytics-dashboard.md) | deferred |
 | 9   | Prepare booking tool                    | [stage-09-prepare-booking.md](stage-09-prepare-booking.md)         | [x]    |
 | 10  | Book + confirmation gate                | [stage-10-book-confirm.md](stage-10-book-confirm.md)               | [x]    |
-| 11  | Tie together: evals, proof, README      | [stage-11-tie-together.md](stage-11-tie-together.md)               | [ ]    |
+| 11  | Tie together: evals, proof, README      | [stage-11-tie-together.md](stage-11-tie-together.md)               | [x]    |
 | 12  | Regions: city picker + any Resy city    | [stage-12-regions.md](stage-12-regions.md)                         | [x]    |
 
-**Current stage:** none in progress. Stage 12 is done; stage 11's branch-protection check is still open; stage 8 (the in-app dashboard) is deferred.
+**Current stage:** none in progress. Stages 1–7 and 9–12 are done; stage 8 (the in-app dashboard) is deferred.
 
 ## Architecture overview
 
