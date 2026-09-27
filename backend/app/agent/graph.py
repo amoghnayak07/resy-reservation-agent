@@ -7,11 +7,19 @@ from langgraph.checkpoint.base import BaseCheckpointSaver
 from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
 from langgraph.graph import END, START, StateGraph
 from langgraph.graph.state import CompiledStateGraph
+from psycopg import AsyncConnection
+from psycopg.rows import DictRow, dict_row
+from psycopg_pool import AsyncConnectionPool
 from pydantic import SecretStr
 
 from app.agent.nodes import build_call_model
 from app.agent.state import AgentState
 from app.config import settings
+
+# Separate from the SQLAlchemy pool (app/db/engine.py): the checkpointer only accepts
+# psycopg connections. Both pools open in the FastAPI lifespan; see CLAUDE.md -> Database.
+CHECKPOINTER_POOL_MIN_SIZE = 2
+CHECKPOINTER_POOL_MAX_SIZE = 3
 
 
 def build_graph(
@@ -34,6 +42,14 @@ def build_graph(
 
 @asynccontextmanager
 async def open_checkpointer() -> AsyncGenerator[AsyncPostgresSaver]:
-    async with AsyncPostgresSaver.from_conn_string(settings.database_url_psycopg) as checkpointer:
+    pool: AsyncConnectionPool[AsyncConnection[DictRow]] = AsyncConnectionPool(
+        conninfo=settings.database_url_psycopg,
+        min_size=CHECKPOINTER_POOL_MIN_SIZE,
+        max_size=CHECKPOINTER_POOL_MAX_SIZE,
+        kwargs={"autocommit": True, "prepare_threshold": 0, "row_factory": dict_row},
+        open=False,
+    )
+    async with pool:
+        checkpointer = AsyncPostgresSaver(conn=pool)
         await checkpointer.setup()
         yield checkpointer

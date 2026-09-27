@@ -14,7 +14,7 @@ A chat agent that turns natural-language requests ("table for 2 in the West Vill
 | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Frontend             | React + TypeScript (strict), Vite, MUI, react-router. Deployed on **Vercel** (free).                                                                                                |
 | Backend              | Python 3.11, FastAPI, uv. Deployed on **Render** free web service (single instance, sleeps after 15 idle min).                                                                      |
-| Agent                | LangGraph + LangChain (`langchain-openai`). Model from `OPENAI_MODEL` (default `gpt-6-sol`).                                                                                        |
+| Agent                | LangGraph + LangChain (`langchain-openai`; plain `langchain` is also required, by Langfuse's LangChain callback integration). Model from `OPENAI_MODEL` (default `gpt-6-sol`).      |
 | Database             | **Supabase used only as plain Postgres.** SQLAlchemy 2.x (async, psycopg 3), Alembic migrations, LangGraph Postgres checkpointer. No Supabase SDK, Auth, Storage, RLS, or REST API. |
 | Observability        | **Langfuse** (Cloud, Hobby plan) is the single source of truth for analytics.                                                                                                       |
 | Reservation platform | Resy unofficial web API (`api.resy.com`).                                                                                                                                           |
@@ -79,6 +79,12 @@ uv run alembic revision --autogenerate -m "msg"
 uv run alembic upgrade head
 ```
 
+Windows dev machines: add `--loop none` to the dev server command. Uvicorn on Python 3.11 builds its
+event loop directly (`asyncio.ProactorEventLoop` on Windows) instead of going through the event loop
+policy, so it ignores the `WindowsSelectorEventLoopPolicy` set in `app/__init__.py` and the psycopg
+async checkpointer can't connect. `--loop none` makes uvicorn fall back to the current policy. Render
+(Linux) is unaffected.
+
 Frontend (run from `frontend/`):
 
 ```
@@ -108,7 +114,7 @@ Run all relevant checks before saying a task is done.
 8. **Never render LLM or tool output as raw HTML.** Use a Markdown renderer with raw HTML disabled.
 9. **The guest session ID identifies; it never authorizes.** Every conversation/booking query filters by `session_id`. Booking always requires the passcode.
 10. **Never retry a Resy write automatically.** Reads may retry on 5xx/timeouts with backoff.
-11. **Dates:** all "today" logic uses the user's timezone sent with each chat request (a validated IANA name; `APP_TIMEZONE` is only a local-dev fallback). The system prompt always includes today's date and a 14-day calendar in that timezone; don't rely on the LLM for weekday math.
+11. **Dates:** all "today" logic uses the user's timezone sent with each chat request (a validated IANA name; required, and there is no server-side default timezone). The system prompt always includes today's date and a 14-day calendar in that timezone; don't rely on the LLM for weekday math.
 12. **"Not released yet" ≠ "fully booked."** Dates after a venue's `last_calendar_day` haven't opened; the agent must say so.
 13. **Don't add tools, dependencies outside the stack, or scope** without the user's approval. Deferred tools live in `docs/PLAN.md` → "Decide later."
 14. **No git state changes.** Never run git commands that change the repository (`branch`, `checkout -b`, `add`, `commit`, `push`, `merge`, `rebase`, `reset`, `stash`, `tag`). Read-only commands (`status`, `diff`, `log`) are fine. The user creates branches, commits, pushes, and opens PRs. When work is ready, give a summary of changes and a suggested commit message.
@@ -147,7 +153,7 @@ The full routing table and time-window rules live in `docs/stage-06-search-tool.
 - The backend rounds coordinates to 3 decimals on receipt and passes location and timezone to the graph via run config. **The LLM never sees coordinates.** Coordinates are never stored in the database, logged, or sent to Langfuse; traces record only `location_used` and the city label.
 - Neighborhoods are matched by name against each hit's `neighborhood` field, not by coordinates.
 
-**Database.** Connect through Supabase's **session pooler** (IPv4, port 5432). URL-encode the password. Use a small pool (`pool_size=5`, `max_overflow=5`, `pool_pre_ping=True`). App tables are managed by Alembic; LangGraph checkpointer tables are created by the checkpointer's own idempotent `setup()` at startup.
+**Database.** Connect through Supabase's **session pooler** (IPv4, port 5432). URL-encode the password. Use a small pool (`pool_size=5`, `max_overflow=5`, `pool_pre_ping=True`). The LangGraph checkpointer uses its own `psycopg_pool.AsyncConnectionPool` (`min_size=2`, `max_size=3`, autocommit, dict rows), separate from the SQLAlchemy pool, because the checkpointer only accepts psycopg connections. Both pools open in the FastAPI lifespan; worst case is 13 connections, which fits the free-tier session pooler limit. App tables are managed by Alembic; LangGraph checkpointer tables are created by the checkpointer's own idempotent `setup()` at startup.
 
 **State and caching.** All caches live in the FastAPI process's memory on Render (in-process TTL dicts, e.g. `cachetools.TTLCache`): Resy responses, the slot-ID map, analytics results, and rate-limit counters. Render runs a single instance, so this is acceptable; everything resets when the service restarts or sleeps (document this). Anything that must survive restarts (daily spend, pending bookings, conversations) lives in Postgres.
 
@@ -201,7 +207,7 @@ Send a comment ping (`: ping`) every 15s during long tool calls. Set `Cache-Cont
 Backend (`backend/.env`, mirrored on Render):
 
 ```
-APP_ENV, APP_TIMEZONE=America/New_York (local-dev fallback only), CORS_ORIGINS, SEARCH_RADIUS_KM=40
+APP_ENV, CORS_ORIGINS, SEARCH_RADIUS_KM=40
 OPENAI_API_KEY, OPENAI_MODEL=gpt-6-sol
 DATABASE_URL                      # postgresql+psycopg://…@…pooler.supabase.com:5432/postgres
 LANGFUSE_PUBLIC_KEY, LANGFUSE_SECRET_KEY, LANGFUSE_HOST

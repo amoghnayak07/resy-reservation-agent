@@ -8,10 +8,12 @@ from langchain_core.runnables import RunnableConfig
 from app.agent.graph import build_graph, open_checkpointer
 
 
-async def main(conversation_id: str) -> None:
+async def main(conversation_id: str, timezone: str) -> None:
     async with open_checkpointer() as checkpointer:
         graph = build_graph(checkpointer)
-        config: RunnableConfig = {"configurable": {"thread_id": conversation_id}}
+        config: RunnableConfig = {
+            "configurable": {"thread_id": conversation_id, "timezone": timezone}
+        }
         print(f"Conversation {conversation_id}. Ctrl+C to exit.")
         while True:
             try:
@@ -28,5 +30,8 @@ async def main(conversation_id: str) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("conversation_id")
+    parser.add_argument(
+        "--timezone", required=True, help="IANA timezone name, e.g. America/New_York"
+    )
     args = parser.parse_args()
-    asyncio.run(main(args.conversation_id))
+    asyncio.run(main(args.conversation_id, args.timezone))
