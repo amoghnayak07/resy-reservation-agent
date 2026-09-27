@@ -1,0 +1,604 @@
+{
+  "fixtures": {
+    "bch_venue": {
+      "venue_id": 87134,
+      "name": "Brooklyn Chop House - Downtown FIDI",
+      "neighborhood": "Financial District",
+      "cuisine": ["Steakhouse"],
+      "price_range": "$$$",
+      "bookable_via_agent": true,
+      "url": "https://resy.com/cities/new-york-ny/venues/brooklyn-chop-house-downtown-fidi"
+    },
+    "bch_resolved": {
+      "mode": "name",
+      "match": "exact",
+      "city": "New York",
+      "venues": [
+        {
+          "venue_id": 87134,
+          "name": "Brooklyn Chop House - Downtown FIDI",
+          "neighborhood": "Financial District",
+          "cuisine": ["Steakhouse"],
+          "price_range": "$$$",
+          "bookable_via_agent": true,
+          "url": "https://resy.com/cities/new-york-ny/venues/brooklyn-chop-house-downtown-fidi"
+        }
+      ]
+    },
+    "bch_exact": {
+      "mode": "name",
+      "match": "exact",
+      "city": "New York",
+      "date": "{arg:date}",
+      "party_size": "{arg:party_size}",
+      "window": "exactly the requested time",
+      "venues": [
+        {
+          "venue_id": 87134,
+          "name": "Brooklyn Chop House - Downtown FIDI",
+          "neighborhood": "Financial District",
+          "cuisine": ["Steakhouse"],
+          "bookable_via_agent": true,
+          "url": "https://resy.com/cities/new-york-ny/venues/brooklyn-chop-house-downtown-fidi",
+          "slots": [
+            { "slot_id": "s1", "time": "{arg:requested_time}", "seating": "Dining Room" },
+            { "slot_id": "s2", "time": "21:15", "seating": "Dining Room" }
+          ]
+        }
+      ],
+      "exact_time_match": ["s1"]
+    },
+    "bch_taken": {
+      "mode": "name",
+      "match": "exact",
+      "city": "New York",
+      "date": "{arg:date}",
+      "party_size": "{arg:party_size}",
+      "venues": [
+        {
+          "venue_id": 87134,
+          "name": "Brooklyn Chop House - Downtown FIDI",
+          "neighborhood": "Financial District",
+          "bookable_via_agent": true,
+          "slots": [
+            { "slot_id": "s1", "time": "18:45", "seating": "Dining Room" },
+            { "slot_id": "s2", "time": "19:30", "seating": "Dining Room" }
+          ]
+        }
+      ],
+      "exact_time_match": [],
+      "nearby_times": ["18:45", "19:30"]
+    },
+    "bch_two_seatings": {
+      "mode": "name",
+      "match": "exact",
+      "city": "New York",
+      "date": "{arg:date}",
+      "party_size": "{arg:party_size}",
+      "venues": [
+        {
+          "venue_id": 87134,
+          "name": "Brooklyn Chop House - Downtown FIDI",
+          "neighborhood": "Financial District",
+          "bookable_via_agent": true,
+          "slots": [
+            { "slot_id": "s1", "time": "19:00", "seating": "Dining Room" },
+            { "slot_id": "s2", "time": "19:00", "seating": "Patio" }
+          ]
+        }
+      ],
+      "exact_time_match": ["s1", "s2"]
+    },
+    "bch_whole_day": {
+      "mode": "name",
+      "match": "exact",
+      "city": "New York",
+      "date": "{arg:date}",
+      "party_size": "{arg:party_size}",
+      "window": "18:00-22:00",
+      "window_defaulted": true,
+      "venues": [
+        {
+          "venue_id": 87134,
+          "name": "Brooklyn Chop House - Downtown FIDI",
+          "neighborhood": "Financial District",
+          "bookable_via_agent": true,
+          "slots": [
+            { "slot_id": "s1", "time": "18:00", "seating": "Dining Room" },
+            { "slot_id": "s2", "time": "19:45", "seating": "Dining Room" },
+            { "slot_id": "s3", "time": "21:30", "seating": "Dining Room" }
+          ]
+        }
+      ]
+    },
+    "bch_no_slots": {
+      "mode": "name",
+      "match": "exact",
+      "city": "New York",
+      "date": "{arg:date}",
+      "party_size": "{arg:party_size}",
+      "venues": [
+        {
+          "venue_id": 87134,
+          "name": "Brooklyn Chop House - Downtown FIDI",
+          "neighborhood": "Financial District",
+          "bookable_via_agent": true,
+          "slots": []
+        }
+      ],
+      "venues_without_availability": 1
+    },
+    "calendar_open": {
+      "venue_id": 87134,
+      "party_size": "{arg:party_size}",
+      "from": "{today}",
+      "reservations_open_through": "{next_md:12-31}",
+      "available_dates": ["{tomorrow}", "{next:Friday}"],
+      "available_count": 2,
+      "sold_out_dates": [],
+      "sold_out_count": 0,
+      "unavailable_count": 0,
+      "walk_ins": "walk-ins available on 30 of 30 days",
+      "note": "Dates after the release horizon are not released yet (not fully booked)."
+    },
+    "calendar_not_released": {
+      "venue_id": 87134,
+      "party_size": "{arg:party_size}",
+      "from": "{arg:start_date}",
+      "reservations_open_through": "2026-10-31",
+      "not_released_yet": true,
+      "note": "Reservations are released only through 2026-10-31; later dates are not released yet (not fully booked)."
+    },
+    "default_search_availability": { "mode": "area", "city": "New York", "venues": [] },
+    "default_get_venue_details": {
+      "venue_id": 87134,
+      "name": "Brooklyn Chop House - Downtown FIDI",
+      "neighborhood": "Financial District",
+      "address": "150 Nassau St, New York, NY 10038",
+      "cuisine": "Steakhouse",
+      "price_range": "$$$",
+      "description": "Lobster, steak, and Peking duck in one decadent feast.",
+      "url": "https://resy.com/cities/new-york-ny/venues/brooklyn-chop-house-downtown-fidi"
+    },
+    "default_get_venue_calendar": {
+      "venue_id": 87134,
+      "party_size": "{arg:party_size}",
+      "from": "{today}",
+      "reservations_open_through": "{next_md:12-31}",
+      "available_dates": ["{tomorrow}", "{next:Friday}"],
+      "available_count": 2,
+      "sold_out_dates": [],
+      "sold_out_count": 0,
+      "unavailable_count": 0,
+      "walk_ins": "walk-ins available on 30 of 30 days",
+      "note": "Dates after the release horizon are not released yet (not fully booked)."
+    },
+    "default_prepare_booking": {
+      "pending_booking_id": "5b1f7a52-9d0e-4c1b-9a53-2f4f3f0e7c11",
+      "status": "pending (not booked yet)",
+      "restaurant": "Brooklyn Chop House - Downtown FIDI",
+      "address": "150 Nassau St, New York, NY 10038",
+      "date": "{next:Friday}",
+      "time": "19:00",
+      "party_size": 2,
+      "seating": "Dining Room",
+      "cost": "free",
+      "cancellation_policy": "Please cancel at least 24 hours in advance.",
+      "hold_expires": "in 10 minutes"
+    },
+    "default_book": { "status": "awaiting_confirmation" }
+  },
+  "cases": [
+    {
+      "id": "date_friday",
+      "turns": ["Table for 2 at Brooklyn Chop House FiDi on Friday at 7pm"],
+      "tools": { "search_availability": ["@bch_resolved", "@bch_exact"] },
+      "expect": {
+        "calls_include": [{ "name": "search_availability", "args": { "date": "{next:Friday}" } }]
+      }
+    },
+    {
+      "id": "date_tomorrow",
+      "turns": ["Table for 2 at Brooklyn Chop House FiDi tomorrow at 7pm"],
+      "tools": { "search_availability": ["@bch_resolved", "@bch_exact"] },
+      "expect": {
+        "calls_include": [{ "name": "search_availability", "args": { "date": "{tomorrow}" } }]
+      }
+    },
+    {
+      "id": "date_no_year",
+      "now": "2026-09-20T12:00",
+      "turns": ["Table for 2 at Brooklyn Chop House FiDi on 28th September at 7pm"],
+      "tools": { "search_availability": ["@bch_resolved", "@bch_exact"] },
+      "expect": {
+        "calls_include": [{ "name": "search_availability", "args": { "date": "2026-09-28" } }]
+      }
+    },
+    {
+      "id": "date_same_day_past_time",
+      "now": "2026-10-03T21:00",
+      "turns": ["Table for 2 at Brooklyn Chop House FiDi today at 6pm"],
+      "tools": { "search_availability": "@bch_resolved" },
+      "expect": {
+        "calls_exclude": [
+          { "name": "search_availability", "args": { "requested_time": "18:00" } },
+          "prepare_booking"
+        ],
+        "reply_any": ["passed", "later", "another time", "different time", "already"]
+      }
+    },
+    {
+      "id": "route_full_exact",
+      "turns": ["Book Brooklyn Chop House FiDi for 2 on Friday at 7pm"],
+      "tools": { "search_availability": ["@bch_resolved", "@bch_exact"] },
+      "expect": {
+        "order": ["search_availability", "prepare_booking", "book"],
+        "same_turn": ["prepare_booking", "book"],
+        "calls_include": [{ "name": "prepare_booking", "args": { "slot_id": "s1" } }]
+      }
+    },
+    {
+      "id": "route_exact_time_taken",
+      "turns": ["Book Brooklyn Chop House FiDi for 2 on Friday at 7pm"],
+      "tools": { "search_availability": ["@bch_resolved", "@bch_taken"] },
+      "expect": {
+        "calls_exclude": ["prepare_booking", "book"],
+        "reply_any": ["18:45", "6:45", "19:30", "7:30"]
+      }
+    },
+    {
+      "id": "route_two_seatings",
+      "turns": ["Book Brooklyn Chop House FiDi for 2 on Friday at 7pm"],
+      "tools": { "search_availability": ["@bch_resolved", "@bch_two_seatings"] },
+      "expect": {
+        "calls_exclude": ["prepare_booking", "book"],
+        "reply_any": ["patio", "dining room", "seating"]
+      }
+    },
+    {
+      "id": "route_no_time",
+      "turns": ["Table for 2 at Brooklyn Chop House FiDi on Friday"],
+      "tools": { "search_availability": ["@bch_resolved", "@bch_whole_day"] },
+      "expect": {
+        "calls_include": [
+          { "name": "search_availability", "args": { "date": "{next:Friday}", "party_size": 2 } }
+        ],
+        "calls_exclude": ["prepare_booking"],
+        "reply_any": ["18:00", "6:00", "19:45", "7:45", "21:30", "9:30"]
+      }
+    },
+    {
+      "id": "route_no_date",
+      "turns": ["Table for 2 at Brooklyn Chop House FiDi"],
+      "tools": { "search_availability": "@bch_resolved" },
+      "expect": {
+        "calls_include": [{ "name": "get_venue_calendar", "args": { "party_size": 2 } }],
+        "calls_exclude": ["prepare_booking"]
+      }
+    },
+    {
+      "id": "route_venue_only",
+      "turns": ["Book me a table at Brooklyn Chop House FiDi"],
+      "tools": { "search_availability": "@bch_resolved" },
+      "expect": {
+        "calls_include": [{ "name": "search_availability", "args": { "query": "brooklyn chop" } }],
+        "calls_exclude": ["prepare_booking", "get_venue_calendar"],
+        "reply_all": [
+          ["how many", "party", "people", "guests"],
+          ["date", "when", "day"]
+        ]
+      }
+    },
+    {
+      "id": "route_missing_party_size",
+      "turns": ["Table at Brooklyn Chop House FiDi on Friday at 7pm"],
+      "tools": { "search_availability": "@bch_resolved" },
+      "expect": {
+        "calls_exclude": [
+          { "name": "search_availability", "args": { "party_size": 2 } },
+          "prepare_booking"
+        ],
+        "reply_any": ["how many", "party", "people", "guests"]
+      }
+    },
+    {
+      "id": "route_neighborhood_full",
+      "turns": ["Dinner for 2 in the Financial District on Friday at 7pm"],
+      "tools": {
+        "search_availability": {
+          "mode": "area",
+          "city": "New York",
+          "date": "{arg:date}",
+          "party_size": 2,
+          "venues": [
+            {
+              "venue_id": 87134,
+              "name": "Brooklyn Chop House - Downtown FIDI",
+              "neighborhood": "Financial District",
+              "bookable_via_agent": true,
+              "slots": [{ "slot_id": "s1", "time": "19:00", "seating": "Dining Room" }]
+            },
+            {
+              "venue_id": 5501,
+              "name": "Crown Shy",
+              "neighborhood": "Financial District",
+              "bookable_via_agent": true,
+              "slots": [{ "slot_id": "s2", "time": "19:00", "seating": "Bar" }]
+            }
+          ],
+          "exact_time_match": ["s1", "s2"]
+        }
+      },
+      "expect": {
+        "calls_include": [
+          { "name": "search_availability", "args": { "neighborhood": "financial" } }
+        ],
+        "calls_exclude": ["prepare_booking"],
+        "reply_all": [["crown shy"], ["brooklyn chop"]]
+      }
+    },
+    {
+      "id": "route_neighborhood_only",
+      "turns": ["Somewhere in the Financial District"],
+      "expect": {
+        "calls_exclude": ["prepare_booking"],
+        "reply_any": ["how many", "party", "people", "guests"]
+      }
+    },
+    {
+      "id": "fuzzy_only_match",
+      "turns": ["Table for 2 at Amori on Friday at 7pm"],
+      "tools": {
+        "search_availability": {
+          "mode": "name",
+          "match": "none",
+          "did_you_mean": ["Mori"],
+          "city": "New York"
+        }
+      },
+      "expect": {
+        "calls_exclude": ["prepare_booking", "get_venue_calendar", "get_venue_details"],
+        "reply_any": ["mori", "not on resy", "couldn't find", "could not find"]
+      }
+    },
+    {
+      "id": "ambiguous_name",
+      "turns": ["Table for 2 at Joe's on Friday at 7pm"],
+      "tools": {
+        "search_availability": {
+          "mode": "name",
+          "match": "ambiguous",
+          "city": "New York",
+          "candidates": [
+            { "venue_id": 1, "name": "Joe's Pizza", "neighborhood": "Greenwich Village" },
+            { "venue_id": 2, "name": "Joe's Shanghai", "neighborhood": "Chinatown" }
+          ]
+        }
+      },
+      "expect": {
+        "calls_exclude": ["prepare_booking"],
+        "reply_all": [["joe's pizza"], ["joe's shanghai"]]
+      }
+    },
+    {
+      "id": "not_bookable_venue",
+      "turns": ["Book Tock Place for 2 on Friday at 7pm"],
+      "tools": {
+        "search_availability": {
+          "mode": "name",
+          "match": "exact",
+          "city": "New York",
+          "venues": [
+            {
+              "venue_id": 9,
+              "name": "Tock Place",
+              "neighborhood": "SoHo",
+              "bookable_via_agent": false,
+              "not_bookable_reason": "booked through Tock, not Resy",
+              "url": "https://resy.com/cities/new-york-ny/venues/tock-place"
+            }
+          ]
+        }
+      },
+      "expect": {
+        "calls_exclude": ["prepare_booking", "book"],
+        "reply_any": ["resy.com", "tock"]
+      }
+    },
+    {
+      "id": "cuisine_today_two_turns",
+      "turns": ["I feel like eating Japanese today", "2 people"],
+      "tools": {
+        "search_availability": {
+          "mode": "cuisine",
+          "city": "New York",
+          "date": "{arg:date}",
+          "party_size": "{arg:party_size}",
+          "window": "18:00-22:00",
+          "window_defaulted": true,
+          "venues": [
+            {
+              "venue_id": 21,
+              "name": "Sushi Ishikawa",
+              "neighborhood": "Upper East Side",
+              "cuisine": ["Japanese", "Sushi"],
+              "bookable_via_agent": true,
+              "slots": [{ "slot_id": "s1", "time": "20:00", "seating": "Counter" }]
+            }
+          ]
+        }
+      },
+      "expect": {
+        "calls_exclude": [{ "name": "search_availability", "args": { "query": "japanese" } }],
+        "calls_include": [
+          {
+            "name": "search_availability",
+            "turn": 1,
+            "args": { "cuisine": "japanese", "party_size": 2, "date": "{today}" }
+          }
+        ],
+        "reply_any": ["sushi ishikawa"]
+      }
+    },
+    {
+      "id": "cuisine_neighborhood_full",
+      "turns": ["Japanese in the West Village Friday at 8 for 4"],
+      "tools": {
+        "search_availability": {
+          "mode": "cuisine",
+          "city": "New York",
+          "date": "{arg:date}",
+          "party_size": 4,
+          "venues": [
+            {
+              "venue_id": 31,
+              "name": "Kochi",
+              "neighborhood": "West Village",
+              "cuisine": ["Japanese"],
+              "bookable_via_agent": true,
+              "slots": [{ "slot_id": "s1", "time": "20:00", "seating": "Dining Room" }]
+            }
+          ],
+          "exact_time_match": ["s1"]
+        }
+      },
+      "expect": {
+        "calls_include": [
+          {
+            "name": "search_availability",
+            "turn": 0,
+            "args": {
+              "cuisine": "japanese",
+              "neighborhood": "west village",
+              "party_size": 4,
+              "date": "{next:Friday}"
+            }
+          }
+        ],
+        "reply_any": ["kochi"]
+      }
+    },
+    {
+      "id": "name_not_cuisine",
+      "turns": ["Table for 2 at Thai Diner on Friday at 7pm"],
+      "tools": { "search_availability": "@default_search_availability" },
+      "expect": {
+        "calls_include": [{ "name": "search_availability", "args": { "query": "thai diner" } }]
+      }
+    },
+    {
+      "id": "no_location_shared",
+      "location": null,
+      "turns": ["Table for 2 at Brooklyn Chop House FiDi on Friday at 7pm"],
+      "tools": {
+        "search_availability": {
+          "error": "location_required",
+          "message": "Ask the user to tap 'Use my location'; searches are local."
+        }
+      },
+      "expect": {
+        "calls_exclude": ["prepare_booking"],
+        "reply_any": ["location"]
+      }
+    },
+    {
+      "id": "other_city",
+      "turns": ["Book something in San Francisco for 2 tomorrow at 7pm"],
+      "expect": {
+        "calls_exclude": ["prepare_booking"],
+        "reply_any": ["near you", "your location", "your area", "only books", "local"]
+      }
+    },
+    {
+      "id": "named_out_of_area",
+      "turns": ["Table for 2 at The French Laundry on Friday at 7pm"],
+      "tools": {
+        "search_availability": {
+          "mode": "name",
+          "match": "none",
+          "out_of_area": true,
+          "venue_name": "The French Laundry",
+          "city": "Yountville"
+        }
+      },
+      "expect": {
+        "calls_exclude": ["prepare_booking"],
+        "reply_any": ["near you", "your location", "your area", "outside", "only books", "local"]
+      }
+    },
+    {
+      "id": "unknown_neighborhood",
+      "turns": ["Dinner for 2 in Wesst Vilage on Friday at 7pm"],
+      "tools": {
+        "search_availability": {
+          "mode": "area",
+          "city": "New York",
+          "venues": [],
+          "neighborhoods_seen": ["West Village", "Greenwich Village", "SoHo"]
+        }
+      },
+      "expect": {
+        "calls_exclude": ["prepare_booking"],
+        "reply_any": ["west village"]
+      }
+    },
+    {
+      "id": "la_saturday_late_tomorrow",
+      "timezone": "America/Los_Angeles",
+      "location": "la",
+      "now": "2026-10-03T22:30",
+      "turns": ["Table for 2 at Bestia tomorrow at 7pm"],
+      "tools": {
+        "search_availability": {
+          "mode": "name",
+          "match": "exact",
+          "city": "Los Angeles",
+          "date": "{arg:date}",
+          "party_size": 2,
+          "venues": [
+            {
+              "venue_id": 41,
+              "name": "Bestia",
+              "neighborhood": "Arts District",
+              "bookable_via_agent": true,
+              "slots": [{ "slot_id": "s1", "time": "19:00", "seating": "Dining Room" }]
+            }
+          ],
+          "exact_time_match": ["s1"]
+        }
+      },
+      "expect": {
+        "calls_include": [{ "name": "search_availability", "args": { "date": "2026-10-04" } }]
+      }
+    },
+    {
+      "id": "not_released_yet",
+      "now": "2026-10-01T12:00",
+      "turns": ["Table for 2 at Brooklyn Chop House FiDi on December 20th at 7pm"],
+      "tools": {
+        "search_availability": ["@bch_resolved", "@bch_no_slots"],
+        "get_venue_calendar": "@calendar_not_released"
+      },
+      "expect": {
+        "calls_exclude": ["prepare_booking"],
+        "reply_any": ["not released", "not been released", "haven't been released", "isn't open", "not open yet", "not yet"],
+        "reply_none": ["fully booked", "sold out"]
+      }
+    },
+    {
+      "id": "resy_error_relayed",
+      "turns": ["Table for 2 at Brooklyn Chop House FiDi on Friday at 7pm"],
+      "tools": {
+        "search_availability": {
+          "error": "resy_unavailable",
+          "error_type": "ResyUpstreamError",
+          "message": "Resy is temporarily unavailable. Try again in a minute."
+        }
+      },
+      "expect": {
+        "calls_exclude": ["prepare_booking"],
+        "reply_any": ["try again", "temporarily", "unavailable", "moment"]
+      }
+    }
+  ]
+}

@@ -10,6 +10,7 @@ from typing import Any
 
 from langchain_core.messages import AIMessageChunk
 from langchain_core.runnables import RunnableConfig
+from langgraph.errors import GraphBubbleUp
 from langgraph.graph.state import CompiledStateGraph
 from openai import APIConnectionError, APITimeoutError, OpenAIError, RateLimitError
 
@@ -107,7 +108,9 @@ class GraphRun:
                     if kind == "on_tool_end":
                         ok, error_code = tool_outcome(event["data"].get("output"))
                     else:
-                        ok, error_code = False, None
+                        # book's interrupt() surfaces as a tool error; it's a pause, not a failure.
+                        ok = isinstance(event["data"].get("error"), GraphBubbleUp)
+                        error_code = None
                     if error_code == "location_required":
                         yield sse_event("location_required", {})
                     started = tool_started.pop(call_id, now)

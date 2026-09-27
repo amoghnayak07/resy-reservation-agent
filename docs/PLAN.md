@@ -29,7 +29,7 @@ Update the checkbox when a stage's exit criteria are met and its PR is merged.
 | 10  | Book + confirmation gate                | [stage-10-book-confirm.md](stage-10-book-confirm.md)               | [x]    |
 | 11  | Tie together: evals, proof, README      | [stage-11-tie-together.md](stage-11-tie-together.md)               | [ ]    |
 
-**Current stage:** 11 (stage 8 deferred until search and booking work end to end)
+**Current stage:** 11 (stage 8, the in-app dashboard, follows stage 11; Langfuse covers analytics until then)
 
 ## Architecture overview
 
@@ -77,8 +77,8 @@ These have no stage file yet. If one is approved, add a stage file before stage 
 
 | Tool                 | What it does                                                                  | Reference                                                       |
 | -------------------- | ----------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| `list_reservations`  | Shows the account's upcoming bookings (read-only)                             | resy-mcp `resy_list_reservations`; capture endpoint in DevTools |
-| `cancel_reservation` | Cancels a booking by reservation token; must reuse the book confirmation gate | resy-mcp `resy_cancel`; capture endpoint in DevTools            |
+| `list_reservations`  | Shows the account's upcoming bookings (read-only)                             | Capture endpoint in DevTools                                    |
+| `cancel_reservation` | Cancels a booking by reservation token; must reuse the book confirmation gate | Capture endpoint in DevTools                                    |
 
 ## V2 backlog (README "what's next")
 
@@ -112,10 +112,3 @@ Source of truth is DevTools captures. "Community" means documented by open-sourc
 - `X-Resy-Universal-Auth: <same token>`
 - `User-Agent`: a browser UA string (in `app/resy/auth.py`). **Without it Resy returns 500**, not 403.
 - Not needed: `Origin`, `Referer`, and all cookies (`token_v2`, `production_refresh_token`).
-
-## References
-
-- `karthikvetrivel/resy-sniper`: `docs/API_DOCUMENTATION.md` endpoint notes.
-- `Alkaar/resy-booking-bot`: query parameter examples.
-- `daylamtayari/cierge` (Go): booking flow and token lifetimes.
-- `chrischall/resy-mcp`: reservation list/cancel references.
