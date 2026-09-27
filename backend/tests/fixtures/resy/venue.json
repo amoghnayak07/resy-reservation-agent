@@ -1,0 +1,384 @@
+{
+  "announcement": null,
+  "reopen": {
+    "date": null
+  },
+  "custom_affiliations": [],
+  "collections": [],
+  "config": {
+    "allow_bypass_payment_method": 1,
+    "allow_multiple_resys": 0,
+    "enable_discovery": 1,
+    "enable_invite": 1,
+    "enable_resypay": 0,
+    "hospitality_included": 0,
+    "experiences": false
+  },
+  "contact": {
+    "phone_number": "+10000000000",
+    "url": "https://www.brooklynchophouse.com",
+    "menu_url": null
+  },
+  "content": [
+    {
+      "attribution": null,
+      "body": "Only in New York does a chop house serve LSD. In this case, that stands for lobster, steak, and Peking duck \u2014 all combined into one decadent feast that just might have you seeing colors. The rest of their standard menu is anything but, with dumplings, satay, and noodles alongside the usual chops and steaks.  ",
+      "display": {
+        "type": "text"
+      },
+      "icon": {
+        "url": "https://s3.amazonaws.com/resy.com/images/icons/heart.svg"
+      },
+      "locale": {
+        "language": "en-us"
+      },
+      "name": "why_we_like_it",
+      "title": null
+    },
+    {
+      "attribution": null,
+      "body": "",
+      "display": {
+        "type": "text"
+      },
+      "icon": {
+        "url": "https://s3.amazonaws.com/resy.com/images/icons/quote.svg"
+      },
+      "locale": {
+        "language": "en-us"
+      },
+      "name": "tagline",
+      "title": null
+    },
+    {
+      "attribution": null,
+      "body": null,
+      "display": {
+        "type": "text"
+      },
+      "icon": {
+        "url": "https://s3.amazonaws.com/resy.com/images/icons/chat.svg"
+      },
+      "locale": null,
+      "name": "from_the_venue",
+      "title": null
+    },
+    {
+      "attribution": null,
+      "body": "",
+      "display": {
+        "type": "text"
+      },
+      "icon": {
+        "url": "https://s3.amazonaws.com/resy.com/images/icons/info.svg"
+      },
+      "locale": {
+        "language": "en-us"
+      },
+      "name": "need_to_know",
+      "title": null
+    },
+    {
+      "attribution": null,
+      "body": "Home of the L.S.D. - Only Place On Earth where guests can enjoy Salt & Pepper / Ginger Garlic Lobster \u2014- 3LB 35 Day Dry Aged Porterhouse Steak & 7Lb Authentic Peking Duck ALL ON ONE TABLE Dim Sum & Chops featuring one of kind - Pastrami - Bacon Cheeseburger & French Onion Soup Dumplings. Voted Best New Restaurant 2018 by Thrillist - BEST STEAKHOUSE in NYC by NEWSWEEK 2019!",
+      "display": {
+        "type": "text"
+      },
+      "icon": {
+        "url": null
+      },
+      "locale": {
+        "language": "en-us"
+      },
+      "name": "about",
+      "title": null
+    },
+    {
+      "attribution": null,
+      "body": null,
+      "display": {
+        "type": "text"
+      },
+      "icon": {
+        "url": null
+      },
+      "locale": null,
+      "name": "pickup_description",
+      "title": null
+    }
+  ],
+  "id": {
+    "foursquare": null,
+    "google": "ChIJfzUD4QJbwokRAZ0n7-0CxuM",
+    "resy": 87134,
+    "fb_pixel": null
+  },
+  "images": [
+    "https://image.resy.com/3/003/2/87134/7da5980387c5dd3ff7baac67f6eca33487cd2a63/jpg/640x360",
+    "https://image.resy.com/3/003/2/87134/231d80605a9d349e6369c8751f06be1ff3df22c9/jpg/640x360",
+    "https://image.resy.com/3/003/2/87134/a5c2c4447b4d3ebb7c2349406eff61c6f8e3a00e/jpg/640x360"
+  ],
+  "map_images": {
+    "222x222": {
+      "15": {
+        "FF2500": "https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=222x222&scale=2&markers=color:0xFF2500%7C40.71164941860875,-74.00596236132077&key=AIzaSyBC2hN321Moz9bhWU0CvdPg6rvKSN_SVgM&signature=LcAVdmoWIKBkPoBxlniojxkBs7E="
+      }
+    }
+  },
+  "responsive_images": {
+    "originals": {
+      "7da5980387c5dd3ff7baac67f6eca33487cd2a63": {
+        "url": "https://image.resy.com/3/003/2/87134/7da5980387c5dd3ff7baac67f6eca33487cd2a63/jpg"
+      },
+      "231d80605a9d349e6369c8751f06be1ff3df22c9": {
+        "url": "https://image.resy.com/3/003/2/87134/231d80605a9d349e6369c8751f06be1ff3df22c9/jpg"
+      },
+      "a5c2c4447b4d3ebb7c2349406eff61c6f8e3a00e": {
+        "url": "https://image.resy.com/3/003/2/87134/a5c2c4447b4d3ebb7c2349406eff61c6f8e3a00e/jpg"
+      }
+    },
+    "urls": {
+      "7da5980387c5dd3ff7baac67f6eca33487cd2a63": {
+        "1:1": {
+          "200": "https://image.resy.com/3/003/2/87134/7da5980387c5dd3ff7baac67f6eca33487cd2a63/jpg/1:1/200",
+          "400": "https://image.resy.com/3/003/2/87134/7da5980387c5dd3ff7baac67f6eca33487cd2a63/jpg/1:1/400",
+          "800": "https://image.resy.com/3/003/2/87134/7da5980387c5dd3ff7baac67f6eca33487cd2a63/jpg/1:1/800"
+        },
+        "4:3": {
+          "400": "https://image.resy.com/3/003/2/87134/7da5980387c5dd3ff7baac67f6eca33487cd2a63/jpg/4:3/400",
+          "800": "https://image.resy.com/3/003/2/87134/7da5980387c5dd3ff7baac67f6eca33487cd2a63/jpg/4:3/800"
+        },
+        "16:9": {
+          "400": "https://image.resy.com/3/003/2/87134/7da5980387c5dd3ff7baac67f6eca33487cd2a63/jpg/16:9/400",
+          "800": "https://image.resy.com/3/003/2/87134/7da5980387c5dd3ff7baac67f6eca33487cd2a63/jpg/16:9/800"
+        }
+      },
+      "231d80605a9d349e6369c8751f06be1ff3df22c9": {
+        "1:1": {
+          "200": "https://image.resy.com/3/003/2/87134/231d80605a9d349e6369c8751f06be1ff3df22c9/jpg/1:1/200",
+          "400": "https://image.resy.com/3/003/2/87134/231d80605a9d349e6369c8751f06be1ff3df22c9/jpg/1:1/400"
+        },
+        "4:3": {
+          "400": "https://image.resy.com/3/003/2/87134/231d80605a9d349e6369c8751f06be1ff3df22c9/jpg/4:3/400"
+        },
+        "16:9": {
+          "400": "https://image.resy.com/3/003/2/87134/231d80605a9d349e6369c8751f06be1ff3df22c9/jpg/16:9/400"
+        }
+      },
+      "a5c2c4447b4d3ebb7c2349406eff61c6f8e3a00e": {
+        "1:1": {},
+        "4:3": {},
+        "16:9": {}
+      }
+    },
+    "urls_by_resolution": {
+      "7da5980387c5dd3ff7baac67f6eca33487cd2a63": {
+        "200": {
+          "1:1": "https://image.resy.com/3/003/2/87134/7da5980387c5dd3ff7baac67f6eca33487cd2a63/jpg/1:1/200"
+        },
+        "400": {
+          "1:1": "https://image.resy.com/3/003/2/87134/7da5980387c5dd3ff7baac67f6eca33487cd2a63/jpg/1:1/400",
+          "4:3": "https://image.resy.com/3/003/2/87134/7da5980387c5dd3ff7baac67f6eca33487cd2a63/jpg/4:3/400",
+          "16:9": "https://image.resy.com/3/003/2/87134/7da5980387c5dd3ff7baac67f6eca33487cd2a63/jpg/16:9/400"
+        },
+        "800": {
+          "1:1": "https://image.resy.com/3/003/2/87134/7da5980387c5dd3ff7baac67f6eca33487cd2a63/jpg/1:1/800",
+          "4:3": "https://image.resy.com/3/003/2/87134/7da5980387c5dd3ff7baac67f6eca33487cd2a63/jpg/4:3/800",
+          "16:9": "https://image.resy.com/3/003/2/87134/7da5980387c5dd3ff7baac67f6eca33487cd2a63/jpg/16:9/800"
+        }
+      },
+      "231d80605a9d349e6369c8751f06be1ff3df22c9": {
+        "200": {
+          "1:1": "https://image.resy.com/3/003/2/87134/231d80605a9d349e6369c8751f06be1ff3df22c9/jpg/1:1/200"
+        },
+        "400": {
+          "1:1": "https://image.resy.com/3/003/2/87134/231d80605a9d349e6369c8751f06be1ff3df22c9/jpg/1:1/400",
+          "4:3": "https://image.resy.com/3/003/2/87134/231d80605a9d349e6369c8751f06be1ff3df22c9/jpg/4:3/400",
+          "16:9": "https://image.resy.com/3/003/2/87134/231d80605a9d349e6369c8751f06be1ff3df22c9/jpg/16:9/400"
+        }
+      },
+      "a5c2c4447b4d3ebb7c2349406eff61c6f8e3a00e": {}
+    },
+    "file_names": [
+      "7da5980387c5dd3ff7baac67f6eca33487cd2a63",
+      "231d80605a9d349e6369c8751f06be1ff3df22c9",
+      "a5c2c4447b4d3ebb7c2349406eff61c6f8e3a00e"
+    ],
+    "aspect_ratios": {
+      "1:1": {
+        "200": "200x200",
+        "400": "400x400",
+        "800": "800x800",
+        "1600": "1600x1600"
+      },
+      "4:3": {
+        "400": "400x300",
+        "800": "800x600",
+        "1600": "1600x1200"
+      },
+      "16:9": {
+        "400": "400x225",
+        "800": "800x450",
+        "1600": "1600x900"
+      }
+    }
+  },
+  "inventory": {
+    "type": {
+      "id": 2
+    }
+  },
+  "links": {
+    "deep": "resy://resy.com/VenueDetails?venue_id=87134",
+    "web": "https://resy.com/cities/new-york-ny/venues/brooklyn-chop-house-downtown-fidi"
+  },
+  "locale": {
+    "currency": "USD",
+    "time_zone": "EST5EDT"
+  },
+  "location": {
+    "address_1": "150 Nassau St",
+    "address_2": null,
+    "code": "ny",
+    "url_slug": "new-york-ny",
+    "country": "United States",
+    "country_iso3166": "US",
+    "cross_street_1": "",
+    "cross_street_2": "",
+    "id": 1,
+    "latitude": 40.71164941860875,
+    "locality": "New York",
+    "longitude": -74.00596236132077,
+    "neighborhood": "Financial District",
+    "postal_code": "10038",
+    "region": "NY"
+  },
+  "custom_affiliation": {
+    "id": null
+  },
+  "venue_group": {
+    "id": 226894,
+    "name": "Brooklyn Chop House - Downtown FIDI",
+    "venues": []
+  },
+  "metadata": {
+    "description": "Brooklyn Chop House - Downtown FIDI is a Steakhouse restaurant in the Financial District neighborhood of New York.",
+    "keywords": [
+      "book",
+      "dining",
+      "reservations",
+      "restaurant",
+      "new york",
+      "10038",
+      "financial district",
+      "steakhouse",
+      "resy",
+      "5.0 star"
+    ]
+  },
+  "name": "Brooklyn Chop House - Downtown FIDI",
+  "price_range_id": 3,
+  "currency_symbol": "$",
+  "rater": [
+    {
+      "name": "Resy",
+      "scale": 5,
+      "score": 4.14474,
+      "total": 76
+    }
+  ],
+  "resy_select": 0,
+  "is_gdc": 0,
+  "is_global_dining_access": false,
+  "is_global_dining_access_only": false,
+  "is_resy_credit_eligible": true,
+  "gda_concierge_booking": false,
+  "feature_recaptcha": false,
+  "is_rga": false,
+  "gdc_perk": null,
+  "requires_reservation_transfers": 0,
+  "is_gns": 0,
+  "social": [
+    {
+      "id": 1,
+      "name": "facebook",
+      "value": "https://www.facebook.com/brooklynchophouse/"
+    },
+    {
+      "id": 2,
+      "name": "instagram",
+      "value": "https://www.instagram.com/brooklynchophouse/"
+    },
+    {
+      "id": 4,
+      "name": "twitter",
+      "value": "https://twitter.com/BrooklynChop"
+    }
+  ],
+  "special_announcement": {},
+  "award": [],
+  "ticket": {
+    "average": 1.0,
+    "average_str": "$1"
+  },
+  "type": "Steakhouse",
+  "url_slug": "brooklyn-chop-house-downtown-fidi",
+  "favorite": false,
+  "user_venue_lists": [],
+  "user_login_preference": {
+    "mobile_first": 1
+  },
+  "source": {
+    "name": null,
+    "logo": null,
+    "terms_of_service": null,
+    "privacy_policy": null
+  },
+  "hide_allergy_question": false,
+  "hide_occasion_question": false,
+  "hide_special_request_question": false,
+  "tax_included": false,
+  "transaction_processor": "stripe",
+  "safety_categories": [
+    {
+      "id": 1,
+      "value": "Social Distancing",
+      "order_num": 1,
+      "items": []
+    },
+    {
+      "id": 2,
+      "value": "Contactless Policies",
+      "order_num": 2,
+      "items": []
+    },
+    {
+      "id": 3,
+      "value": "Cleaning & Prevention",
+      "order_num": 3,
+      "items": []
+    },
+    {
+      "id": 4,
+      "value": "Protective Equipment",
+      "order_num": 4,
+      "items": []
+    },
+    {
+      "id": 5,
+      "value": "Staffing & Operations",
+      "order_num": 5,
+      "items": []
+    }
+  ],
+  "safety_info_url": null,
+  "show_recommendations": true,
+  "show_algo_recs": false,
+  "min_party_size": 1,
+  "max_party_size": 6,
+  "large_party_message": "If you are looking to make a reservation for a larger party please contact the restaurant directly or visit our website for event information.",
+  "is_active": 1,
+  "travel_time": {
+    "distance": null
+  }
+}

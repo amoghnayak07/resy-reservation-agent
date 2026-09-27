@@ -1,0 +1,285 @@
+{
+  "scheduled": [
+    {
+      "date": "2026-09-27",
+      "inventory": {
+        "reservation": "sold-out",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-09-28",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-09-29",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-09-30",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-01",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-02",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-03",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-04",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-05",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-06",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-07",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-08",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-09",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-10",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-11",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-12",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-13",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-14",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-15",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-16",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-17",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-18",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-19",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-20",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-21",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-22",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-23",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-24",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-25",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-26",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-27",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-28",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-29",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-30",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    },
+    {
+      "date": "2026-10-31",
+      "inventory": {
+        "reservation": "available",
+        "event": "not available",
+        "walk-in": "available"
+      }
+    }
+  ],
+  "last_calendar_day": "2026-10-31"
+}

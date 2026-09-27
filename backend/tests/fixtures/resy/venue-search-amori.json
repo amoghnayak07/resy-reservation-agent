@@ -1,0 +1,48 @@
+{
+  "meta": { "page": 1, "total": 3, "engine": "ELASTIC", "per_page": 3, "total_pages": 1 },
+  "search": {
+    "page": 1,
+    "hitsPerPage": 3,
+    "cuisines": ["Italian", "Japanese", "Mexican"],
+    "hits": [
+      {
+        "is_global_dining_access": false, "price_range_id": 3, "inventory_type_id": 2, "is_gns": 0,
+        "collection": ["891"], "contact": { "phone_number": null }, "country": "United States",
+        "cuisine": ["Japanese"], "currency_code": "USD", "currency_symbol": "$", "favorite": false,
+        "feature_recaptcha": false, "gda_concierge_booking": false, "global_dining_access": 0,
+        "id": { "resy": 79015 },
+        "images": ["https://image.resy.com/3/003/2/79015/c0c02a0ef5f2b2ecd410d990fe61fb3367bb3334/jpg/640x360"],
+        "is_gdc": 0, "is_rga": 0, "is_tock_inventory": false, "locality": "New York",
+        "location": { "id": 1, "name": "New York", "code": "ny", "url_slug": "new-york-ny" },
+        "max_party_size": 8, "name": "Mori", "neighborhood": "Soho",
+        "rating": { "count": 639, "average": 4.81847 }, "region": "NY", "reopen": { "date": null },
+        "requires_reservation_transfers": 0,
+        "source": { "privacy_policy": null, "name": null, "logo": null, "terms_of_service": null },
+        "travel_time": { "distance": 1.0171257794979272 }, "url_slug": "mori",
+        "waitlist": { "current": null, "label": "Join Wait List", "available": 0 },
+        "_geoloc": { "lng": -74.0020662320965, "lat": 40.7272759747071 },
+        "_highlightResult": { "locality": { "value": "New York", "matchLevel": "none", "matchedWords": [] }, "cuisine": [{ "value": "Japanese", "matchLevel": "none", "matchedWords": [] }], "location": { "name": { "value": "New York", "matchLevel": "none", "matchedWords": [] } }, "name": { "value": "Mori", "matchLevel": "none", "matchedWords": [] }, "neighborhood": { "value": "Soho", "matchLevel": "none", "matchedWords": [] } }
+      },
+      {
+        "is_global_dining_access": false, "price_range_id": 1, "inventory_type_id": 2, "is_gns": 0,
+        "collections": [], "contact": { "phone_number": "+10000000000" }, "country": "United States",
+        "cuisine": ["Mexican"], "currency_code": "USD", "currency_symbol": "$", "favorite": false,
+        "feature_recaptcha": false, "gda_concierge_booking": false, "global_dining_access": 0,
+        "id": { "resy": 52750 },
+        "images": ["https://image.resy.com/3/003/2/52750/8dea8ec72a255b85770cc393aebc85903fa7851c/jpg/640x360"],
+        "is_gdc": 0, "is_rga": 0, "is_tock_inventory": false, "locality": "New York",
+        "location": { "id": 1, "name": "New York", "code": "ny", "url_slug": "new-york-ny" },
+        "max_party_size": 10, "name": "Amor Loco", "neighborhood": "New York",
+        "rating": { "count": 2283, "average": 4.29698 }, "region": "NY", "reopen": { "date": "2021-07-07" },
+        "requires_reservation_transfers": 0,
+        "source": { "privacy_policy": null, "name": null, "logo": null, "terms_of_service": null },
+        "travel_time": { "distance": 3.361428289250318 }, "url_slug": "amor-loco",
+        "waitlist": { "current": null, "label": "Join Wait List", "available": 0 },
+        "_geoloc": { "lng": -73.9841972920638, "lat": 40.7585365502395 }
+      }
+    ],
+    "nbHits": 3,
+    "nbPages": 1,
+    "suggestions": []
+  }
+}

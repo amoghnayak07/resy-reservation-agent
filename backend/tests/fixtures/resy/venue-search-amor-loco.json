@@ -1,0 +1,46 @@
+{
+  "meta": { "engine": "ELASTIC", "total_pages": 1, "total": 7, "page": 1, "per_page": 7 },
+  "search": {
+    "cuisines": ["Mexican", "European", "New American"],
+    "hits": [
+      {
+        "reopen": { "date": "2021-07-07" }, "travel_time": { "distance": 2.7969083755322335 },
+        "collections": [], "contact": { "phone_number": "+10000000000" }, "country": "United States",
+        "cuisine": ["Mexican"], "currency_code": "USD", "currency_symbol": "$", "favorite": false,
+        "feature_recaptcha": false, "gda_concierge_booking": false, "global_dining_access": 0,
+        "id": { "resy": 52750 },
+        "images": ["https://image.resy.com/3/003/2/52750/8dea8ec72a255b85770cc393aebc85903fa7851c/jpg/640x360"],
+        "inventory_type_id": 2, "is_gdc": 0, "is_global_dining_access": false, "is_gns": 0, "is_rga": 0,
+        "is_tock_inventory": false, "locality": "New York",
+        "location": { "id": 1, "name": "New York", "code": "ny", "url_slug": "new-york-ny" },
+        "max_party_size": 10, "name": "Amor Loco", "neighborhood": "New York", "price_range_id": 1,
+        "rating": { "count": 2283, "average": 4.29698 }, "region": "NY", "requires_reservation_transfers": 0,
+        "source": { "logo": null, "name": null, "terms_of_service": null, "privacy_policy": null },
+        "url_slug": "amor-loco", "waitlist": { "current": null, "available": 0, "label": "Join Wait List" },
+        "_geoloc": { "lat": 40.7585365502395, "lng": -73.9841972920638 },
+        "_highlightResult": { "locality": { "value": "New York", "matchLevel": "none", "matchedWords": [] }, "cuisine": [{ "value": "Mexican", "matchLevel": "none", "matchedWords": [] }], "location": { "name": { "value": "New York", "matchLevel": "none", "matchedWords": [] } }, "name": { "value": "Amor Loco", "matchLevel": "none", "matchedWords": [] }, "neighborhood": { "value": "New York", "matchLevel": "none", "matchedWords": [] } }
+      },
+      {
+        "reopen": { "date": null }, "travel_time": { "distance": 9.931305116947165 },
+        "collection": ["888", "890"], "contact": { "phone_number": "+10000000000" }, "country": "United States",
+        "cuisine": ["Eastern European"], "currency_code": "USD", "currency_symbol": "$", "favorite": false,
+        "feature_recaptcha": false, "gda_concierge_booking": false, "global_dining_access": 0,
+        "id": { "resy": 97157 },
+        "images": ["https://image.resy.com/3/003/2/97157/e09c71229a04cabb3e57b0a0ca74509936d66ce9/jpg/640x360"],
+        "inventory_type_id": 2, "is_gdc": 0, "is_global_dining_access": false, "is_gns": 0, "is_rga": 0,
+        "is_tock_inventory": false, "locality": "New York",
+        "location": { "id": 1, "name": "New York", "code": "ny", "url_slug": "new-york-ny" },
+        "max_party_size": 10, "name": "Ador", "neighborhood": "Brighton Beach", "price_range_id": 1,
+        "rating": { "count": 78, "average": 4.69231 }, "region": "NY", "requires_reservation_transfers": 0,
+        "source": { "logo": null, "name": null, "terms_of_service": null, "privacy_policy": null },
+        "url_slug": "ador", "waitlist": { "current": null, "available": 0, "label": "Join Wait List" },
+        "_geoloc": { "lat": 40.57558720031973, "lng": -73.9627262195742 }
+      }
+    ],
+    "hitsPerPage": 7,
+    "nbHits": 7,
+    "nbPages": 1,
+    "page": 1,
+    "suggestions": []
+  }
+}

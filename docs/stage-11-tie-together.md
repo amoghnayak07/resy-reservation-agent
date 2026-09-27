@@ -34,8 +34,8 @@ Routing (one case per stage 6 routing row):
 - Fuzzy-only match ("amori" → "Mori") → "did you mean…" or "not on Resy"; never proceeds with the wrong venue.
 - Ambiguous name / neighborhood mismatch → asks.
 - `bookable_via_agent: false` venue → explains, links to Resy, no `prepare_booking`.
-- "I feel like eating Indian today" → uses `cuisine` (not `query`), asks party size with time/area defaults in one message; after "2 people", searches tonight and lists Indian restaurants.
-- "Indian in the West Village Friday at 8 for 4" → cuisine search near the user filtered to the West Village neighborhood, no clarifying question (location shared).
+- "I feel like eating Japanese today" → uses `cuisine` (not `query`), asks party size with time/area defaults in one message; after "2 people", searches tonight and lists Japanese restaurants.
+- "Japanese in the West Village Friday at 8 for 4" → cuisine search near the user filtered to the West Village neighborhood, no clarifying question (location shared).
 - A word that's both a name and a cuisine → exact name match preferred, otherwise cuisine search.
 
 Location and timezone:
@@ -80,7 +80,7 @@ Sections:
 8. Trade-offs and scope cuts (list below).
 9. Answers to the five review questions (Cost, Time, Breakage, Scale, Cuts/V2) using measured numbers.
 10. Eval results (Sol vs Luna).
-11. Credits and disclaimer: unofficial Resy API, used at low volume with a personal account; `jeffknaide/resy-bot` (MIT) and other references from PLAN.md.
+11. Credits and disclaimer: unofficial Resy API, used at low volume with a personal account; references from PLAN.md.
 
 ### 6. Pre-review checklist (add to README for the maintainer)
 

@@ -22,6 +22,14 @@ npm run dev
 
 Copy each `.env.example` to `.env` and fill in values before running.
 
+### Resy credentials
+
+The backend uses one personal Resy account. `RESY_API_KEY` and `RESY_AUTH_TOKEN` come from resy.com: log in, open DevTools → Network, and copy the `api_key` from any `api.resy.com` request's `Authorization` header and the `X-Resy-Auth-Token` header value. The token is static (no automatic refresh; it lasts weeks), so when Resy calls start failing with an auth error, repeat this and update the value in `backend/.env` and on Render.
+
+`RESY_WRITES_ENABLED` stays `false` everywhere except production; with it off, the client refuses to book.
+
+Check the credentials locally with the read-only probe (never books): `uv run python -m scripts.resy_probe`.
+
 ## Deployment setup
 
 ### Render (backend)
