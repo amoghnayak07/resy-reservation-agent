@@ -6,13 +6,16 @@ class Settings(BaseSettings):
 
     app_env: str = "dev"
     cors_origins: str = "http://localhost:5173"
-    app_timezone: str = "America/New_York"
     render_git_commit: str = "dev"
 
     openai_api_key: str
     openai_model: str = "gpt-6-sol"
 
     database_url: str
+
+    langfuse_public_key: str
+    langfuse_secret_key: str
+    langfuse_host: str = "https://us.cloud.langfuse.com"
 
     @property
     def cors_origins_list(self) -> list[str]:

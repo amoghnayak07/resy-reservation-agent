@@ -47,6 +47,8 @@ jobs:
       DATABASE_URL: postgresql+psycopg://postgres:postgres@localhost:5432/postgres
       OPENAI_API_KEY: test-key
       OPENAI_MODEL: gpt-6-luna
+      LANGFUSE_PUBLIC_KEY: test-public-key
+      LANGFUSE_SECRET_KEY: test-secret-key
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5

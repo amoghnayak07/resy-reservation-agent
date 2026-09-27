@@ -21,6 +21,8 @@ jobs:
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       OPENAI_API_KEY: unused-during-migrate
+      LANGFUSE_PUBLIC_KEY: unused-during-migrate
+      LANGFUSE_SECRET_KEY: unused-during-migrate
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5

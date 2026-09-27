@@ -6,7 +6,9 @@ requires-python = ">=3.11"
 dependencies = [
     "alembic>=1.20.0",
     "fastapi>=0.141.1",
+    "langchain>=1.4.2,<2",
     "langchain-openai>=1.6.6",
+    "langfuse>=4.15,<5",
     "langgraph>=1.2.12",
     "langgraph-checkpoint-postgres>=3.1.2",
     "psycopg[binary,pool]>=3.3.6",
@@ -29,6 +31,8 @@ line-length = 100
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
+# B008: FastAPI's `= Depends(...)` default-argument pattern is intentional, not a bug.
+ignore = ["B008"]
 
 [tool.pyright]
 typeCheckingMode = "standard"
