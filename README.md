@@ -28,6 +28,8 @@ The backend uses one personal Resy account. `RESY_API_KEY` and `RESY_AUTH_TOKEN`
 
 `RESY_WRITES_ENABLED` stays `false` everywhere except production; with it off, the client refuses to book.
 
+`DEMO_BOOKING_PASSCODE` is required to confirm a booking on the confirmation card; if it's empty, every confirm is refused. Set it on Render and share it only with people allowed to book.
+
 Check the credentials locally with the read-only probe (never books): `uv run python -m scripts.resy_probe`.
 
 ## Deployment setup

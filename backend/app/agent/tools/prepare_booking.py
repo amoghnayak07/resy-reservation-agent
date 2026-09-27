@@ -16,6 +16,7 @@ from langchain_core.runnables import RunnableConfig
 from langchain_core.tools import BaseTool, StructuredTool
 from pydantic import BaseModel, Field
 
+from app.agent.tools.booking_summary import booking_summary
 from app.agent.tools.common import dump
 from app.agent.tools.slot_ids import SlotIdMap, SlotRef, slot_ids
 from app.db.models import PendingBooking
@@ -90,10 +91,12 @@ def make_prepare_booking_tool(
                 session_id=session_id,
                 venue_id=ref.venue_id,
                 venue_name=ref.venue_name,
+                address=details.address,
                 slot_start=ref.start,
                 party_size=ref.party_size,
                 seating_type=ref.seating_type,
                 book_token=details.book_token,
+                config_token=ref.config_token,
                 book_token_expires=details.book_token_expires,
                 cancellation_policy=details.policy_text,
                 refund_cutoff=details.refund_cutoff,
@@ -103,7 +106,7 @@ def make_prepare_booking_tool(
                 expires_at=now + DECISION_WINDOW,
             )
         )
-        return dump(summarize(booking, details, tz))
+        return dump(summarize(booking, tz))
 
     return StructuredTool.from_function(
         coroutine=prepare_booking,
@@ -113,33 +116,11 @@ def make_prepare_booking_tool(
     )
 
 
-def summarize(booking: PendingBooking, details: BookingDetails, tz: ZoneInfo) -> dict[str, Any]:
-    start = booking.slot_start.astimezone(tz)
-    out: dict[str, Any] = {
+def summarize(booking: PendingBooking, tz: ZoneInfo) -> dict[str, Any]:
+    return {
         "pending_booking_id": str(booking.id),
         "status": "pending (not booked yet)",
-        "restaurant": booking.venue_name,
-        "address": details.address,
-        "date": start.date().isoformat(),
-        "weekday": start.strftime("%A"),
-        "time": start.strftime("%H:%M"),
-        "party_size": booking.party_size,
-        "seating": booking.seating_type,
-        "cost": "free",
-        "cancellation_policy": booking.cancellation_policy,
-        "free_cancellation_until": _local(booking.refund_cutoff, tz),
-        "changes_allowed_until": _local(booking.change_cutoff, tz),
-        "hold_expires": _local(booking.expires_at, tz),
-    }
-    return {k: v for k, v in out.items() if v is not None}
-
-
-def _local(value: datetime | None, tz: ZoneInfo) -> str | None:
-    """e.g. "12:00 PM Oct 22" in the user's timezone (portable: no %-I on Windows)."""
-    if value is None:
-        return None
-    local = value.astimezone(tz)
-    return f"{local.strftime('%I:%M %p').lstrip('0')} {local.strftime('%b')} {local.day}"
+    } | booking_summary(booking, tz)
 
 
 def _refusal(code: str, reason: str, ref: SlotRef) -> dict[str, Any]:

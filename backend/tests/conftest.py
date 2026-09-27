@@ -22,16 +22,24 @@ def mock_langfuse(monkeypatch: pytest.MonkeyPatch) -> list[dict[str, Any]]:
 
     @asynccontextmanager
     async def fake_trace_turn(
-        conversation_id: str, session_id: str, location_used: bool
+        conversation_id: str,
+        session_id: str,
+        location_used: bool,
+        tags: list[str] | None = None,
     ) -> AsyncIterator[tuple[FakeCallbackHandler, str]]:
         calls.append(
             {
                 "conversation_id": conversation_id,
                 "session_id": session_id,
                 "location_used": location_used,
+                "tags": tags,
             }
         )
         yield FakeCallbackHandler(), "fake-trace-id"
 
+    def fake_record_booking_outcome(trace_id: str, outcome: str) -> None:
+        calls.append({"booking_outcome": outcome})
+
     monkeypatch.setattr(langfuse_module, "trace_turn", fake_trace_turn)
+    monkeypatch.setattr(langfuse_module, "record_booking_outcome", fake_record_booking_outcome)
     return calls

@@ -4,7 +4,8 @@ from fastapi import Depends, Header, Request
 from langgraph.graph.state import CompiledStateGraph
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.db.engine import get_db
+from app.db.engine import async_session_maker, get_db
+from app.db.pending_bookings import PendingBookingRepository, SqlPendingBookingRepository
 from app.db.repository import ConversationRepository, SqlConversationRepository
 from app.errors import ApiError
 from app.guards.spend import SpendGuard, SqlSpendGuard
@@ -34,3 +35,7 @@ async def get_conversation_repository(
 
 async def get_spend_guard(db: AsyncSession = Depends(get_db)) -> SpendGuard:
     return SqlSpendGuard(db)
+
+
+def get_pending_booking_repository() -> PendingBookingRepository:
+    return SqlPendingBookingRepository(async_session_maker)

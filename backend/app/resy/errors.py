@@ -24,7 +24,16 @@ class ResyRateLimitedError(ResyError):
 
 
 class ResyUpstreamError(ResyError):
-    """5xx, timeouts, and connection failures. The only error reads retry on."""
+    """5xx, timeouts, and connection failures. The only error reads retry on.
+
+    `request_sent` is False only when the request never left (connect error/timeout). A write
+    that fails with request_sent=True may have gone through: its outcome is unknown."""
+
+    def __init__(
+        self, message: str, *, status_code: int | None = None, request_sent: bool = True
+    ) -> None:
+        super().__init__(message, status_code=status_code)
+        self.request_sent = request_sent
 
 
 class ResyNotFoundError(ResyError):

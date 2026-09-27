@@ -19,6 +19,7 @@ _EXTRA_FIELDS = (
     "method",
     "endpoint",
     "attempt",
+    "error_code",
 )
 
 

@@ -12,6 +12,14 @@ class UserLocation(BaseModel):
     accuracy_m: float = Field(ge=0)
 
 
+def validate_timezone_name(value: str) -> str:
+    try:
+        ZoneInfo(value)
+    except ZoneInfoNotFoundError as exc:
+        raise ValueError(f"Unknown IANA timezone: {value!r}") from exc
+    return value
+
+
 class ChatRequest(BaseModel):
     conversation_id: UUID | None = None
     message: str = Field(min_length=1, max_length=settings.max_message_chars)
@@ -21,8 +29,4 @@ class ChatRequest(BaseModel):
     @field_validator("timezone")
     @classmethod
     def validate_timezone(cls, value: str) -> str:
-        try:
-            ZoneInfo(value)
-        except ZoneInfoNotFoundError as exc:
-            raise ValueError(f"Unknown IANA timezone: {value!r}") from exc
-        return value
+        return validate_timezone_name(value)

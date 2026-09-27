@@ -271,6 +271,11 @@ class ResyClient:
             response = await self._http.request(
                 method, endpoint, headers=headers, params=params, json=json_body, data=form_body
             )
+        except (httpx.ConnectError, httpx.ConnectTimeout) as exc:
+            status = "connect_error"
+            raise ResyUpstreamError(
+                f"Could not connect to Resy for {endpoint}.", request_sent=False
+            ) from exc
         except httpx.TimeoutException as exc:
             status = "timeout"
             raise ResyUpstreamError(f"Resy timed out on {endpoint}.") from exc
