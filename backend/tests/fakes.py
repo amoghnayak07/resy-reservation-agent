@@ -2,13 +2,19 @@
 wrapper around a real (fake-LLM-backed) graph, so chat/session tests never touch
 Postgres or a real LLM."""
 
+import json
 import uuid
-from collections.abc import Sequence
+from collections.abc import Iterator, Sequence
 from datetime import UTC, datetime
 from decimal import Decimal
 from typing import Any
 
-from langchain_core.runnables import RunnableConfig
+from langchain_core.callbacks import CallbackManagerForLLMRun
+from langchain_core.language_models.fake_chat_models import GenericFakeChatModel
+from langchain_core.messages import AIMessage, AIMessageChunk, BaseMessage
+from langchain_core.messages.tool import tool_call_chunk
+from langchain_core.outputs import ChatGenerationChunk
+from langchain_core.runnables import Runnable, RunnableConfig
 from langgraph.graph.state import CompiledStateGraph
 
 from app.db.models import Conversation
@@ -67,6 +73,42 @@ class FakeSpendGuard:
 
     async def record(self, cost_usd: Decimal) -> None:
         self.recorded.append(cost_usd)
+
+
+class ToolCallingFakeModel(GenericFakeChatModel):
+    """GenericFakeChatModel that accepts bind_tools (a no-op), so graphs with tools can run
+    on scripted AIMessages, including ones with tool_calls. Streams each scripted message as
+    one chunk (the base class yields nothing for tool-call-only messages when streaming)."""
+
+    def bind_tools(self, tools: Sequence[Any], **kwargs: Any) -> Runnable[Any, Any]:
+        return self
+
+    def _stream(
+        self,
+        messages: list[BaseMessage],
+        stop: list[str] | None = None,
+        run_manager: CallbackManagerForLLMRun | None = None,
+        **kwargs: Any,
+    ) -> Iterator[ChatGenerationChunk]:
+        message = self._generate(messages, stop=stop, run_manager=run_manager, **kwargs)
+        scripted = message.generations[0].message
+        tool_calls = scripted.tool_calls if isinstance(scripted, AIMessage) else []
+        chunk = AIMessageChunk(
+            content=scripted.content,
+            tool_call_chunks=[
+                tool_call_chunk(
+                    name=call["name"], args=json.dumps(call["args"]), id=call["id"], index=i
+                )
+                for i, call in enumerate(tool_calls)
+            ],
+        )
+        if run_manager and isinstance(chunk.content, str) and chunk.content:
+            run_manager.on_llm_new_token(chunk.content, chunk=ChatGenerationChunk(message=chunk))
+        yield ChatGenerationChunk(message=chunk)
+
+
+def scripted_model(*messages: AIMessage) -> ToolCallingFakeModel:
+    return ToolCallingFakeModel(messages=iter(messages))
 
 
 class RecordingGraph:

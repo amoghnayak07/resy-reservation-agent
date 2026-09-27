@@ -10,10 +10,8 @@
 ### 1. `get_venue_details` tool (`app/agent/tools/get_venue_details.py`)
 
 - Args: `venue_id`.
-- `/3/venue` is looked up by slug, not ID: the tool maps `venue_id` to the `url_slug` + `city_slug` of a `Venue` already seen in this conversation (search results cache). An unknown `venue_id` → ask the agent to search for the venue first.
-- Calls `ResyClient.get_venue(url_slug, city_slug)` and maps with `VenueDetails.from_response` (verified fields in the PLAN.md endpoint table).
+- Calls `ResyClient.get_venue(venue_id)` (`GET /3/venue?id=`) and maps with `VenueDetails.from_response` (verified fields in the PLAN.md endpoint table).
 - Compact output: name, neighborhood, address, cuisine, price range, rating if present, description (`content[]` entry `why_we_like_it`) truncated to ~500 characters, need-to-know notes if present, and the Resy URL (`links.web`).
-- Cache ≈ 6h.
 
 ### 2. `get_venue_calendar` tool (`app/agent/tools/get_venue_calendar.py`)
 
@@ -27,7 +25,6 @@
   - `walk_ins`: summary of walk-in availability;
   - a note that dates after `last_calendar_day` are **not released yet**.
 - Don't send all 30 raw entries to the model.
-- Cache ≈ 5 min.
 
 ### 3. Finding a venue by name
 
@@ -50,7 +47,7 @@ Other rules:
 
 ## Tests
 
-- Venue details (`tests/fixtures/resy/venue.json`) → compact output with truncated description, no raw tokens; unknown `venue_id` (not in the search cache) → "search first" without calling Resy.
+- Venue details (`tests/fixtures/resy/venue-by-id.json`) → compact output with truncated description, no raw tokens.
 - Calendar (`venue-calendar.json`) → `available_dates` correct; Sept 27 (`"sold-out"`) in `sold_out_dates`, not described as unreleased; `last_calendar_day` surfaced; unknown inventory value → `unknown` (not counted as available).
 - Output size stays under a fixed character budget.
 - Fake-model graph test: model calls calendar after an empty search, then search with `venue_id`.
@@ -62,7 +59,7 @@ Other rules:
 - [ ] Asking about a date past `last_calendar_day` yields "not released yet."
 - [ ] "Book me a table at <restaurant>" resolves the venue and asks for all missing details in one message.
 - [ ] "Table for 2 at <restaurant>" (no date) offers the next open dates.
-- [ ] Both tools traced in Langfuse with latency and cache hits.
+- [ ] Both tools traced in Langfuse with latency.
 - [ ] Tests green.
 
 ## Out of scope

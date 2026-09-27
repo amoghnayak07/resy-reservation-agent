@@ -155,9 +155,7 @@ The full routing table and time-window rules live in `docs/stage-06-search-tool.
 
 **Database.** Connect through Supabase's **session pooler** (IPv4, port 5432). URL-encode the password. Use a small pool (`pool_size=5`, `max_overflow=5`, `pool_pre_ping=True`). The LangGraph checkpointer uses its own `psycopg_pool.AsyncConnectionPool` (`min_size=2`, `max_size=3`, autocommit, dict rows), separate from the SQLAlchemy pool, because the checkpointer only accepts psycopg connections. Both pools open in the FastAPI lifespan; worst case is 13 connections, which fits the free-tier session pooler limit. App tables are managed by Alembic; LangGraph checkpointer tables are created by the checkpointer's own idempotent `setup()` at startup.
 
-**State and caching.** All caches live in the FastAPI process's memory on Render (in-process TTL dicts, e.g. `cachetools.TTLCache`): Resy responses, the slot-ID map, analytics results, and rate-limit counters. Render runs a single instance, so this is acceptable; everything resets when the service restarts or sleeps (document this). Anything that must survive restarts (daily spend, pending bookings, conversations) lives in Postgres.
-
-Cache TTLs: venue search / venue details ≈ 6h; venue calendar ≈ 5 min; slot availability (`/4/find`) ≤ 60s. **Never cache** booking details, book, or cancel.
+**State and caching.** In-memory state lives in the FastAPI process on Render: the slot-ID map (short `slot_id` → config token, 15-min expiry), rate-limit counters, and (stage 8) analytics results. Resy responses are **not** cached; every search and slot lookup is live. Render runs a single instance, so this is acceptable; everything resets when the service restarts or sleeps (document this). Anything that must survive restarts (daily spend, pending bookings, conversations) lives in Postgres.
 
 **Tool outputs are compact.** Return only the fields the LLM needs, with caps on list sizes. Long Resy tokens (config/book tokens) stay server-side, referenced by short IDs.
 

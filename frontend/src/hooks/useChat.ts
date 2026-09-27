@@ -1,7 +1,10 @@
 import { useCallback, useState } from 'react'
+import { buildChatRequest } from '../api/chatRequest'
 import { ApiError, getConversationMessages, postChatMessage } from '../api/client'
 import { parseSSEStream } from '../api/sse'
-import type { UsageEvent } from '../api/types'
+import type { UsageEvent, UserLocation } from '../api/types'
+import { applyStreamEvent, INITIAL_STREAM_STATUS } from './streamStatus'
+import type { StreamStatus } from './streamStatus'
 
 export interface ChatMessage {
   id: string
@@ -16,15 +19,21 @@ export interface ChatErrorState {
   retryAfterSeconds?: number
 }
 
-export function useChat(timezone: string, onTurnComplete?: () => void) {
+export function useChat(
+  timezone: string,
+  onTurnComplete?: () => void,
+  getLocation?: () => Promise<UserLocation | undefined>,
+) {
   const [conversationId, setConversationId] = useState<string | undefined>(undefined)
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [isStreaming, setIsStreaming] = useState(false)
   const [error, setError] = useState<ChatErrorState | null>(null)
+  const [streamStatus, setStreamStatus] = useState<StreamStatus>(INITIAL_STREAM_STATUS)
 
   const sendMessage = useCallback(
     async (text: string) => {
       setError(null)
+      setStreamStatus(INITIAL_STREAM_STATUS)
       const humanMessage: ChatMessage = { id: crypto.randomUUID(), role: 'human', content: text }
       const assistantId = crypto.randomUUID()
       const assistantMessage: ChatMessage = { id: assistantId, role: 'ai', content: '' }
@@ -33,11 +42,8 @@ export function useChat(timezone: string, onTurnComplete?: () => void) {
 
       let response
       try {
-        response = await postChatMessage({
-          conversation_id: conversationId,
-          message: text,
-          timezone,
-        })
+        const location = await getLocation?.()
+        response = await postChatMessage(buildChatRequest(text, timezone, conversationId, location))
       } catch (err) {
         setMessages((prev) => prev.filter((m) => m.id !== assistantId))
         setIsStreaming(false)
@@ -61,6 +67,7 @@ export function useChat(timezone: string, onTurnComplete?: () => void) {
       }
 
       for await (const event of parseSSEStream(response.body)) {
+        setStreamStatus((prev) => applyStreamEvent(prev, event))
         switch (event.event) {
           case 'meta':
             setConversationId(event.data.conversation_id)
@@ -88,14 +95,20 @@ export function useChat(timezone: string, onTurnComplete?: () => void) {
       setIsStreaming(false)
       onTurnComplete?.()
     },
-    [conversationId, timezone, onTurnComplete],
+    [conversationId, timezone, onTurnComplete, getLocation],
   )
 
   const startNewConversation = useCallback(() => {
     setConversationId(undefined)
     setMessages([])
     setError(null)
+    setStreamStatus(INITIAL_STREAM_STATUS)
   }, [])
+
+  const clearLocationRequired = useCallback(
+    () => setStreamStatus((prev) => ({ ...prev, locationRequired: false })),
+    [],
+  )
 
   const loadConversation = useCallback(async (id: string) => {
     const loaded = await getConversationMessages(id)
@@ -110,6 +123,8 @@ export function useChat(timezone: string, onTurnComplete?: () => void) {
     conversationId,
     messages,
     isStreaming,
+    streamStatus,
+    clearLocationRequired,
     error,
     clearError,
     sendMessage,

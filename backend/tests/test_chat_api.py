@@ -3,16 +3,25 @@ import uuid
 from collections.abc import Iterator
 from typing import Any
 
+import httpx
 import pytest
 from fastapi.testclient import TestClient
 from langchain_core.language_models.fake_chat_models import FakeListChatModel
+from langchain_core.messages import AIMessage
 from langgraph.checkpoint.memory import MemorySaver
 
 from app.agent.graph import build_graph
+from app.agent.tools.search_availability import make_search_availability_tool
 from app.api.deps import get_conversation_repository, get_graph, get_spend_guard
 from app.config import settings
 from app.main import create_app
-from tests.fakes import FakeConversationRepository, FakeSpendGuard, RecordingGraph
+from app.resy.client import ResyClient
+from tests.fakes import (
+    FakeConversationRepository,
+    FakeSpendGuard,
+    RecordingGraph,
+    scripted_model,
+)
 
 SESSION_ID = str(uuid.uuid4())
 
@@ -149,6 +158,39 @@ def test_message_too_long_returns_422_message_too_long(client: TestClient) -> No
     response = _post_chat(client, message="a" * (settings.max_message_chars + 1))
     assert response.status_code == 422
     assert response.json()["error"]["code"] == "message_too_long"
+
+
+def test_tool_events_and_location_required_are_streamed(client: TestClient) -> None:
+    def no_network(request: httpx.Request) -> httpx.Response:
+        raise AssertionError("no Resy call expected without a location")
+
+    resy = ResyClient(
+        api_key="k", auth_token="t", writes_enabled=False, transport=httpx.MockTransport(no_network)
+    )
+    llm = scripted_model(
+        AIMessage(
+            content="",
+            tool_calls=[
+                {"name": "search_availability", "args": {"cuisine": "thai"}, "id": "call-1"}
+            ],
+        ),
+        AIMessage(content="Please tap 'Use my location' so I can search near you."),
+    )
+    graph = build_graph(MemorySaver(), llm=llm, tools=[make_search_availability_tool(resy)])
+    client.app.dependency_overrides[get_graph] = lambda: graph  # type: ignore[attr-defined]
+
+    events = _parse_sse(_post_chat(client, message="thai tonight for 2").text)
+    event_names = [name for name, _ in events]
+
+    start = event_names.index("tool_start")
+    assert event_names[start : start + 3] == ["tool_start", "location_required", "tool_end"]
+    tool_start = events[start][1]
+    tool_end = events[start + 2][1]
+    assert tool_start["name"] == "search_availability"
+    assert tool_end["call_id"] == tool_start["call_id"]
+    assert tool_end["ok"] is False
+    assert isinstance(tool_end["duration_ms"], int)
+    assert event_names[-2:] == ["usage", "done"]
 
 
 async def test_conversation_at_turn_limit_returns_409(client: TestClient) -> None:
