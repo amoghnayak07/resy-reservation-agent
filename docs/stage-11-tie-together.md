@@ -1,6 +1,6 @@
 # Stage 11 — Tie together: evals, proof, README
 
-**Goal:** Verify the whole flow, measure real cost and latency, capture booking proof, and write the README that answers the reviewers' questions.
+**Goal:** Verify the whole flow, measure real cost and latency, capture booking proof, and write the README (architecture, trade-offs, cuts).
 
 **Suggested branch (you create it):** `stage-11-tie-together`
 **Depends on:** Stages 1–10
@@ -13,7 +13,7 @@ Backend test that drives the API through a full flow with a scripted fake model 
 
 ### 2. Manual eval set (`backend/evals/`, not in CI; costs money)
 
-~20 cases in `cases.yaml`, run by `evals/run.py` against the real model with **mocked tools** (no Resy calls). Each case checks tool calls and/or reply content.
+~20 cases in `cases.json`, run by `evals/run.py` against the real model with **mocked tools** (no Resy calls). Each case checks tool calls and/or reply content.
 
 Dates:
 
@@ -64,13 +64,13 @@ From Langfuse (and the dashboard), for warm runs:
 
 ### 4. Booking proof
 
-Store the screenshot/recording from stage 10 in `docs/proof/` (scrub personal details) and link it from README.
+Store screenshots of real conversations and the stage 10 reservation in `docs/screenshots/` (scrub personal details); the README shows them.
 
 ### 5. README
 
 Sections:
 
-1. What it is + live URL + dashboard URL. Demo passcode is **not** published; say how reviewers get it (provided with the submission).
+1. What it is + live URL, and the scope: one user (Amogh) for now, bookings gated by an unpublished demo passcode; per-user sign-in is the next version.
 2. Notices at the top: first load can take ~1 minute (Render free tier); **allow location access**, since the agent only books restaurants near you.
 3. Architecture diagram (from PLAN.md) and the LangGraph flow (nodes, edges, interrupt).
 4. Stack and rationale (use the agreed text below).
@@ -78,18 +78,18 @@ Sections:
 6. Observability and dashboard.
 7. Running locally, env vars, CI/CD, platform setup.
 8. Trade-offs and scope cuts (list below).
-9. Answers to the five review questions (Cost, Time, Breakage, Scale, Cuts/V2) using measured numbers.
-10. Eval results (Sol vs Luna).
-11. Credits and disclaimer: unofficial Resy API, used at low volume with a personal account; references from PLAN.md.
+9. Screenshots of real conversations and a real reservation.
+10. Why Resy.
+11. Disclaimer: unofficial Resy API, used at low volume with a personal account.
 
-### 6. Pre-review checklist (add to README for the maintainer)
+### 6. Pre-launch checklist (maintainer only; not in the README)
 
 - [ ] Supabase project isn't paused (restore in dashboard if needed).
 - [ ] Resy auth token valid well past the review window.
 - [ ] `RESY_WRITES_ENABLED=true` and `DEMO_BOOKING_PASSCODE` set in production.
 - [ ] Spend cap and rate limits at intended values.
 - [ ] Open the app once to wake Render before sharing.
-- [ ] Submission notes tell reviewers to allow location access, and that the proof booking was made in New York.
+- [ ] Sharing notes tell visitors to allow location access, and that the proof booking was made in New York.
 
 ## Agreed README content
 
@@ -111,7 +111,7 @@ Sections:
 
 **Agent and observability:**
 
-> LangGraph for agent orchestration: explicit nodes and edges, conversation state persisted by its Postgres checkpointer, and `interrupt()` to pause before booking until the user confirms. Langfuse for tracing and analytics: per-call token usage, cost, and latency out of the box, a Metrics API that powers the in-app dashboard, and a free tier (50,000 units a month) that comfortably covers this project.
+> LangGraph for agent orchestration: explicit nodes and edges, conversation state persisted by its Postgres checkpointer, and `interrupt()` to pause before booking until the user confirms. Langfuse for tracing and analytics: per-call token usage, cost, and latency out of the box, a Metrics API for the planned in-app dashboard, and a free tier (50,000 units a month) that comfortably covers this project.
 
 ## Scope cuts to list in README
 
@@ -132,12 +132,17 @@ Sections:
 
 - [ ] E2E test passes in CI.
 - [ ] Eval results recorded for both models.
-- [ ] README complete with measured numbers, proof link, cuts, and V2.
-- [ ] Pre-review checklist done.
-- [ ] All PLAN.md stages checked.
+- [ ] README complete: architecture, trade-offs, cuts, what's next, screenshots.
+- [ ] Pre-launch checklist done.
+- [ ] All PLAN.md stages checked except stage 8 (dashboard), which follows this stage.
 - [ ] Deferred from stage 1: PR checks block merging on failure (verify by pushing a formatting error once).
-- [ ] Deferred from stage 1: merging to `master` deploys both apps automatically via CI (frontend deploy job currently fails; Vercel/Render deploys were done manually as a workaround), with auto-deploy off on both platforms.
+- [x] Deferred from stage 1: merging to `master` deploys both apps automatically via CI, with auto-deploy off on both platforms.
 
 ## Notes
 
 _(Fill in: final measured numbers and any last-minute changes.)_
+
+- Stage 8 (dashboard) moved after this stage: the README describes observability through Langfuse and lists the dashboard as next; measured numbers come from the Langfuse UI.
+- README scope (user decision): architecture, trade-offs, cuts, screenshots, and why Resy. Cost/latency numbers and the review questions stay out of the README (kept for discussion; numbers from Langfuse). Eval results are recorded here, not in the README. No third-party repo references anywhere.
+- Eval cases are JSON (`cases.json`), not YAML: PyYAML is only a transitive dependency.
+- Frontend CI deploy fixed: `VERCEL_ORG_ID` must be the team ID (`team_…`), matching `vercel link`'s `.vercel/project.json`; the Vercel CLI runs from the repo root because the project's Root Directory is `frontend` (running from `frontend/` resolves `frontend/frontend`). Vercel Git auto-deploy is off via `vercel.json` `git.deploymentEnabled: false`.
