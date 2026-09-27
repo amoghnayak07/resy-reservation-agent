@@ -28,7 +28,7 @@ A chat agent that turns natural-language requests ("table for 2 in the Financial
 
 Real conversations with the deployed agent in New York, including a real reservation it booked (cancelled afterwards).
 
-**1. Finding a table.** A cuisine search in the selected city: the agent lists Japanese restaurants in Resy's order, then shows open times for the one the user picks and asks which time and seating they want.
+**1. Finding a table.** A cuisine search: the agent lists nearby Japanese restaurants in Resy's order, then shows open times for the one the user picks and asks which time and seating they want. (Taken before the city picker: this build asked for the device's location, which the country/city selector has since replaced.)
 
 ![Searching for Japanese restaurants and checking times at Susukino Ramen](docs/screenshots/chat-1.png)
 
