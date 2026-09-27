@@ -57,8 +57,8 @@ Make one real call and open the trace. If cost shows $0 or is wrong, create a cu
 
 ## Exit criteria
 
-- [ ] `curl -N` against the deployed Render `/api/chat` streams tokens.
-- [ ] Langfuse shows traces grouped by session (conversation), with user ID set.
+- [x] `curl -N` against the deployed Render `/api/chat` streams tokens.
+- [x] Langfuse shows traces grouped by session (conversation), with user ID set.
 - [x] Langfuse cost for a call matches `pricing.py` within rounding.
 - [x] The `usage` event's token counts match the Langfuse trace.
 - [x] Conversation list and history endpoints work and are session-scoped.
@@ -76,4 +76,4 @@ Rate limits, spend cap, UI, tools.
 - CI (`ci.yml`) and the deploy `migrate` job (`deploy.yml`) needed dummy `LANGFUSE_PUBLIC_KEY`/`LANGFUSE_SECRET_KEY` added to their env blocks: `Settings()` now requires them (no default), and both jobs import `app.config` before any real Langfuse call happens.
 - Step 3 (real call): done locally. One real turn (`gpt-6-sol`, 388 input / 0 cached / 64 output tokens) streamed correctly and produced trace `087fbf6f0247df522cc3097ccfa63836`, confirmed visible in the Langfuse dashboard. `cost_usd` in the `usage` event (`0.001416`) matches the hand-calculated `compute_cost` value. Cost/token-count parity *inside* the Langfuse trace itself, and session/user-ID grouping in the dashboard, are still unconfirmed. The test conversation row and checkpoint thread this created were deleted afterward.
 - Found and fixed a Windows-only bug while doing the real-call check: uvicorn on Python 3.11 builds its event loop directly (`asyncio.ProactorEventLoop` on win32) rather than through the event loop policy, so it ignored the `WindowsSelectorEventLoopPolicy` set in `app/__init__.py` and the psycopg checkpointer pool couldn't connect. Fix: run the dev server with `--loop none` (documented in CLAUDE.md's Commands section). Render (Linux) is unaffected.
-- Remaining exit criteria need a deployed Render instance and manual confirmation in the Langfuse dashboard (cost match, token-count match, session/user grouping).
+- Post-deploy check: `curl -N` against the live Render URL streamed correctly (trace `510f9fa90b8cf3817bf5a39e95b414f9`), and its session/user grouping in Langfuse was confirmed. All exit criteria met.

@@ -19,7 +19,7 @@ Update the checkbox when a stage's exit criteria are met and its PR is merged.
 | --- | --------------------------------------- | ------------------------------------------------------------------ | ------ |
 | 1   | Skeleton + CI/CD + first deploy         | [stage-01-skeleton-ci.md](stage-01-skeleton-ci.md)                 | [x]    |
 | 2   | Database + LangGraph minimum            | [stage-02-db-langgraph.md](stage-02-db-langgraph.md)               | [x]    |
-| 3   | Langfuse + streaming chat API           | [stage-03-langfuse-chat-api.md](stage-03-langfuse-chat-api.md)     | [ ]    |
+| 3   | Langfuse + streaming chat API           | [stage-03-langfuse-chat-api.md](stage-03-langfuse-chat-api.md)     | [x]    |
 | 4   | Guards + chat UI                        | [stage-04-guards-chat-ui.md](stage-04-guards-chat-ui.md)           | [ ]    |
 | 5   | Resy client + pydantic models           | [stage-05-resy-client-models.md](stage-05-resy-client-models.md)   | [ ]    |
 | 6   | Search tool + graph tool loop + tracing | [stage-06-search-tool.md](stage-06-search-tool.md)                 | [ ]    |
@@ -29,7 +29,7 @@ Update the checkbox when a stage's exit criteria are met and its PR is merged.
 | 10  | Book + confirmation gate                | [stage-10-book-confirm.md](stage-10-book-confirm.md)               | [ ]    |
 | 11  | Tie together: evals, proof, README      | [stage-11-tie-together.md](stage-11-tie-together.md)               | [ ]    |
 
-**Current stage:** 3
+**Current stage:** 4
 
 ## Architecture overview
 
