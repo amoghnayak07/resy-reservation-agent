@@ -54,13 +54,13 @@ Other rules:
 
 ## Exit criteria
 
-- [ ] "Tell me about <restaurant>" returns accurate details on the deployed app.
-- [ ] "When's the next open night at <restaurant>?" lists open dates and states the release horizon.
-- [ ] Asking about a date past `last_calendar_day` yields "not released yet."
-- [ ] "Book me a table at <restaurant>" resolves the venue and asks for all missing details in one message.
-- [ ] "Table for 2 at <restaurant>" (no date) offers the next open dates.
-- [ ] Both tools traced in Langfuse with latency.
-- [ ] Tests green.
+- [x] "Tell me about <restaurant>" returns accurate details on the deployed app.
+- [x] "When's the next open night at <restaurant>?" lists open dates and states the release horizon.
+- [x] Asking about a date past `last_calendar_day` yields "not released yet."
+- [x] "Book me a table at <restaurant>" resolves the venue and asks for all missing details in one message.
+- [x] "Table for 2 at <restaurant>" (no date) offers the next open dates.
+- [x] Both tools traced in Langfuse with latency.
+- [x] Tests green.
 
 ## Out of scope
 
@@ -68,4 +68,6 @@ Booking, dashboard.
 
 ## Notes
 
-_(Verified `/3/venue` fields are in the PLAN.md endpoint table (stage 5). Fill in: any other `inventory` values observed.)_
+- Calendar `inventory.reservation` values seen: `"available"`, `"sold-out"`, `"not available"` only. Anything else → `unknown`, counted in `unavailable_count`.
+- `/4/venue/calendar` with `start_date` after `last_calendar_day` returns 200; the tool short-circuits to `not_released_yet`.
+- Date lists capped at the 14 earliest plus counts; a past `start_date` is clamped to today. Details/calendar tools don't need the user's location.
