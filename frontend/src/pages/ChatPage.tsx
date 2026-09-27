@@ -37,6 +37,7 @@ export function ChatPage() {
     error,
     clearError,
     sendMessage,
+    respondToConfirmation,
     startNewConversation,
     loadConversation,
   } = useChat(TIMEZONE, handleTurnComplete, location.getForRequest)
@@ -92,7 +93,12 @@ export function ChatPage() {
 
         <Box sx={{ flexGrow: 1, overflowY: 'auto', p: 2 }}>
           {messages.map((message) => (
-            <ChatMessageBubble key={message.id} message={message} />
+            <ChatMessageBubble
+              key={message.id}
+              message={message}
+              onConfirm={(card, passcode) => void respondToConfirmation(message.id, card, passcode)}
+              onDecline={(card) => void respondToConfirmation(message.id, card)}
+            />
           ))}
           {isStreaming && (
             <Typography variant="body2" color="text.secondary" role="status">

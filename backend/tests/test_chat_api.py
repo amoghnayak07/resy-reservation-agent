@@ -12,12 +12,18 @@ from langgraph.checkpoint.memory import MemorySaver
 
 from app.agent.graph import build_graph
 from app.agent.tools.search_availability import make_search_availability_tool
-from app.api.deps import get_conversation_repository, get_graph, get_spend_guard
+from app.api.deps import (
+    get_conversation_repository,
+    get_graph,
+    get_pending_booking_repository,
+    get_spend_guard,
+)
 from app.config import settings
 from app.main import create_app
 from app.resy.client import ResyClient
 from tests.fakes import (
     FakeConversationRepository,
+    FakePendingBookingRepository,
     FakeSpendGuard,
     RecordingGraph,
     scripted_model,
@@ -58,6 +64,9 @@ def client(recording_graph: RecordingGraph) -> Iterator[TestClient]:
     app.dependency_overrides[get_graph] = lambda: recording_graph
     app.dependency_overrides[get_conversation_repository] = lambda: FakeConversationRepository()
     app.dependency_overrides[get_spend_guard] = lambda: FakeSpendGuard()
+    app.dependency_overrides[get_pending_booking_repository] = lambda: (
+        FakePendingBookingRepository()
+    )
     yield TestClient(app)
     app.dependency_overrides.clear()
 

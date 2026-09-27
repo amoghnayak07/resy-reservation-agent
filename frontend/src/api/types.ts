@@ -59,9 +59,35 @@ export interface ToolEndEvent {
   duration_ms: number
 }
 
+// Mirrors backend app/agent/tools/book.py card_summary (optional keys are omitted when unknown).
+export interface BookingSummary {
+  restaurant: string
+  address?: string
+  date: string
+  weekday: string
+  time: string
+  party_size: number
+  seating?: string
+  cost: string
+  cancellation_policy?: string
+  free_cancellation_until?: string
+  changes_allowed_until?: string
+  hold_expires?: string
+  expires_at: string
+}
+
 export interface ConfirmationRequiredEvent {
   pending_booking_id: string
-  summary: string
+  summary: BookingSummary
+}
+
+export interface ConfirmBookingBody {
+  passcode: string
+  timezone: string
+}
+
+export interface DeclineBookingBody {
+  timezone: string
 }
 
 export interface UsageEvent {

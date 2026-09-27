@@ -70,12 +70,12 @@ One real booking at a no-fee restaurant through the deployed app. The user then 
 
 ## Exit criteria
 
-- [ ] No code path books without interrupt + valid passcode + DB transition (tests prove each).
-- [ ] Confirmation card works on the deployed app, including wrong passcode and expiry.
-- [ ] A fully specified request with an exact available slot reaches the confirmation card from a single user message.
-- [ ] One real booking made with the user's explicit approval; confirmation captured for proof; then cancelled in Resy.
-- [ ] Traces show booking outcome with no secrets.
-- [ ] Tests green.
+- [x] No code path books without interrupt + valid passcode + DB transition (tests prove each).
+- [x] Confirmation card works on the deployed app, including wrong passcode and expiry.
+- [x] A fully specified request with an exact available slot reaches the confirmation card from a single user message.
+- [x] One real booking made with the user's explicit approval; confirmation captured for proof; then cancelled in Resy.
+- [x] Traces show booking outcome with no secrets.
+- [x] Tests green.
 
 ## Out of scope
 
@@ -83,4 +83,12 @@ Cancel/list tools (deferred), paid reservations, modifying bookings.
 
 ## Notes
 
-_(`/3/book` request/response fields were verified in stage 5: form-encoded with `replace=1`, integer `reservation_id`, boolean `venue_opt_in`; see the PLAN.md endpoint table. Fill in: live booking date/venue, cancellation done.)_
+- Live booking made through the deployed app with the user's approval, then cancelled in Resy by the user.
+- `pending_bookings` gained `config_token` (to reissue an expired book token) and `address` (for the card); migration `a41f6c2d9e57`.
+- The resumed `book` call re-runs from the top: the pre-interrupt check accepts `pending`/`confirming` and returns early for `declined`; after resume it needs `approved` + `confirming`.
+- Confirm also requires the graph to be paused on that booking (409 otherwise). Confirm/decline bodies carry the user's `timezone` for the resumed run.
+- A new chat message while a card is open declines it: the paused tool call gets a "declined" ToolMessage via `aupdate_state(as_node="tools")`, no LLM call.
+- Outcomes: 4xx or connect error → `failed`; timeout, 5xx, or unparseable 2xx → `unknown` (`ResyUpstreamError.request_sent`). Never retried.
+- Confirm rate limit (5 per 15 min per session and per IP) is a constant in `guards/rate_limit.py`, not an env var.
+- Changed from stage 4: `confirmation_required.summary` is an object (with `expires_at`), not a string.
+- Changed from stage 9: summary built from the row (`booking_summary.py`), shared by `prepare_booking` and the card.

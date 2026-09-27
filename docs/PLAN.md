@@ -26,10 +26,10 @@ Update the checkbox when a stage's exit criteria are met and its PR is merged.
 | 7   | Venue details + venue calendar tools    | [stage-07-venue-details.md](stage-07-venue-details.md)             | [x]    |
 | 8   | Analytics dashboard                     | [stage-08-analytics-dashboard.md](stage-08-analytics-dashboard.md) | deferred |
 | 9   | Prepare booking tool                    | [stage-09-prepare-booking.md](stage-09-prepare-booking.md)         | [x]    |
-| 10  | Book + confirmation gate                | [stage-10-book-confirm.md](stage-10-book-confirm.md)               | [ ]    |
+| 10  | Book + confirmation gate                | [stage-10-book-confirm.md](stage-10-book-confirm.md)               | [x]    |
 | 11  | Tie together: evals, proof, README      | [stage-11-tie-together.md](stage-11-tie-together.md)               | [ ]    |
 
-**Current stage:** 10 (stage 8 deferred until search and booking work end to end)
+**Current stage:** 11 (stage 8 deferred until search and booking work end to end)
 
 ## Architecture overview
 

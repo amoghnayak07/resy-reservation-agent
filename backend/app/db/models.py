@@ -58,10 +58,12 @@ class PendingBooking(Base):
     session_id: Mapped[str] = mapped_column(index=True)
     venue_id: Mapped[int]
     venue_name: Mapped[str]
+    address: Mapped[str | None]
     slot_start: Mapped[datetime] = mapped_column(_TZ)
     party_size: Mapped[int]
     seating_type: Mapped[str | None]
     book_token: Mapped[str]
+    config_token: Mapped[str | None]  # to re-issue an expired book token at confirm time
     book_token_expires: Mapped[datetime | None] = mapped_column(_TZ)
     cancellation_policy: Mapped[str | None]
     refund_cutoff: Mapped[datetime | None] = mapped_column(_TZ)

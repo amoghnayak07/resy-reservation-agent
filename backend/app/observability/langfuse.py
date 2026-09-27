@@ -35,9 +35,13 @@ def shutdown_langfuse() -> None:
 
 @asynccontextmanager
 async def trace_turn(
-    conversation_id: str, session_id: str, location_used: bool
+    conversation_id: str,
+    session_id: str,
+    location_used: bool,
+    tags: list[str] | None = None,
 ) -> AsyncIterator[tuple[CallbackHandler, str]]:
-    """One trace per chat turn: session_id = conversation, user_id = guest session.
+    """One trace per chat turn (or booking confirm/decline): session_id = conversation,
+    user_id = guest session.
 
     Never pass coordinates here -- only the location_used flag, per CLAUDE.md.
     """
@@ -47,5 +51,17 @@ async def trace_turn(
         session_id=conversation_id,
         user_id=session_id,
         metadata={"location_used": location_used},
+        tags=tags,
     ):
         yield handler, trace_id
+
+
+def record_booking_outcome(trace_id: str, outcome: str) -> None:
+    """Adds the booking status (confirmed/failed/unknown/declined/...) to a trace. Status
+    only: never tokens, the passcode, or reservation details."""
+    if _client is not None:
+        _client.create_event(
+            trace_context={"trace_id": trace_id},
+            name="booking_outcome",
+            metadata={"outcome": outcome},
+        )

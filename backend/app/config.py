@@ -1,5 +1,6 @@
 from decimal import Decimal
 
+from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -33,6 +34,9 @@ class Settings(BaseSettings):
     resy_api_key: str = ""
     resy_auth_token: str = ""
     resy_writes_enabled: bool = False
+
+    # Required to confirm a booking. Empty means every confirm is refused.
+    demo_booking_passcode: SecretStr = SecretStr("")
 
     @property
     def cors_origins_list(self) -> list[str]:

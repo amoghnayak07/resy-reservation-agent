@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.agent.graph import build_graph, open_checkpointer
 from app.agent.tools import make_tools
+from app.api.bookings import router as bookings_router
 from app.api.chat import router as chat_router
 from app.api.conversations import router as conversations_router
 from app.config import settings
@@ -46,6 +47,7 @@ def create_app() -> FastAPI:
 
     app.include_router(conversations_router)
     app.include_router(chat_router)
+    app.include_router(bookings_router)
 
     @app.get("/health")
     def health() -> dict[str, str]:

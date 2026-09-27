@@ -90,13 +90,43 @@ class FakePendingBookingRepository:
         self, booking_id: uuid.UUID, *, session_id: str, conversation_id: uuid.UUID, now: datetime
     ) -> PendingBooking | None:
         booking = self.rows.get(booking_id)
-        if booking is None or (booking.session_id, booking.conversation_id) != (
-            session_id,
-            conversation_id,
-        ):
+        if booking is None or booking.conversation_id != conversation_id:
+            return None
+        return await self.get_for_session(booking_id, session_id=session_id, now=now)
+
+    async def get_for_session(
+        self, booking_id: uuid.UUID, *, session_id: str, now: datetime
+    ) -> PendingBooking | None:
+        booking = self.rows.get(booking_id)
+        if booking is None or booking.session_id != session_id:
             return None
         expire_if_due(booking, now)
         return booking
+
+    async def transition(
+        self,
+        booking_id: uuid.UUID,
+        *,
+        session_id: str,
+        from_status: str,
+        to_status: str,
+        now: datetime,
+    ) -> PendingBooking | None:
+        booking = self.rows.get(booking_id)
+        if (
+            booking is None
+            or booking.session_id != session_id
+            or booking.status != from_status
+            or booking.expires_at <= now
+        ):
+            return None
+        booking.status = to_status
+        return booking
+
+    async def update_fields(self, booking_id: uuid.UUID, **values: Any) -> None:
+        booking = self.rows[booking_id]
+        for key, value in values.items():
+            setattr(booking, key, value)
 
 
 class ToolCallingFakeModel(GenericFakeChatModel):

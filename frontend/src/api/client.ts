@@ -2,7 +2,9 @@ import { getSessionId } from '../session'
 import type {
   ApiErrorBody,
   ChatRequestBody,
+  ConfirmBookingBody,
   ConversationOut,
+  DeclineBookingBody,
   HealthResponse,
   MessageOut,
 } from './types'
@@ -60,6 +62,29 @@ export async function getConversationMessages(conversationId: string): Promise<M
 
 export async function postChatMessage(body: ChatRequestBody): Promise<Response> {
   return apiFetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  })
+}
+
+// Both return the resumed run as the same SSE stream as /api/chat.
+export async function confirmBooking(
+  pendingBookingId: string,
+  body: ConfirmBookingBody,
+): Promise<Response> {
+  return apiFetch(`/api/bookings/${pendingBookingId}/confirm`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  })
+}
+
+export async function declineBooking(
+  pendingBookingId: string,
+  body: DeclineBookingBody,
+): Promise<Response> {
+  return apiFetch(`/api/bookings/${pendingBookingId}/decline`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
